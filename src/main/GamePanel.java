@@ -12,9 +12,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
     private float moveRight = 0, moveDown = 0;
-    private float motionX = 0.2f, motionY = 0.1f;
-    private int frames = 0;
-    private long previousCheck = 0;
+    private float motionX = 0.5f, motionY = 0.3f;
     private Color rectColor = new Color(100, 150, 20);
     private Random random;
 
@@ -50,13 +48,6 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         g.setColor(rectColor);
         g.fillRect((int)(moveRight), (int) (moveDown), 60, 40);
 
-        frames++;
-        long currentTime = System.nanoTime();
-        if(currentTime - previousCheck >= 1_000_000_000 ){
-            previousCheck = currentTime;
-            System.out.println(frames + " FPS");
-            frames = 0;
-        }
     }
 
     private void moveRect() {
