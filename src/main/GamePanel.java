@@ -10,6 +10,9 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
     private int moveRight = 0, moveDown = 0;
+    private int motionX = 1, motionY = 1;
+    private int frames = 0;
+    private long previousCheck = 0;
 
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
@@ -20,11 +23,9 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     public void setMoveRight(int right) {
         this.moveRight = right;
-        repaint();
     }
     public void setMoveDown(int down){
         this.moveDown = down;
-        repaint();
     }
     public int getMoveRight(){
         return moveRight;
@@ -35,11 +36,33 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     public void setRectPosition(int x, int y){
         this.moveDown = y;
         this.moveRight = x;
-        repaint();
     }
 
     public void paintComponent(Graphics g){     // Graphics -> you need this to draw
         super.paintComponent(g);
+
+        moveRect();
         g.fillRect(moveRight, moveDown, 40, 50);
+
+        frames++;
+        long currentTime = System.nanoTime();
+        if(currentTime - previousCheck >= 1_000_000_000 ){
+            previousCheck = currentTime;
+            System.out.println(frames + " FPS");
+            frames = 0;
+        }
+
+        repaint();
+    }
+
+    private void moveRect() {
+        moveRight += motionX;
+        if(moveRight >500 || moveRight < 0){
+            motionX *= -1;
+        }
+        moveDown +=motionY;
+        if(moveDown > 500 || moveDown < 0){
+            motionY *= -1;
+        }
     }
 }
