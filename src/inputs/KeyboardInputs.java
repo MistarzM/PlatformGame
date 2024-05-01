@@ -20,16 +20,16 @@ public class KeyboardInputs implements KeyListener {           // events for key
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyChar() == 'd'){
-            gamePanel.setMoveRight((gamePanel.getMoveRight())+10);
+            gamePanel.setMoveRight(((int)gamePanel.getMoveRight())+10);
         }
         if (e.getKeyChar() == 'a'){
-            gamePanel.setMoveRight((gamePanel.getMoveRight())-10);
+            gamePanel.setMoveRight(((int)gamePanel.getMoveRight())-10);
         }
         if(e.getKeyChar() == 'w'){
-            gamePanel.setMoveDown((gamePanel.getMoveDown())-10);
+            gamePanel.setMoveDown(((int)gamePanel.getMoveDown())-10);
         }
         if(e.getKeyChar() == 's'){
-            gamePanel.setMoveDown((gamePanel.getMoveDown())+10);
+            gamePanel.setMoveDown(((int)gamePanel.getMoveDown())+10);
         }
     }
 

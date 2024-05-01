@@ -6,15 +6,20 @@ import inputs.MouseInputs;
 import javax.swing.JPanel;
 import java.awt.*;
 
+import java.util.Random;
+
 public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
-    private int moveRight = 0, moveDown = 0;
-    private int motionX = 1, motionY = 1;
+    private float moveRight = 0, moveDown = 0;
+    private float motionX = 0.2f, motionY = 0.1f;
     private int frames = 0;
     private long previousCheck = 0;
+    private Color rectColor = new Color(100, 150, 20);
+    private Random random;
 
     public GamePanel(){
+        random = new Random();
         mouseInputs = new MouseInputs(this);
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
@@ -27,10 +32,10 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     public void setMoveDown(int down){
         this.moveDown = down;
     }
-    public int getMoveRight(){
+    public float getMoveRight(){
         return moveRight;
     }
-    public int getMoveDown(){
+    public float getMoveDown(){
         return moveDown;
     }
     public void setRectPosition(int x, int y){
@@ -42,7 +47,8 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         super.paintComponent(g);
 
         moveRect();
-        g.fillRect(moveRight, moveDown, 40, 50);
+        g.setColor(rectColor);
+        g.fillRect((int)(moveRight), (int) (moveDown), 60, 40);
 
         frames++;
         long currentTime = System.nanoTime();
@@ -51,18 +57,26 @@ public class GamePanel extends JPanel {     // JPanel -> picture
             System.out.println(frames + " FPS");
             frames = 0;
         }
-
-        repaint();
     }
 
     private void moveRect() {
         moveRight += motionX;
         if(moveRight >500 || moveRight < 0){
             motionX *= -1;
+            rectColor = getRandomColor();
         }
         moveDown +=motionY;
         if(moveDown > 500 || moveDown < 0){
             motionY *= -1;
+            rectColor = getRandomColor();
         }
+    }
+
+    private Color getRandomColor() {
+        int r = random.nextInt(0, 255);
+        int g = random.nextInt(0, 255);
+        int b = random.nextInt(0, 255);
+
+        return new Color(r, g, b);
     }
 }
