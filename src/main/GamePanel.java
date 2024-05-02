@@ -15,7 +15,8 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
     private float moveRight = 0, moveDown = 0;
-    private BufferedImage img;
+    private BufferedImage img, subImg;
+    public boolean attack = false;
 
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
@@ -29,7 +30,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/Idle.png");
+        InputStream is = getClass().getResourceAsStream("/Attacks.png");
         try {
             img = ImageIO.read(is);
         } catch(IOException e){
@@ -62,6 +63,11 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     public void paintComponent(Graphics g){     // Graphics -> you need this to draw
         super.paintComponent(g);
 
-        g.drawImage(img.getSubimage(0, 0, 128, 64), (int)moveRight, (int)moveDown, 256, 128, null);
+        subImg = img.getSubimage(3*128, 0*64, 128, 64);
+        if(attack) {
+            g.drawImage(subImg, (int) moveRight, (int) moveDown, 256, 128, null);
+        } else {
+            g.drawImage(img.getSubimage(0, 0, 128, 64), (int) moveRight, (int) moveDown, 256, 128, null);
+        }
     }
 }
