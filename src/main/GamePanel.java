@@ -15,8 +15,8 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
     private float moveRight = 0, moveDown = 0;
-    private BufferedImage idleImg, runImg;
-    private BufferedImage[] idleAnimation, runAnimation;
+    private BufferedImage idleImg, runImg, attackImg;
+    private BufferedImage[] idleAnimation, runAnimation, attackAnimation;
     private int animationTick, animationIndex, animationRefresh = 15;
     public boolean isRunning = false;
 
@@ -35,10 +35,14 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     private void LoadAnimations() {
         idleAnimation = new BufferedImage[8];
         runAnimation = new BufferedImage[8];
+        attackAnimation = new BufferedImage[40];
 
         for(int i = 0; i < idleAnimation.length; i++){
             idleAnimation[i] = idleImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
             runAnimation[i] = runImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+        for(int i = 0; i < attackAnimation.length; i++){
+            attackAnimation[i] = attackImg.getSubimage((i%8) * 128, (i/8) * 64, 128, 64);
         }
     }
 
@@ -64,6 +68,19 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         } finally {
             try{
                 isRun.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        InputStream isAttack = getClass().getResourceAsStream("/knight/Attacks.png");
+        try {
+            attackImg = ImageIO.read(isAttack);
+        } catch(IOException e){
+            e.printStackTrace();
+        } finally {
+            try{
+                isAttack.close();
             } catch (IOException e){
                 e.printStackTrace();
             }
