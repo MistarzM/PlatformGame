@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         attackImg = importImg("/knight/Attacks.png");
         airAttackImg = importImg("/knight/attack_from_air.png");
         crouchAttackImg = importImg("/knight/crouch_attacks.png");
-        LoadAnimations();
+        loadAnimations();
 
         setPanelSize();
         addKeyListener(new KeyboardInputs(this));
@@ -53,7 +53,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         addMouseMotionListener(mouseInputs);
     }
 
-    private void LoadAnimations() {
+    private void loadAnimations() {
         knightAnimations = new BufferedImage[22][12];
 
         for(int i = 0; i < knightAnimations[i].length; i++){
