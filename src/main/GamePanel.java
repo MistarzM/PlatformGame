@@ -167,13 +167,15 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         }
     }
 
-    public void paintComponent(Graphics g){     // Graphics -> you need this to draw
-        super.paintComponent(g);
+    public void updateGame(){
 
         UpdateAnimationTick();
-
         setAnimation();
         updatePos();
+    }
+
+    public void paintComponent(Graphics g){     // Graphics -> you need this to draw
+        super.paintComponent(g);
 
         g.drawImage(knightAnimations[playerAction][animationIndex], (int) xPos, (int) yPos, 256, 128, null);
     }
