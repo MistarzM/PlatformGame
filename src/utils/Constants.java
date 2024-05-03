@@ -23,7 +23,7 @@ public class Constants {
         public static final int RIGHT_ATTACK_2 = 17;
         public static final int RIGHT_ATTACK_3 = 18;
         public static final int RIGHT_ATTACK_4 = 19;
-        public static final int JUMP_ATTACK = 20;
+        public static final int AIR_ATTACK = 20;
         public static final int CROUCH_ATTACK = 21;
 
         public static int GetSpriteAmount(int playerAction){
@@ -55,7 +55,7 @@ public class Constants {
                     return 10;
                 case PRAY:
                     return 12;
-                case JUMP_ATTACK:
+                case AIR_ATTACK:
                 case CROUCH_ATTACK:
                     return 7;
                 default:
