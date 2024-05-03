@@ -150,16 +150,16 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         if(running){
             switch(playerDirection){
                 case UP:
-                    yPos -= 2;
+                    yPos -= 1.2f;
                     break;
                 case LEFT:
-                    xPos -= 2;
+                    xPos -= 1.2f;
                     break;
                 case DOWN:
-                    yPos += 2;
+                    yPos += 1.2f;
                     break;
                 case RIGHT:
-                    xPos += 2;
+                    xPos += 1.2f;
                     break;
                 default:
                     playerAction = IDLE;
