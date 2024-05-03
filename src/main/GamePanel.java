@@ -3,6 +3,7 @@ package main;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
+import static utils.Constants.Direction.*;          // import direction - movement for characters
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -16,19 +17,35 @@ import java.io.InputStream;
 public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
-    private float moveRight = 0, moveDown = 0;
+    private float xPos = 0, yPos = 0;
     private BufferedImage   idleImg, crouchIdleImg, runImg, jumpImg, healthImg,
                             hurtImg, deathImg, climbImg, hangingImg, slideImg,
                             rollImg, prayImg, attackImg, airAttackImg, crouchAttackImg;
     private BufferedImage[][] knightAnimations;
     private int animationTick, animationIndex, animationRefresh = 15;
     private int playerAction = IDLE;
-
+    private int playerDirection = -1;
+    private boolean running = false;
+    private int attacking = -1;
 
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
 
-        importImg();
+        idleImg = importImg("/knight/Idle.png");
+        crouchIdleImg = importImg("/knight/crouch_idle.png");
+        runImg = importImg("/knight/Run.png");
+        jumpImg = importImg("/knight/Jump.png");
+        healthImg = importImg("/knight/Health.png");
+        hurtImg = importImg("/knight/Hurt.png");
+        deathImg = importImg("/knight/Death.png");
+        climbImg = importImg("/knight/Climb.png");
+        hangingImg = importImg("/knight/Hanging.png");
+        slideImg = importImg("/knight/Slide.png");
+        rollImg = importImg("/knight/Roll.png");
+        prayImg = importImg("/knight/Pray.png");
+        attackImg = importImg("/knight/Attacks.png");
+        airAttackImg = importImg("/knight/attack_from_air.png");
+        crouchAttackImg = importImg("/knight/crouch_attacks.png");
         LoadAnimations();
 
         setPanelSize();
@@ -78,201 +95,21 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         }
     }
 
-    private void importImg() {
-        InputStream isIdle = getClass().getResourceAsStream("/knight/Idle.png");
+    private BufferedImage importImg(String path) {
+        BufferedImage img = null;
+        InputStream is = getClass().getResourceAsStream(path);
         try {
-            idleImg = ImageIO.read(isIdle);
+            img = ImageIO.read(is);
         } catch(IOException e){
             e.printStackTrace();
         } finally {
             try {
-                isIdle.close();             // close the input stream to avoid errors
+                is.close();             // close the input stream to avoid errors
             } catch (IOException e){
                 e.printStackTrace();
             }
         }
-
-        InputStream isCrouchIdle = getClass().getResourceAsStream("/knight/crouch_idle.png");
-        try {
-            crouchIdleImg = ImageIO.read(isCrouchIdle);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isCrouchIdle.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isRun = getClass().getResourceAsStream("/knight/Run.png");
-        try {
-            runImg = ImageIO.read(isRun);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isRun.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isJump = getClass().getResourceAsStream("/knight/Jump.png");
-        try {
-            jumpImg = ImageIO.read(isJump);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isJump.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isHealth = getClass().getResourceAsStream("/knight/Health.png");
-        try {
-            healthImg = ImageIO.read(isHealth);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isHealth.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isHurt = getClass().getResourceAsStream("/knight/Hurt.png");
-        try {
-            hurtImg = ImageIO.read(isHurt);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isHurt.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isDeath = getClass().getResourceAsStream("/knight/Death.png");
-        try {
-            deathImg = ImageIO.read(isDeath);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isDeath.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isClimb = getClass().getResourceAsStream("/knight/Climb.png");
-        try {
-            climbImg = ImageIO.read(isClimb);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isClimb.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isHanging = getClass().getResourceAsStream("/knight/Hanging.png");
-        try {
-            hangingImg = ImageIO.read(isHanging);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isHanging.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isSlide = getClass().getResourceAsStream("/knight/Slide.png");
-        try {
-            slideImg = ImageIO.read(isSlide);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isSlide.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isRoll = getClass().getResourceAsStream("/knight/Roll.png");
-        try {
-            rollImg = ImageIO.read(isRoll);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isRoll.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isPray = getClass().getResourceAsStream("/knight/Pray.png");
-        try {
-            prayImg = ImageIO.read(isPray);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isPray.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isAttack = getClass().getResourceAsStream("/knight/Attacks.png");
-        try {
-            attackImg = ImageIO.read(isAttack);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isAttack.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isAirAttack = getClass().getResourceAsStream("/knight/attack_from_air.png");
-        try {
-            airAttackImg = ImageIO.read(isAirAttack);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isAirAttack.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        InputStream isCrouchAttack = getClass().getResourceAsStream("/knight/crouch_attacks.png");
-        try {
-            crouchAttackImg = ImageIO.read(isCrouchAttack);
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isCrouchAttack.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
+        return img;
     }
 
     private void setPanelSize() {
@@ -280,21 +117,19 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         setPreferredSize(size);
     }
 
-    public void setMoveRight(int right) {
-        this.moveRight = right;
+    public void setDirection(int direction){
+        this.playerDirection = direction;
+        running = true;
     }
-    public void setMoveDown(int down){
-        this.moveDown = down;
+
+    public void setRunning(boolean running){
+        this.running = running;
     }
-    public float getMoveRight(){
-        return moveRight;
-    }
-    public float getMoveDown(){
-        return moveDown;
-    }
-    public void setRectPosition(int x, int y){
-        this.moveDown = y;
-        this.moveRight = x;
+
+    public void setAttacking(){
+        this.attacking++;
+        if(attacking>=4)
+            attacking = 0;
     }
 
     private void UpdateAnimationTick() {
@@ -302,9 +137,26 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         if(animationTick >= animationRefresh){
             animationTick = 0;
             animationIndex++;
-            if(animationIndex>= GetSpriteAmount(RIGHT_ATTACK_4)){
+            if(animationIndex>= GetSpriteAmount(playerAction)){
                 animationIndex = 0;
             }
+        }
+    }
+
+    private void setAnimation(){
+
+        if(running){
+            playerAction = RUN;
+        } else if (attacking == 0){
+            playerAction = RIGHT_ATTACK_1;
+        }else if (attacking == 1){
+            playerAction = RIGHT_ATTACK_2;
+        }else if (attacking == 2){
+            playerAction = RIGHT_ATTACK_3;
+        }else if (attacking == 3){
+            playerAction = RIGHT_ATTACK_4;
+        } else {
+            playerAction = IDLE;
         }
     }
 
@@ -313,8 +165,9 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
         UpdateAnimationTick();
 
+        setAnimation();
 
-        g.drawImage(knightAnimations[RIGHT_ATTACK_4][animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
+        g.drawImage(knightAnimations[playerAction][animationIndex], (int) xPos, (int) yPos, 256, 128, null);
     }
 
 }

@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import main.GamePanel;
+import static utils.Constants.Direction.*;
 
 public class KeyboardInputs implements KeyListener {           // events for keyboard   (extends -> class, implements -> interface)
 
@@ -19,23 +20,37 @@ public class KeyboardInputs implements KeyListener {           // events for key
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyChar() == 'd'){
-            gamePanel.setMoveRight(((int)gamePanel.getMoveRight())+10);
-        }
-        if (e.getKeyChar() == 'a'){
-            gamePanel.setMoveRight(((int)gamePanel.getMoveRight())-10);
-        }
-        if(e.getKeyChar() == 'w'){
-            gamePanel.setMoveDown(((int)gamePanel.getMoveDown())-10);
-        }
-        if(e.getKeyChar() == 's'){
-            gamePanel.setMoveDown(((int)gamePanel.getMoveDown())+10);
+
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_W:
+                gamePanel.setDirection(UP);
+                break;
+            case KeyEvent.VK_A:
+                gamePanel.setDirection(LEFT);
+                break;
+            case KeyEvent.VK_S:
+                gamePanel.setDirection(DOWN);
+                break;
+            case KeyEvent.VK_D:
+                gamePanel.setDirection(RIGHT);
+                break;
+            case KeyEvent.VK_J:
+                gamePanel.setAttacking();
+                break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyChar() == 'd' || e.getKeyChar() == 'a'){
+
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_J:
+                gamePanel.setRunning(false);
+                break;
         }
     }
 }
