@@ -26,9 +26,9 @@ public class Player extends  Entity{
 
     public void update(){
 
+        updatePosition();
         UpdateAnimationTick();
         setAnimation();
-        updatePosition();
     }
 
     public void render(Graphics g){
@@ -169,6 +169,13 @@ public class Player extends  Entity{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void resetDirectionBoolean(){
+        up = false;
+        left = false;
+        down = false;
+        right = false;
     }
 
     public void setUp(boolean up){

@@ -1,6 +1,8 @@
 package main;
 
 import javax.swing.JFrame;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class GameWindow extends JFrame{     // JFrame -> frame
 
@@ -13,6 +15,16 @@ public class GameWindow extends JFrame{     // JFrame -> frame
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                gamePanel.getGame().windowFocusLost();
+            }
 
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+
+            }
+        });
     }
 }
