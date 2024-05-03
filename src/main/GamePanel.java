@@ -15,13 +15,15 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
     private float moveRight = 0, moveDown = 0;
-    private BufferedImage img, subImg;
-    public boolean attack = false;
+    private BufferedImage img;
+    private BufferedImage[] idleAnimation;
+    private int animationTick, animationIndex, animationRefresh = 30;
 
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
 
         importImg();
+        LoadAnimations();
 
         setPanelSize();
         addKeyListener(new KeyboardInputs(this));
@@ -29,12 +31,26 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         addMouseMotionListener(mouseInputs);
     }
 
+    private void LoadAnimations() {
+        idleAnimation = new BufferedImage[8];
+
+        for(int i = 0; i < idleAnimation.length; i++){
+            idleAnimation[i] = img.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+    }
+
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/Attacks.png");
+        InputStream is = getClass().getResourceAsStream("/Idle.png");
         try {
             img = ImageIO.read(is);
         } catch(IOException e){
             e.printStackTrace();
+        } finally {
+            try {
+                is.close();             // close the input stream to avoid errors
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,14 +76,23 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         this.moveRight = x;
     }
 
+    private void UpdateAnimationTick() {
+        animationTick++;
+        if(animationTick >= animationRefresh){
+            animationTick = 0;
+            animationIndex++;
+            if(animationIndex>= idleAnimation.length){
+                animationIndex = 0;
+            }
+        }
+    }
+
     public void paintComponent(Graphics g){     // Graphics -> you need this to draw
         super.paintComponent(g);
 
-        subImg = img.getSubimage(3*128, 0*64, 128, 64);
-        if(attack) {
-            g.drawImage(subImg, (int) moveRight, (int) moveDown, 256, 128, null);
-        } else {
-            g.drawImage(img.getSubimage(0, 0, 128, 64), (int) moveRight, (int) moveDown, 256, 128, null);
-        }
+        UpdateAnimationTick();
+        
+        g.drawImage(idleAnimation[animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
     }
+
 }

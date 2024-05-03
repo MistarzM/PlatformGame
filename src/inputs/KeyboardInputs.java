@@ -31,15 +31,9 @@ public class KeyboardInputs implements KeyListener {           // events for key
         if(e.getKeyChar() == 's'){
             gamePanel.setMoveDown(((int)gamePanel.getMoveDown())+10);
         }
-        if(e.getKeyChar() == 'j'){
-            gamePanel.attack = true;
-        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyChar() == 'j'){
-            gamePanel.attack = false;
-        }
     }
 }
