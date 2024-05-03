@@ -60,10 +60,36 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
         for(int i = 0; i < idleAnimation.length; i++){
             idleAnimation[i] = idleImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+            crouchIdleAnimation[i] = crouchIdleImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
             runAnimation[i] = runImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+            jumpAnimation[i] = jumpImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+            healthAnimation[i] = healthImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+            hangingAnimation[i] = hangingImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+        for(int i = 0; i < hurtAnimation.length; i++){
+            hurtAnimation[i] = hurtImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+        for(int i = 0; i < deathAnimation.length; i++){
+            deathAnimation[i] = deathImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+        for(int i = 0; i < climbAnimation.length; i++){
+            climbAnimation[i] = climbImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+        for(int i = 0; i < slideAnimation.length; i++){
+            slideAnimation[i] = slideImg.getSubimage((i%4) * 128, (i/4) * 64, 128, 64);
+        }
+        for(int i = 0; i < rollAnimation.length; i++){
+            rollAnimation[i] = rollImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        }
+        for(int i = 0; i < prayAnimation.length; i++){
+            prayAnimation[i] = prayImg.getSubimage((i%4) * 128, (i/4) * 64, 128, 64);
         }
         for(int i = 0; i < attackAnimation.length; i++){
             attackAnimation[i] = attackImg.getSubimage((i%8) * 128, (i/8) * 64, 128, 64);
+        }
+        for(int i = 0; i < airAttackAnimation.length; i++){
+            airAttackAnimation[i] = airAttackImg.getSubimage((i%8) * 128, (i/8) * 64, 128, 64);
+            crouchAttackAnimation[i] = crouchAttackImg.getSubimage((i%8) * 128, (i/8) * 64, 128, 64);
         }
     }
 
