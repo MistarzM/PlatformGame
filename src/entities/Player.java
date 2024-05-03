@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static utils.Constants.Direction.*;
-import static utils.Constants.PlayerConstants.*;
+import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
+import static utils.Constants.Direction.*;          // import direction - movement for characters
 
 public class Player extends  Entity{
 
@@ -87,21 +87,21 @@ public class Player extends  Entity{
     }
 
     private void loadAnimations() {
-        InputStream isIdle =            getClass().getResourceAsStream("/knight/Idle.png");
-        InputStream isCrouchIdle =      getClass().getResourceAsStream("/knight/crouch_idle.png");
-        InputStream isRun =             getClass().getResourceAsStream("/knight/Run.png");
-        InputStream isJump =            getClass().getResourceAsStream("/knight/Jump.png");
-        InputStream isHealth =          getClass().getResourceAsStream("/knight/Health.png");
-        InputStream isHurt =            getClass().getResourceAsStream("/knight/Hurt.png");
-        InputStream isDeath =           getClass().getResourceAsStream("/knight/Death.png");
-        InputStream isClimb =           getClass().getResourceAsStream("/knight/Climb.png");
-        InputStream isHanging =         getClass().getResourceAsStream("/knight/Hanging.png");
-        InputStream isSlide =           getClass().getResourceAsStream("/knight/Slide.png");
-        InputStream isRoll =            getClass().getResourceAsStream("/knight/Roll.png");
-        InputStream isPray =            getClass().getResourceAsStream("/knight/Pray.png");
-        InputStream isAttack =          getClass().getResourceAsStream("/knight/Attacks.png");
-        InputStream isAirAttack =       getClass().getResourceAsStream("/knight/attack_from_air.png");
-        InputStream isCrouchAttack =    getClass().getResourceAsStream("/knight/crouch_attacks.png");
+        InputStream isIdle              = getClass().getResourceAsStream("/knight/Idle.png");
+        InputStream isCrouchIdle        = getClass().getResourceAsStream("/knight/crouch_idle.png");
+        InputStream isRun               = getClass().getResourceAsStream("/knight/Run.png");
+        InputStream isJump              = getClass().getResourceAsStream("/knight/Jump.png");
+        InputStream isHealth            = getClass().getResourceAsStream("/knight/Health.png");
+        InputStream isHurt              = getClass().getResourceAsStream("/knight/Hurt.png");
+        InputStream isDeath             = getClass().getResourceAsStream("/knight/Death.png");
+        InputStream isClimb             = getClass().getResourceAsStream("/knight/Climb.png");
+        InputStream isHanging           = getClass().getResourceAsStream("/knight/Hanging.png");
+        InputStream isSlide             = getClass().getResourceAsStream("/knight/Slide.png");
+        InputStream isRoll              = getClass().getResourceAsStream("/knight/Roll.png");
+        InputStream isPray              = getClass().getResourceAsStream("/knight/Pray.png");
+        InputStream isAttack            = getClass().getResourceAsStream("/knight/Attacks.png");
+        InputStream isAirAttack         = getClass().getResourceAsStream("/knight/attack_from_air.png");
+        InputStream isCrouchAttack      = getClass().getResourceAsStream("/knight/crouch_attacks.png");
 
         try {
             BufferedImage idleImg = ImageIO.read(isIdle);
