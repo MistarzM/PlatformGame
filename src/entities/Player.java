@@ -15,8 +15,9 @@ public class Player extends  Entity{
     private BufferedImage[][] knightAnimations;
     private int animationTick, animationIndex, animationRefresh = 15;
     private int playerAction = IDLE;
-    private int playerDirection = -1;
     private boolean running = false;
+    private boolean up, left, down, right;
+    private float speedOfRunning = 1.2f;
 
     public Player(float x, float y){
         super(x, y);
@@ -27,21 +28,12 @@ public class Player extends  Entity{
 
         UpdateAnimationTick();
         setAnimation();
-        updatePos();
+        updatePosition();
     }
 
     public void render(Graphics g){
 
         g.drawImage(knightAnimations[playerAction][animationIndex], (int) x, (int) y, 256, 128, null);
-    }
-
-    public void setDirection(int direction){
-        this.playerDirection = direction;
-        running = true;
-    }
-
-    public void setRunning(boolean running){
-        this.running = running;
     }
 
     private void UpdateAnimationTick() {
@@ -64,25 +56,22 @@ public class Player extends  Entity{
         }
     }
 
-    private void updatePos(){
+    private void updatePosition(){
 
-        if(running){
-            switch(playerDirection){
-                case UP:
-                    y -= 1.2f;
-                    break;
-                case LEFT:
-                    x -= 1.2f;
-                    break;
-                case DOWN:
-                    y += 1.2f;
-                    break;
-                case RIGHT:
-                    x += 1.2f;
-                    break;
-                default:
-                    playerAction = IDLE;
-            }
+        running = false;
+
+        if(left && !right){
+            x -= speedOfRunning;
+            running = true;
+        } else if(!left && right){
+            x += speedOfRunning;
+            running = true;
+        }
+
+        if(up && !down){
+            y-= speedOfRunning;
+        } else if(!up && down){
+            y+= speedOfRunning;
         }
     }
 
@@ -180,5 +169,30 @@ public class Player extends  Entity{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setUp(boolean up){
+        this.up = up;
+    }
+    public void setLeft(boolean left){
+        this.left = left;
+    }
+    public void setDown(boolean down){
+        this.down = down;
+    }
+    public void setRight(boolean right){
+        this.right = right;
+    }
+    public boolean getUp(){
+         return up;
+    }
+    public boolean getLeft(){
+         return left;
+    }
+    public boolean getDown(){
+         return down;
+    }
+    public boolean getRight(){
+        return right;
     }
 }
