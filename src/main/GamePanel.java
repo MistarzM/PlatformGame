@@ -20,14 +20,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     private BufferedImage   idleImg, crouchIdleImg, runImg, jumpImg, healthImg,
                             hurtImg, deathImg, climbImg, hangingImg, slideImg,
                             rollImg, prayImg, attackImg, airAttackImg, crouchAttackImg;
-    private BufferedImage[] idleAnimation, crouchIdleAnimation, runAnimation,
-                            jumpAnimation, healthAnimation, hurtAnimation,
-                            deathAnimation, climbAnimation, hangingAnimation,
-                            slideAnimation, rollAnimation, prayAnimation,
-                            leftAttack1Animation, leftAttack2Animation, leftAttack3Animation,
-                            leftAttack4Animation, rightAttack1Animation, rightAttack2Animation,
-                            rightAttack3Animation, rightAttack4Animation, airAttackAnimation,
-                            crouchAttackAnimation;
+    private BufferedImage[][] knightAnimations;
     private int animationTick, animationIndex, animationRefresh = 15;
     private int playerAction = IDLE;
 
@@ -45,66 +38,43 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     }
 
     private void LoadAnimations() {
-        idleAnimation = new BufferedImage[8];
-        crouchIdleAnimation = new BufferedImage[8];
-        runAnimation = new BufferedImage[8];
-        jumpAnimation = new BufferedImage[8];
-        healthAnimation = new BufferedImage[8];
-        hurtAnimation = new BufferedImage[3];
-        deathAnimation = new BufferedImage[4];
-        climbAnimation = new BufferedImage[6];
-        hangingAnimation = new BufferedImage[8];
-        slideAnimation = new BufferedImage[10];
-        rollAnimation = new BufferedImage[4];
-        prayAnimation = new BufferedImage[12];
-        rightAttack1Animation = new BufferedImage[6];
-        rightAttack2Animation = new BufferedImage[4];
-        rightAttack3Animation = new BufferedImage[4];
-        rightAttack4Animation = new BufferedImage[6];
-        leftAttack1Animation = new BufferedImage[6];
-        leftAttack2Animation = new BufferedImage[4];
-        leftAttack3Animation = new BufferedImage[4];
-        leftAttack4Animation = new BufferedImage[6];
-        airAttackAnimation = new BufferedImage[7];
-        crouchAttackAnimation = new BufferedImage[7];
+        knightAnimations = new BufferedImage[22][12];
 
-        for(int i = 0; i < idleAnimation.length; i++){
-            idleAnimation[i] = idleImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            crouchIdleAnimation[i] = crouchIdleImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            runAnimation[i] = runImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            jumpAnimation[i] = jumpImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            healthAnimation[i] = healthImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            hangingAnimation[i] = hangingImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-        }
-        for(int i = 0; i < hurtAnimation.length; i++){
-            hurtAnimation[i] = hurtImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-        }
-        for(int i = 0; i < deathAnimation.length; i++){
-            deathAnimation[i] = deathImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            rollAnimation[i] = rollImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            rightAttack2Animation[i] = attackImg.getSubimage(((i+6)%8) * 128, ((i + 6)/8) * 64, 128, 64);
-            rightAttack3Animation[i] = attackImg.getSubimage(((i+10)%8) * 128, ((i + 10)/8) * 64, 128, 64);
-            leftAttack2Animation[i] = attackImg.getSubimage(((i+26)%8) * 128, ((i+26)/8) * 64, 128, 64);
-            leftAttack3Animation[i] = attackImg.getSubimage(((i + 30)%8) * 128, ((i  + 30)/8) * 64, 128, 64);
-        }
-        for(int i = 0; i < climbAnimation.length; i++){
-            climbAnimation[i] = climbImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-        }
-        for(int i = 0; i < slideAnimation.length; i++){
-            slideAnimation[i] = slideImg.getSubimage((i%4) * 128, (i/4) * 64, 128, 64);
-        }
-        for(int i = 0; i < prayAnimation.length; i++){
-            prayAnimation[i] = prayImg.getSubimage((i%4) * 128, (i/4) * 64, 128, 64);
-        }
-        for(int i = 0; i < rightAttack1Animation.length; i++){
-            rightAttack1Animation[i] = attackImg.getSubimage((i%8) * 128, (i/8) * 64, 128, 64);
-            rightAttack4Animation[i] = attackImg.getSubimage(((i + 14)%8) * 128, ((i + 14)/8) * 64, 128, 64);
-            leftAttack1Animation[i] = attackImg.getSubimage(((i + 20)%8) * 128, ((i + 20)/8) * 64, 128, 64);
-            leftAttack4Animation[i] = attackImg.getSubimage(((i + 34)%8) * 128, ((i + 34)/8) * 64, 128, 64);
-        }
-        for(int i = 0; i < airAttackAnimation.length; i++){
-            airAttackAnimation[i] = airAttackImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
-            crouchAttackAnimation[i] = crouchAttackImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+        for(int i = 0; i < knightAnimations[i].length; i++){
+            if(i<8) {
+                knightAnimations[IDLE][i] = idleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[CROUCH_IDLE][i] = crouchIdleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[RUN][i] = runImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[JUMP][i] = jumpImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[HEALTH][i] = healthImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[HANGING][i] = hangingImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+            }
+            if(i<3) {
+                knightAnimations[HURT][i] = hurtImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+            }
+            if(i < 4) {
+                knightAnimations[DEATH][i] = deathImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[ROLL][i] = rollImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_2][i] = attackImg.getSubimage(((i + 6) % 8) * 128, ((i + 6) / 8) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_3][i] = attackImg.getSubimage(((i + 10) % 8) * 128, ((i + 10) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_2][i] = attackImg.getSubimage(((i + 26) % 8) * 128, ((i + 26) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_3][i] = attackImg.getSubimage(((i + 30) % 8) * 128, ((i + 30) / 8) * 64, 128, 64);
+            }
+            if(i<6) {
+                knightAnimations[CLIMB][i] = climbImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_1][i] = attackImg.getSubimage((i % 8) * 128, (i / 8) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_4][i] = attackImg.getSubimage(((i + 14) % 8) * 128, ((i + 14) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_1][i] = attackImg.getSubimage(((i + 20) % 8) * 128, ((i + 20) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_4][i] = attackImg.getSubimage(((i + 34) % 8) * 128, ((i + 34) / 8) * 64, 128, 64);
+            }
+            if(i<10) {
+                knightAnimations[SLIDE][i] = slideImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
+            }
+            if(i<7) {
+                knightAnimations[AIR_ATTACK][i] = airAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[CROUCH_ATTACK][i] = crouchAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+            }
+            knightAnimations[PRAY][i] = prayImg.getSubimage((i%4) * 128, (i/4) * 64, 128, 64);
         }
     }
 
@@ -327,12 +297,12 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         this.moveRight = x;
     }
 
-    private void UpdateAnimationTick(BufferedImage[] img) {
+    private void UpdateAnimationTick() {
         animationTick++;
         if(animationTick >= animationRefresh){
             animationTick = 0;
             animationIndex++;
-            if(animationIndex>= img.length){
+            if(animationIndex>= GetSpriteAmount(RIGHT_ATTACK_4)){
                 animationIndex = 0;
             }
         }
@@ -341,10 +311,10 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     public void paintComponent(Graphics g){     // Graphics -> you need this to draw
         super.paintComponent(g);
 
-        UpdateAnimationTick(rightAttack4Animation);
+        UpdateAnimationTick();
 
 
-        g.drawImage(rightAttack4Animation[animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
+        g.drawImage(knightAnimations[RIGHT_ATTACK_4][animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
     }
 
 }
