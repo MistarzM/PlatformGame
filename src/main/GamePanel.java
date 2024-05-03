@@ -15,9 +15,10 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private MouseInputs mouseInputs;
     private float moveRight = 0, moveDown = 0;
-    private BufferedImage img;
-    private BufferedImage[] idleAnimation;
-    private int animationTick, animationIndex, animationRefresh = 30;
+    private BufferedImage idleImg, runImg;
+    private BufferedImage[] idleAnimation, runAnimation;
+    private int animationTick, animationIndex, animationRefresh = 15;
+    public boolean isRunning = false;
 
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
@@ -33,21 +34,36 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
     private void LoadAnimations() {
         idleAnimation = new BufferedImage[8];
+        runAnimation = new BufferedImage[8];
 
         for(int i = 0; i < idleAnimation.length; i++){
-            idleAnimation[i] = img.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+            idleAnimation[i] = idleImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
+            runAnimation[i] = runImg.getSubimage((i%2) * 128, (i/2) * 64, 128, 64);
         }
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/Idle.png");
+        InputStream isIdle = getClass().getResourceAsStream("/knight/Idle.png");
         try {
-            img = ImageIO.read(is);
+            idleImg = ImageIO.read(isIdle);
         } catch(IOException e){
             e.printStackTrace();
         } finally {
             try {
-                is.close();             // close the input stream to avoid errors
+                isIdle.close();             // close the input stream to avoid errors
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        InputStream isRun = getClass().getResourceAsStream("/knight/Run.png");
+        try {
+            runImg = ImageIO.read(isRun);
+        } catch(IOException e){
+            e.printStackTrace();
+        } finally {
+            try{
+                isRun.close();
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -91,8 +107,12 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         super.paintComponent(g);
 
         UpdateAnimationTick();
-        
-        g.drawImage(idleAnimation[animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
+
+        if(isRunning){
+            g.drawImage(runAnimation[animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
+        } else {
+            g.drawImage(idleAnimation[animationIndex], (int) moveRight, (int) moveDown, 256, 128, null);
+        }
     }
 
 }

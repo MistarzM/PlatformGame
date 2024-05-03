@@ -8,7 +8,7 @@ The game uses a free asset from [szadiart](https://szadiart.itch.io/2d-soulslike
 
 #### Preview
 
-![Preview](res/Preview.gif)
+![Preview](res/knight/Preview.gif)
 
 #### License for Everyone
 

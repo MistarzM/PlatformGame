@@ -21,9 +21,11 @@ public class KeyboardInputs implements KeyListener {           // events for key
     public void keyPressed(KeyEvent e) {
         if(e.getKeyChar() == 'd'){
             gamePanel.setMoveRight(((int)gamePanel.getMoveRight())+10);
+            gamePanel.isRunning = true;
         }
         if (e.getKeyChar() == 'a'){
             gamePanel.setMoveRight(((int)gamePanel.getMoveRight())-10);
+            gamePanel.isRunning = true;
         }
         if(e.getKeyChar() == 'w'){
             gamePanel.setMoveDown(((int)gamePanel.getMoveDown())-10);
@@ -35,5 +37,8 @@ public class KeyboardInputs implements KeyListener {           // events for key
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(e.getKeyChar() == 'd' || e.getKeyChar() == 'a'){
+            gamePanel.isRunning = false;
+        }
     }
 }
