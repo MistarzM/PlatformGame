@@ -34,9 +34,6 @@ public class KeyboardInputs implements KeyListener {           // events for key
             case KeyEvent.VK_D:
                 gamePanel.setDirection(RIGHT);
                 break;
-            case KeyEvent.VK_J:
-                gamePanel.setAttacking();
-                break;
         }
     }
 
@@ -48,7 +45,6 @@ public class KeyboardInputs implements KeyListener {           // events for key
             case KeyEvent.VK_A:
             case KeyEvent.VK_S:
             case KeyEvent.VK_D:
-            case KeyEvent.VK_J:
                 gamePanel.setRunning(false);
                 break;
         }

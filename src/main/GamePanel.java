@@ -26,7 +26,6 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     private int playerAction = IDLE;
     private int playerDirection = -1;
     private boolean running = false;
-    private int attacking = -1;
 
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
@@ -126,12 +125,6 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         this.running = running;
     }
 
-    public void setAttacking(){
-        this.attacking++;
-        if(attacking>=4)
-            attacking = 0;
-    }
-
     private void UpdateAnimationTick() {
         animationTick++;
         if(animationTick >= animationRefresh){
@@ -147,16 +140,30 @@ public class GamePanel extends JPanel {     // JPanel -> picture
 
         if(running){
             playerAction = RUN;
-        } else if (attacking == 0){
-            playerAction = RIGHT_ATTACK_1;
-        }else if (attacking == 1){
-            playerAction = RIGHT_ATTACK_2;
-        }else if (attacking == 2){
-            playerAction = RIGHT_ATTACK_3;
-        }else if (attacking == 3){
-            playerAction = RIGHT_ATTACK_4;
         } else {
             playerAction = IDLE;
+        }
+    }
+
+    private void updatePos(){
+
+        if(running){
+            switch(playerDirection){
+                case UP:
+                    yPos -= 2;
+                    break;
+                case LEFT:
+                    xPos -= 2;
+                    break;
+                case DOWN:
+                    yPos += 2;
+                    break;
+                case RIGHT:
+                    xPos += 2;
+                    break;
+                default:
+                    playerAction = IDLE;
+            }
         }
     }
 
@@ -166,6 +173,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
         UpdateAnimationTick();
 
         setAnimation();
+        updatePos();
 
         g.drawImage(knightAnimations[playerAction][animationIndex], (int) xPos, (int) yPos, 256, 128, null);
     }
