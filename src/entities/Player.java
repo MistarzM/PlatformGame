@@ -96,21 +96,21 @@ public class Player extends  Entity{
 
     private void loadAnimations() {
 
-        BufferedImage idleImg           = LoadAndSave.GetPlayerAtlas("/knight/Idle.png");
-        BufferedImage crouchIdleImg     = LoadAndSave.GetPlayerAtlas("/knight/crouch_idle.png");
-        BufferedImage runImg            = LoadAndSave.GetPlayerAtlas("/knight/Run.png");
-        BufferedImage jumpImg           = LoadAndSave.GetPlayerAtlas("/knight/Jump.png");
-        BufferedImage healthImg         = LoadAndSave.GetPlayerAtlas("/knight/Health.png");
-        BufferedImage hurtImg           = LoadAndSave.GetPlayerAtlas("/knight/Hurt.png");
-        BufferedImage deathImg          = LoadAndSave.GetPlayerAtlas("/knight/Death.png");
-        BufferedImage climbImg          = LoadAndSave.GetPlayerAtlas("/knight/Climb.png");
-        BufferedImage hangingImg        = LoadAndSave.GetPlayerAtlas("/knight/Hanging.png");
-        BufferedImage slideImg          = LoadAndSave.GetPlayerAtlas("/knight/Slide.png");
-        BufferedImage rollImg           = LoadAndSave.GetPlayerAtlas("/knight/Roll.png");
-        BufferedImage prayImg           = LoadAndSave.GetPlayerAtlas("/knight/Pray.png");
-        BufferedImage attackImg         = LoadAndSave.GetPlayerAtlas("/knight/Attacks.png");
-        BufferedImage airAttackImg      = LoadAndSave.GetPlayerAtlas("/knight/attack_from_air.png");
-        BufferedImage crouchAttackImg   = LoadAndSave.GetPlayerAtlas("/knight/crouch_attacks.png");
+        BufferedImage idleImg           = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_IDLE);
+        BufferedImage crouchIdleImg     = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_CROUCH_IDLE);
+        BufferedImage runImg            = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_RUN);
+        BufferedImage jumpImg           = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_JUMP);
+        BufferedImage healthImg         = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_HEALTH);
+        BufferedImage hurtImg           = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_HURT);
+        BufferedImage deathImg          = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_DEATH);
+        BufferedImage climbImg          = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_CLIMB);
+        BufferedImage hangingImg        = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_HANGING);
+        BufferedImage slideImg          = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_SLIDE);
+        BufferedImage rollImg           = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_ROLL);
+        BufferedImage prayImg           = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_PRAY);
+        BufferedImage attackImg         = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_ATTACKS);
+        BufferedImage airAttackImg      = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_AIR_ATTACK);
+        BufferedImage crouchAttackImg   = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_CROUCH_ATTACK);
 
         knightAnimations = new BufferedImage[22][12];
         for (int i = 0; i < knightAnimations[i].length; i++) {

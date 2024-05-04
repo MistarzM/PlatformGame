@@ -13,6 +13,14 @@ public class Game implements Runnable{
     private final int FPS_SET = 120;    // Frames per second -> draws the game(level, enemies)
     private final int UPS_SET = 200;    // Updates per second -> takes care of logic (events)
 
+    public final static int TILE_INIT_SIZE = 32;
+    public final static float SCALE = 1.0f;
+    public final static int TILES_IN_WIDTH = 40;
+    public final static int TILES_IN_HEIGHT = 24;
+    public final static int TILE_SIZE = (int)(TILE_INIT_SIZE * SCALE);
+    public final static int PANEL_WIDTH = TILE_SIZE * TILES_IN_WIDTH;
+    public final static int PANEL_HEIGHT = TILE_SIZE * TILES_IN_HEIGHT;
+
     private Player player;
 
     public Game(){

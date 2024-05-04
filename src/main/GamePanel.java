@@ -7,7 +7,8 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-
+import static main.Game.PANEL_HEIGHT;
+import static main.Game.PANEL_WIDTH;
 
 public class GamePanel extends JPanel {     // JPanel -> picture
 
@@ -25,7 +26,7 @@ public class GamePanel extends JPanel {     // JPanel -> picture
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(1280, 800);
+        Dimension size = new Dimension(PANEL_WIDTH, PANEL_HEIGHT);
         setPreferredSize(size);
     }
 
