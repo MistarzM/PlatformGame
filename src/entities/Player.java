@@ -1,5 +1,7 @@
 package entities;
 
+import utils.LoadAndSave;
+
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -8,6 +10,7 @@ import java.io.InputStream;
 
 import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
 import static utils.Constants.Direction.*;          // import direction - movement for characters
+import static utils.LoadAndSave.*;
 
 public class Player extends  Entity{
 
@@ -92,98 +95,59 @@ public class Player extends  Entity{
     }
 
     private void loadAnimations() {
-        InputStream isIdle              = getClass().getResourceAsStream("/knight/Idle.png");
-        InputStream isCrouchIdle        = getClass().getResourceAsStream("/knight/crouch_idle.png");
-        InputStream isRun               = getClass().getResourceAsStream("/knight/Run.png");
-        InputStream isJump              = getClass().getResourceAsStream("/knight/Jump.png");
-        InputStream isHealth            = getClass().getResourceAsStream("/knight/Health.png");
-        InputStream isHurt              = getClass().getResourceAsStream("/knight/Hurt.png");
-        InputStream isDeath             = getClass().getResourceAsStream("/knight/Death.png");
-        InputStream isClimb             = getClass().getResourceAsStream("/knight/Climb.png");
-        InputStream isHanging           = getClass().getResourceAsStream("/knight/Hanging.png");
-        InputStream isSlide             = getClass().getResourceAsStream("/knight/Slide.png");
-        InputStream isRoll              = getClass().getResourceAsStream("/knight/Roll.png");
-        InputStream isPray              = getClass().getResourceAsStream("/knight/Pray.png");
-        InputStream isAttack            = getClass().getResourceAsStream("/knight/Attacks.png");
-        InputStream isAirAttack         = getClass().getResourceAsStream("/knight/attack_from_air.png");
-        InputStream isCrouchAttack      = getClass().getResourceAsStream("/knight/crouch_attacks.png");
 
-        try {
-            BufferedImage idleImg = ImageIO.read(isIdle);
-            BufferedImage crouchIdleImg = ImageIO.read(isCrouchIdle);
-            BufferedImage runImg = ImageIO.read(isRun);
-            BufferedImage jumpImg = ImageIO.read(isJump);
-            BufferedImage healthImg = ImageIO.read(isHealth);
-            BufferedImage hurtImg = ImageIO.read(isHurt);
-            BufferedImage deathImg = ImageIO.read(isDeath);
-            BufferedImage climbImg = ImageIO.read(isClimb);
-            BufferedImage hangingImg = ImageIO.read(isHanging);
-            BufferedImage slideImg = ImageIO.read(isSlide);
-            BufferedImage rollImg = ImageIO.read(isRoll);
-            BufferedImage prayImg = ImageIO.read(isPray);
-            BufferedImage attackImg = ImageIO.read(isAttack);
-            BufferedImage airAttackImg = ImageIO.read(isAirAttack);
-            BufferedImage crouchAttackImg = ImageIO.read(isCrouchAttack);
+        BufferedImage idleImg           = LoadAndSave.GetPlayerAtlas("/knight/Idle.png");
+        BufferedImage crouchIdleImg     = LoadAndSave.GetPlayerAtlas("/knight/crouch_idle.png");
+        BufferedImage runImg            = LoadAndSave.GetPlayerAtlas("/knight/Run.png");
+        BufferedImage jumpImg           = LoadAndSave.GetPlayerAtlas("/knight/Jump.png");
+        BufferedImage healthImg         = LoadAndSave.GetPlayerAtlas("/knight/Health.png");
+        BufferedImage hurtImg           = LoadAndSave.GetPlayerAtlas("/knight/Hurt.png");
+        BufferedImage deathImg          = LoadAndSave.GetPlayerAtlas("/knight/Death.png");
+        BufferedImage climbImg          = LoadAndSave.GetPlayerAtlas("/knight/Climb.png");
+        BufferedImage hangingImg        = LoadAndSave.GetPlayerAtlas("/knight/Hanging.png");
+        BufferedImage slideImg          = LoadAndSave.GetPlayerAtlas("/knight/Slide.png");
+        BufferedImage rollImg           = LoadAndSave.GetPlayerAtlas("/knight/Roll.png");
+        BufferedImage prayImg           = LoadAndSave.GetPlayerAtlas("/knight/Pray.png");
+        BufferedImage attackImg         = LoadAndSave.GetPlayerAtlas("/knight/Attacks.png");
+        BufferedImage airAttackImg      = LoadAndSave.GetPlayerAtlas("/knight/attack_from_air.png");
+        BufferedImage crouchAttackImg   = LoadAndSave.GetPlayerAtlas("/knight/crouch_attacks.png");
 
-            knightAnimations = new BufferedImage[22][12];
-            for (int i = 0; i < knightAnimations[i].length; i++) {
-                if (i < 8) {
-                    knightAnimations[IDLE][i] = idleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[CROUCH_IDLE][i] = crouchIdleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[RUN][i] = runImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[JUMP][i] = jumpImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[HEALTH][i] = healthImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[HANGING][i] = hangingImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                }
-                if (i < 3) {
-                    knightAnimations[HURT][i] = hurtImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                }
-                if (i < 4) {
-                    knightAnimations[DEATH][i] = deathImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[ROLL][i] = rollImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[RIGHT_ATTACK_2][i] = attackImg.getSubimage(((i + 6) % 8) * 128, ((i + 6) / 8) * 64, 128, 64);
-                    knightAnimations[RIGHT_ATTACK_3][i] = attackImg.getSubimage(((i + 10) % 8) * 128, ((i + 10) / 8) * 64, 128, 64);
-                    knightAnimations[LEFT_ATTACK_2][i] = attackImg.getSubimage(((i + 26) % 8) * 128, ((i + 26) / 8) * 64, 128, 64);
-                    knightAnimations[LEFT_ATTACK_3][i] = attackImg.getSubimage(((i + 30) % 8) * 128, ((i + 30) / 8) * 64, 128, 64);
-                }
-                if (i < 6) {
-                    knightAnimations[CLIMB][i] = climbImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[RIGHT_ATTACK_1][i] = attackImg.getSubimage((i % 8) * 128, (i / 8) * 64, 128, 64);
-                    knightAnimations[RIGHT_ATTACK_4][i] = attackImg.getSubimage(((i + 14) % 8) * 128, ((i + 14) / 8) * 64, 128, 64);
-                    knightAnimations[LEFT_ATTACK_1][i] = attackImg.getSubimage(((i + 20) % 8) * 128, ((i + 20) / 8) * 64, 128, 64);
-                    knightAnimations[LEFT_ATTACK_4][i] = attackImg.getSubimage(((i + 34) % 8) * 128, ((i + 34) / 8) * 64, 128, 64);
-                }
-                if (i < 10) {
-                    knightAnimations[SLIDE][i] = slideImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
-                }
-                if (i < 7) {
-                    knightAnimations[AIR_ATTACK][i] = airAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                    knightAnimations[CROUCH_ATTACK][i] = crouchAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
-                }
-                knightAnimations[PRAY][i] = prayImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
+        knightAnimations = new BufferedImage[22][12];
+        for (int i = 0; i < knightAnimations[i].length; i++) {
+            if (i < 8) {
+                knightAnimations[IDLE][i] = idleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[CROUCH_IDLE][i] = crouchIdleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[RUN][i] = runImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[JUMP][i] = jumpImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[HEALTH][i] = healthImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[HANGING][i] = hangingImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
             }
-        } catch (IOException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                isIdle.close();
-                isCrouchIdle.close();
-                isRun.close();
-                isJump.close();
-                isHealth.close();
-                isHurt.close();
-                isDeath.close();
-                isClimb.close();
-                isHanging.close();
-                isSlide.close();
-                isRoll.close();
-                isPray.close();
-                isAttack.close();
-                isAirAttack.close();
-                isCrouchAttack.close();
-            } catch (IOException e){
-                e.printStackTrace();
+            if (i < 3) {
+                knightAnimations[HURT][i] = hurtImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
             }
+            if (i < 4) {
+                knightAnimations[DEATH][i] = deathImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[ROLL][i] = rollImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_2][i] = attackImg.getSubimage(((i + 6) % 8) * 128, ((i + 6) / 8) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_3][i] = attackImg.getSubimage(((i + 10) % 8) * 128, ((i + 10) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_2][i] = attackImg.getSubimage(((i + 26) % 8) * 128, ((i + 26) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_3][i] = attackImg.getSubimage(((i + 30) % 8) * 128, ((i + 30) / 8) * 64, 128, 64);
+            }
+            if (i < 6) {
+                knightAnimations[CLIMB][i] = climbImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_1][i] = attackImg.getSubimage((i % 8) * 128, (i / 8) * 64, 128, 64);
+                knightAnimations[RIGHT_ATTACK_4][i] = attackImg.getSubimage(((i + 14) % 8) * 128, ((i + 14) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_1][i] = attackImg.getSubimage(((i + 20) % 8) * 128, ((i + 20) / 8) * 64, 128, 64);
+                knightAnimations[LEFT_ATTACK_4][i] = attackImg.getSubimage(((i + 34) % 8) * 128, ((i + 34) / 8) * 64, 128, 64);
+            }
+            if (i < 10) {
+                knightAnimations[SLIDE][i] = slideImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
+            }
+            if (i < 7) {
+                knightAnimations[AIR_ATTACK][i] = airAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+                knightAnimations[CROUCH_ATTACK][i] = crouchAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
+            }
+            knightAnimations[PRAY][i] = prayImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
         }
     }
 
