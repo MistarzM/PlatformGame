@@ -23,6 +23,8 @@ public class LoadAndSave {
     public static final String KNIGHT_AIR_ATTACK = "/knight/attack_from_air.png";
     public static final String KNIGHT_CROUCH_ATTACK = "/knight/crouch_attacks.png";
 
+    public static final String CASTLE_LEVEL = "";
+
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadAndSave.class.getResourceAsStream(path);
