@@ -20,7 +20,7 @@ public class LevelHandler {
         levelOne = new Level(LoadAndSave.GetLevelData());
     }
 
-    private void importLevelBuildSprites() {            // !!!to replace -> important
+    private void importLevelBuildSprites() {            // !!!to replace -> important -> create design for hit boxes -> level_one_hitBoxes.png
 
         levelBuildImg = new BufferedImage[2]; // tab 61 x 19
 

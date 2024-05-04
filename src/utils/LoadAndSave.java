@@ -28,7 +28,7 @@ public class LoadAndSave {
 
     public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
     public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
-    public static final String LEVEL_ONE_HIT_BOXES = "/levels/level1_hitBoxes.png";
+    public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;

@@ -28,7 +28,7 @@ public class Player extends  Entity{
     private float xPlayerHitBox = 57 * 2 * Game.SCALE;      // *2 because we increased the size of the knight(128, 64)->(256, 128)
     private float yPlayerHitBox = 18 * 2 * Game.SCALE;
     private float widthPlayerHitBox = 19 * 2 * Game.SCALE;
-    private float heightPlayerHitBox = 46 * 2 * Game.SCALE;
+    private float heightPlayerHitBox = 91 * Game.SCALE; // (46 * 2) - 1
 
     public Player(float x, float y, int width, int height){
         super(x, y, width, height);
