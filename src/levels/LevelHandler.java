@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import main.Game;
 import utils.LoadAndSave;
 
-import static main.Game.TILE_SIZE;
+import static main.Game.*;
 
 public class LevelHandler {
 
@@ -26,18 +26,14 @@ public class LevelHandler {
 
         BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.MAIN_LEVEL);
 
-        levelBuildImg[0] = img.getSubimage(32, 48, 16, 16);
-        levelBuildImg[1] = img.getSubimage(0, 0, 16, 16);
+        levelBuildImg[0] = img.getSubimage(192, 272, 16, 16);     //color
+        levelBuildImg[1] = img.getSubimage(0, 0, 16, 16);       //white
     }
 
     public void draw(Graphics g){
+        BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
 
-        for(int j = 0; j < Game.TILES_IN_HEIGHT; j++){
-            for(int i = 0; i < Game.TILES_IN_WIDTH; i++){
-                int temp = levelOne.getSpriteIndex(i, j);
-                g.drawImage(temp == 1 ? levelBuildImg[1] : levelBuildImg[0], i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-            }
-        }
+        g.drawImage(img, 0, 0, PANEL_WIDTH, PANEL_HEIGHT, null);
     }
 
     public void update(){
