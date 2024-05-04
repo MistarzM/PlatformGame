@@ -4,7 +4,7 @@ import main.Game;
 
 public class HelperMethods {
 
-    public static boolean LegalMove(float x, float y, int width, int height, int[][] levelData){        // checks if the player can move on (without object collisions)
+    public static boolean LegalMove(float x, float y, float width, float height, int[][] levelData){        // checks if the player can move on (without object collisions)
 
         if(IsLegalMovement(x, y, levelData)) {
             if(IsLegalMovement(x + width, y + height, levelData)) {

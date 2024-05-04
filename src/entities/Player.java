@@ -1,5 +1,6 @@
 package entities;
 
+import main.Game;
 import utils.LoadAndSave;
 
 import javax.imageio.ImageIO;
@@ -24,23 +25,27 @@ public class Player extends  Entity{
     private boolean up, left, down, right;
     private float speedOfRunning = 1.2f;
     private int[][] levelData;
+    private float xPlayerHitBox = 57 * 2 * Game.SCALE;      // *2 because we increased the size of the knight(128, 64)->(256, 128)
+    private float yPlayerHitBox = 18 * 2 * Game.SCALE;
+    private float widthPlayerHitBox = 19 * 2 * Game.SCALE;
+    private float heightPlayerHitBox = 46 * 2 * Game.SCALE;
 
     public Player(float x, float y, int width, int height){
         super(x, y, width, height);
         loadAnimations();
+        initHitBox(x, y, widthPlayerHitBox, heightPlayerHitBox);
     }
 
     public void update(){
 
         updatePosition();
-        updateHitBox();
         UpdateAnimationTick();
         setAnimation();
     }
 
     public void render(Graphics g){
 
-        g.drawImage(knightAnimations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
+        g.drawImage(knightAnimations[playerAction][animationIndex], (int)(hitBox.x - xPlayerHitBox), (int)(hitBox.y-yPlayerHitBox), width, height, null);
         drawHitBox(g);
     }
 
@@ -102,9 +107,9 @@ public class Player extends  Entity{
             yMovingSpeed = speedOfRunning;
         }
 
-        if(LegalMove(x+xMovingSpeed, y+yMovingSpeed,width, height, levelData)){
-            this.x += xMovingSpeed;
-            this.y += yMovingSpeed;
+        if(LegalMove(hitBox.x+xMovingSpeed, hitBox.y+yMovingSpeed,hitBox.width, hitBox.height, levelData)){
+            hitBox.x += xMovingSpeed;
+            hitBox.y += yMovingSpeed;
             running = true;
         }
     }
