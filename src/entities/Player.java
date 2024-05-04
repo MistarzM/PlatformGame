@@ -12,6 +12,7 @@ import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE,
 import static utils.Constants.Direction.*;          // import direction - movement for characters
 import static utils.LoadAndSave.*;
 import static main.Game.TILE_SIZE;
+import static utils.HelperMethods.LegalMove;
 
 public class Player extends  Entity{
 
@@ -22,6 +23,7 @@ public class Player extends  Entity{
     private boolean running = false, attacking = false;
     private boolean up, left, down, right;
     private float speedOfRunning = 1.2f;
+    private int[][] levelData;
 
     public Player(float x, float y, int width, int height){
         super(x, y, width, height);
@@ -82,18 +84,28 @@ public class Player extends  Entity{
 
         running = false;
 
+        if(!up && !left && !down && !right){
+            return;
+        }
+
+        float xMovingSpeed = 0, yMovingSpeed = 0;
+
         if(left && !right){
-            x -= speedOfRunning;
-            running = true;
+            xMovingSpeed = -speedOfRunning;
         } else if(!left && right){
-            x += speedOfRunning;
-            running = true;
+            xMovingSpeed = speedOfRunning;
         }
 
         if(up && !down){
-            y-= speedOfRunning;
+            yMovingSpeed = -speedOfRunning;
         } else if(!up && down){
-            y+= speedOfRunning;
+            yMovingSpeed = speedOfRunning;
+        }
+
+        if(LegalMove(x+xMovingSpeed, y+yMovingSpeed,width, height, levelData)){
+            this.x += xMovingSpeed;
+            this.y += yMovingSpeed;
+            running = true;
         }
     }
 
@@ -152,6 +164,10 @@ public class Player extends  Entity{
             }
             knightAnimations[PRAY][i] = prayImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
         }
+    }
+
+    public void loadLevelData(int[][] levelData){
+        this.levelData = levelData;
     }
 
     public void resetDirectionBoolean(){
