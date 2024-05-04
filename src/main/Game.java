@@ -15,7 +15,7 @@ public class Game implements Runnable{
     private final int UPS_SET = 200;    // Updates per second -> takes care of logic (events)
 
     public final static int TILE_INIT_SIZE = 16;
-    public final static float SCALE = 1.3f;
+    public final static float SCALE = 1.0f;
     public final static int TILES_IN_WIDTH = 80;
     public final static int TILES_IN_HEIGHT = 45;
     public final static int TILE_SIZE = (int)(TILE_INIT_SIZE * SCALE);
