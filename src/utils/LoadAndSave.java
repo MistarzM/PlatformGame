@@ -28,7 +28,7 @@ public class LoadAndSave {
 
     public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
     public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
-    public static final String LEVEL_ONE_DATA = "/levels/level_one_data.png";
+    public static final String LEVEL_ONE_HIT_BOXES = "/levels/level1_hitBoxes.png";
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
@@ -50,13 +50,13 @@ public class LoadAndSave {
 
     public static int[][] GetLevelData(){
         int[][] levelData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_HIT_BOXES);
 
         for(int j = 0; j < img.getHeight(); j++){
             for(int i = 0; i < img.getWidth(); i++){
                 Color color = new Color(img.getRGB(i, j));
-                int value = color.getRed();
-                if(value >= 1159){
+                int value = 1;
+                if(color.equals(Color.BLACK)){
                     value = 0;
                 }
                 levelData[j][i] = value;

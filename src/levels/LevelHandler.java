@@ -20,18 +20,14 @@ public class LevelHandler {
         levelOne = new Level(LoadAndSave.GetLevelData());
     }
 
-    private void importLevelBuildSprites() {
+    private void importLevelBuildSprites() {            // !!!to replace -> important
 
-        levelBuildImg = new BufferedImage[1159]; // tab 61 x 19
+        levelBuildImg = new BufferedImage[2]; // tab 61 x 19
 
         BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.MAIN_LEVEL);
 
-        for(int j = 0; j < 19; j++){
-            for(int i = 0; i < 61; i ++){
-                int temp = j * 61 + i;
-                levelBuildImg[temp] = img.getSubimage((i*16) + 32, (j*16) + 48, 16, 16);
-            }
-        }
+        levelBuildImg[0] = img.getSubimage(32, 48, 16, 16);
+        levelBuildImg[1] = img.getSubimage(0, 0, 16, 16);
     }
 
     public void draw(Graphics g){
@@ -39,7 +35,7 @@ public class LevelHandler {
         for(int j = 0; j < Game.TILES_IN_HEIGHT; j++){
             for(int i = 0; i < Game.TILES_IN_WIDTH; i++){
                 int temp = levelOne.getSpriteIndex(i, j);
-                g.drawImage(levelBuildImg[temp], i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                g.drawImage(temp == 1 ? levelBuildImg[1] : levelBuildImg[0], i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
             }
         }
     }

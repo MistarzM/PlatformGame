@@ -31,7 +31,7 @@ public class HelperMethods {
 
         int valueInLevelData = levelData[(int) yIndex][(int) xIndex];
 
-        if(valueInLevelData >= 1159 || valueInLevelData < 0) {
+        if(valueInLevelData != 1) {
             return false;
         }
 
