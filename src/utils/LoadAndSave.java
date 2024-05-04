@@ -1,9 +1,12 @@
 package utils;
 
+import main.Game;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.awt.Color;
 
 public class LoadAndSave {
 
@@ -25,6 +28,7 @@ public class LoadAndSave {
 
     public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
     public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
+    public static final String LEVEL_ONE_DATA = "/levels/level_one_data.png";
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
@@ -42,5 +46,22 @@ public class LoadAndSave {
             }
         }
         return img;
+    }
+
+    public static int[][] GetLevelData(){
+        int[][] levelData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+
+        for(int j = 0; j < img.getHeight(); j++){
+            for(int i = 0; i < img.getWidth(); i++){
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getRed();
+                if(value >= 1159){
+                    value = 0;
+                }
+                levelData[j][i] = value;
+            }
+        }
+        return levelData;
     }
 }

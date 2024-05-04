@@ -11,6 +11,7 @@ import java.io.InputStream;
 import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
 import static utils.Constants.Direction.*;          // import direction - movement for characters
 import static utils.LoadAndSave.*;
+import static main.Game.TILE_SIZE;
 
 public class Player extends  Entity{
 
@@ -22,8 +23,8 @@ public class Player extends  Entity{
     private boolean up, left, down, right;
     private float speedOfRunning = 1.2f;
 
-    public Player(float x, float y){
-        super(x, y);
+    public Player(float x, float y, int width, int height){
+        super(x, y, width, height);
         loadAnimations();
     }
 
@@ -36,7 +37,7 @@ public class Player extends  Entity{
 
     public void render(Graphics g){
 
-        g.drawImage(knightAnimations[playerAction][animationIndex], (int) x, (int) y, 256, 128, null);
+        g.drawImage(knightAnimations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
     }
 
     private void UpdateAnimationTick() {

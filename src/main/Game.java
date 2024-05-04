@@ -14,10 +14,10 @@ public class Game implements Runnable{
     private final int FPS_SET = 120;    // Frames per second -> draws the game(level, enemies)
     private final int UPS_SET = 200;    // Updates per second -> takes care of logic (events)
 
-    public final static int TILE_INIT_SIZE = 32;
+    public final static int TILE_INIT_SIZE = 16;
     public final static float SCALE = 1.0f;
-    public final static int TILES_IN_WIDTH = 40;
-    public final static int TILES_IN_HEIGHT = 24;
+    public final static int TILES_IN_WIDTH = 80;
+    public final static int TILES_IN_HEIGHT = 45;
     public final static int TILE_SIZE = (int)(TILE_INIT_SIZE * SCALE);
     public final static int PANEL_WIDTH = TILE_SIZE * TILES_IN_WIDTH;
     public final static int PANEL_HEIGHT = TILE_SIZE * TILES_IN_HEIGHT;
@@ -35,7 +35,7 @@ public class Game implements Runnable{
     }
 
     private void initClasses() {
-        player = new Player(200, 200);
+        player = new Player(200, 200, (int) (256 * SCALE), (int) (128 * SCALE));
         levelHandler = new LevelHandler(this);
     }
 
@@ -50,8 +50,8 @@ public class Game implements Runnable{
     }
 
     public void render(Graphics g){
-        player.render(g);
         levelHandler.draw(g);
+        player.render(g);
     }
 
     @Override
