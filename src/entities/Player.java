@@ -15,6 +15,7 @@ import static utils.LoadAndSave.*;
 import static main.Game.TILE_SIZE;
 import static utils.HelperMethods.LegalMove;
 import static utils.HelperMethods.EntityAndWallXPositionCollision;
+import static utils.HelperMethods.EntityAndRoofAndFloorYPositionCollision;
 
 public class Player extends  Entity{
 
@@ -112,16 +113,28 @@ public class Player extends  Entity{
         }
 
         if(inAir){
-
+            if(LegalMove(hitBox.x, hitBox.y + speedInAir, hitBox.width, hitBox.height, levelData)){
+                hitBox.y += speedInAir;
+                speedInAir += gravity;
+                updateXPosition(xMovingSpeed);
+            } else {
+                hitBox.y = EntityAndRoofAndFloorYPositionCollision(hitBox, speedInAir);
+                if(speedInAir > 0){
+                    resetInAir();
+                } else {
+                    speedInAir = fallSpeedInCollisionCase;
+                }
+                updateXPosition(xMovingSpeed);
+            }
         } else{
             updateXPosition(xMovingSpeed);
         }
+        running = true;
+    }
 
-        //if(LegalMove(hitBox.x+xMovingSpeed, hitBox.y+yMovingSpeed,hitBox.width, hitBox.height, levelData)){
-        //    hitBox.x += xMovingSpeed;
-        //    hitBox.y += yMovingSpeed;
-        //    running = true;
-        //}
+    private void resetInAir() {
+        inAir = false;
+        speedInAir = 0;
     }
 
     private void updateXPosition(float xMovingSpeed) {

@@ -53,4 +53,16 @@ public class HelperMethods {
             return tileXPosition + xOffset -1;                      // we subtract one from the result because we don't want to have a character "in the wall"
         }
     }
+
+    public static float EntityAndRoofAndFloorYPositionCollision(Rectangle2D.Float hitBox, float speedInAir){
+        int actualTile = (int) (hitBox.y / Game.TILE_SIZE);
+
+        if (speedInAir < 0) {   //  jumping -> because we decrease y position, so - value
+            return actualTile * Game.TILE_SIZE;
+        } else {                // falling -> + value, because we increase y, we are go down
+            int tileYPosition = actualTile * Game.TILE_SIZE;
+            int yOffset = (int)(Game.TILE_SIZE - hitBox.height);
+            return tileYPosition + yOffset -1;
+        }
+    }
 }
