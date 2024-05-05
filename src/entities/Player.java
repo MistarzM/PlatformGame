@@ -16,6 +16,7 @@ import static main.Game.TILE_SIZE;
 import static utils.HelperMethods.LegalMove;
 import static utils.HelperMethods.EntityAndWallXPositionCollision;
 import static utils.HelperMethods.EntityAndRoofAndFloorYPositionCollision;
+import static utils.HelperMethods.IsEntityOnFloor;
 
 public class Player extends  Entity{
 
@@ -27,9 +28,9 @@ public class Player extends  Entity{
     private boolean up, left, down, right, jump;
 
     private float speedOfRunning = 1.2f;
-    private float speedInAir = 0.0f;
+    private float speedInAir = 0f;
     private float gravity = 0.1f * Game.SCALE;
-    private float speedOfJump = -1.5f * Game.SCALE;
+    private float speedOfJump = -2.5f * Game.SCALE;
     private float fallSpeedInCollisionCase = 0.5f * Game.SCALE;
     private boolean inAir = false;
 
@@ -37,8 +38,13 @@ public class Player extends  Entity{
 
     private float xPlayerHitBox = 57 * 2 * Game.SCALE;      // *2 because we increased the size of the knight(128, 64)->(256, 128)
     private float yPlayerHitBox = 18 * 2 * Game.SCALE;
-    private float widthPlayerHitBox = 19 * 2 * Game.SCALE;
-    private float heightPlayerHitBox = 91 * Game.SCALE; // (46 * 2) - 1
+    private float widthPlayerHitBox = 19 * 2 * Game.SCALE;  // 38
+    private float heightPlayerHitBox = 46 * 2 * Game.SCALE; // 92
+
+    // helpers for gravity and jumping
+    private int numberOfPlayerTilesWidth = 3;    // because 38 < 16 (Tile_size) * 3 => 38 < 48
+    private int numberOfPlayerTilesHeight = 6;   // because 92 < 16 (Tile_size) * 6 => 92 < 96
+
 
     public Player(float x, float y, int width, int height){
         super(x, y, width, height);
@@ -99,6 +105,10 @@ public class Player extends  Entity{
 
         running = false;
 
+        if(jump){
+            jumping();
+        }
+
         if(!inAir && !left && !right){
             return;
         }
@@ -112,13 +122,19 @@ public class Player extends  Entity{
             xMovingSpeed += speedOfRunning;
         }
 
+        if(!inAir){
+            if(!IsEntityOnFloor(hitBox, levelData)){
+                inAir = true;
+            }
+        }
+
         if(inAir){
             if(LegalMove(hitBox.x, hitBox.y + speedInAir, hitBox.width, hitBox.height, levelData)){
                 hitBox.y += speedInAir;
                 speedInAir += gravity;
                 updateXPosition(xMovingSpeed);
             } else {
-                hitBox.y = EntityAndRoofAndFloorYPositionCollision(hitBox, speedInAir);
+                hitBox.y = EntityAndRoofAndFloorYPositionCollision(hitBox, speedInAir, numberOfPlayerTilesHeight);
                 if(speedInAir > 0){
                     resetInAir();
                 } else {
@@ -132,6 +148,15 @@ public class Player extends  Entity{
         running = true;
     }
 
+    private void jumping(){
+        if(inAir){
+            return;
+        }
+
+        inAir = true;
+        speedInAir = speedOfJump;
+    }
+
     private void resetInAir() {
         inAir = false;
         speedInAir = 0;
@@ -141,7 +166,7 @@ public class Player extends  Entity{
         if(LegalMove(hitBox.x + xMovingSpeed, hitBox.y, hitBox.width ,hitBox.height, levelData)){
             hitBox.x += xMovingSpeed;
         } else {
-            hitBox.x = EntityAndWallXPositionCollision(hitBox, xMovingSpeed);
+            hitBox.x = EntityAndWallXPositionCollision(hitBox, xMovingSpeed, numberOfPlayerTilesWidth);
         }
     }
 
@@ -229,6 +254,9 @@ public class Player extends  Entity{
     public void setRight(boolean right){
         this.right = right;
     }
+    public void setJump(boolean jump){
+        this.jump = jump;
+    }
     public boolean getUp(){
          return up;
     }
@@ -240,5 +268,8 @@ public class Player extends  Entity{
     }
     public boolean getRight(){
         return right;
+    }
+    public boolean getJump(){
+        return jump;
     }
 }

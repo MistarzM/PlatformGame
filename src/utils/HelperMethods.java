@@ -41,28 +41,37 @@ public class HelperMethods {
         return true;
     }
 
-    public static float EntityAndWallXPositionCollision(Rectangle2D.Float hitBox, float xMovingSpeed){
+    public static float EntityAndWallXPositionCollision(Rectangle2D.Float hitBox, float xMovingSpeed, int numberOfPlayerTilesWidth){
 
         int actualTile = (int) (hitBox.x / Game.TILE_SIZE);
 
-        if(xMovingSpeed < 0){       // <- left
+        if(xMovingSpeed <= 0){       // <- left
             return actualTile * Game.TILE_SIZE;
         } else {                    // -> right
             int tileXPosition = actualTile * Game.TILE_SIZE;        //  actual tile position (left-top corner of this tile)
-            int xOffset = (int)(Game.TILE_SIZE - hitBox.width);     // distance between player and the start of tile
+            int xOffset = (int)(numberOfPlayerTilesWidth * Game.TILE_SIZE - hitBox.width);     // distance between player and the start of tile
             return tileXPosition + xOffset -1;                      // we subtract one from the result because we don't want to have a character "in the wall"
         }
     }
 
-    public static float EntityAndRoofAndFloorYPositionCollision(Rectangle2D.Float hitBox, float speedInAir){
+    public static float EntityAndRoofAndFloorYPositionCollision(Rectangle2D.Float hitBox, float speedInAir, int numberOfPlayerTilesHeight){
         int actualTile = (int) (hitBox.y / Game.TILE_SIZE);
 
-        if (speedInAir < 0) {   //  jumping -> because we decrease y position, so - value
+        if (speedInAir <= 0) {   //  jumping -> because we decrease y position, so - value
             return actualTile * Game.TILE_SIZE;
         } else {                // falling -> + value, because we increase y, we are go down
             int tileYPosition = actualTile * Game.TILE_SIZE;
-            int yOffset = (int)(Game.TILE_SIZE - hitBox.height);
+            int yOffset = (int)(numberOfPlayerTilesHeight * Game.TILE_SIZE - hitBox.height);
             return tileYPosition + yOffset -1;
         }
+    }
+
+    public static boolean IsEntityOnFloor(Rectangle2D.Float hitBox, int[][] levelData){
+        if(IsLegalMovement(hitBox.x, hitBox.y + hitBox.height + 1, levelData)) {
+            if(IsLegalMovement(hitBox.x + hitBox.width, hitBox.y + hitBox.height + 1, levelData)){
+                return false;
+            }
+        }
+        return true;
     }
 }
