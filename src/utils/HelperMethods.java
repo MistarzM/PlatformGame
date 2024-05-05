@@ -2,6 +2,9 @@ package utils;
 
 import main.Game;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 public class HelperMethods {
 
     public static boolean LegalMove(float x, float y, float width, float height, int[][] levelData){        // checks if the player can move on (without object collisions)
@@ -36,5 +39,18 @@ public class HelperMethods {
         }
 
         return true;
+    }
+
+    public static float EntityAndWallXPositionCollision(Rectangle2D.Float hitBox, float xMovingSpeed){
+
+        int actualTile = (int) (hitBox.x / Game.TILE_SIZE);
+
+        if(xMovingSpeed < 0){       // <- left
+            return actualTile * Game.TILE_SIZE;
+        } else {                    // -> right
+            int tileXPosition = actualTile * Game.TILE_SIZE;        //  actual tile position (left-top corner of this tile)
+            int xOffset = (int)(Game.TILE_SIZE - hitBox.width);     // distance between player and the start of tile
+            return tileXPosition + xOffset -1;                      // we subtract one from the result because we don't want to have a character "in the wall"
+        }
     }
 }

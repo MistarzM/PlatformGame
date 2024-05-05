@@ -14,6 +14,7 @@ import static utils.Constants.Direction.*;          // import direction - moveme
 import static utils.LoadAndSave.*;
 import static main.Game.TILE_SIZE;
 import static utils.HelperMethods.LegalMove;
+import static utils.HelperMethods.EntityAndWallXPositionCollision;
 
 public class Player extends  Entity{
 
@@ -22,9 +23,17 @@ public class Player extends  Entity{
     private int animationTick, animationIndex, animationRefresh = 15;
     private int playerAction = IDLE;
     private boolean running = false, attacking = false;
-    private boolean up, left, down, right;
+    private boolean up, left, down, right, jump;
+
     private float speedOfRunning = 1.2f;
+    private float speedInAir = 0.0f;
+    private float gravity = 0.1f * Game.SCALE;
+    private float speedOfJump = -1.5f * Game.SCALE;
+    private float fallSpeedInCollisionCase = 0.5f * Game.SCALE;
+    private boolean inAir = false;
+
     private int[][] levelData;
+
     private float xPlayerHitBox = 57 * 2 * Game.SCALE;      // *2 because we increased the size of the knight(128, 64)->(256, 128)
     private float yPlayerHitBox = 18 * 2 * Game.SCALE;
     private float widthPlayerHitBox = 19 * 2 * Game.SCALE;
@@ -89,28 +98,37 @@ public class Player extends  Entity{
 
         running = false;
 
-        if(!up && !left && !down && !right){
+        if(!inAir && !left && !right){
             return;
         }
 
-        float xMovingSpeed = 0, yMovingSpeed = 0;
+        float xMovingSpeed = 0;
 
-        if(left && !right){
-            xMovingSpeed = -speedOfRunning;
-        } else if(!left && right){
-            xMovingSpeed = speedOfRunning;
+        if(left){                                   // we do not have to check left && !right because
+            xMovingSpeed -= speedOfRunning;         // if left && right => pos = speed - speed = 0
+        }
+        if(right){
+            xMovingSpeed += speedOfRunning;
         }
 
-        if(up && !down){
-            yMovingSpeed = -speedOfRunning;
-        } else if(!up && down){
-            yMovingSpeed = speedOfRunning;
+        if(inAir){
+
+        } else{
+            updateXPosition(xMovingSpeed);
         }
 
-        if(LegalMove(hitBox.x+xMovingSpeed, hitBox.y+yMovingSpeed,hitBox.width, hitBox.height, levelData)){
+        //if(LegalMove(hitBox.x+xMovingSpeed, hitBox.y+yMovingSpeed,hitBox.width, hitBox.height, levelData)){
+        //    hitBox.x += xMovingSpeed;
+        //    hitBox.y += yMovingSpeed;
+        //    running = true;
+        //}
+    }
+
+    private void updateXPosition(float xMovingSpeed) {
+        if(LegalMove(hitBox.x + xMovingSpeed, hitBox.y, hitBox.width ,hitBox.height, levelData)){
             hitBox.x += xMovingSpeed;
-            hitBox.y += yMovingSpeed;
-            running = true;
+        } else {
+            hitBox.x = EntityAndWallXPositionCollision(hitBox, xMovingSpeed);
         }
     }
 
