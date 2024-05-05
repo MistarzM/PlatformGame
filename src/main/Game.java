@@ -1,11 +1,11 @@
 package main;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.lang.Runnable;
 
-import entities.Player;
 import gamestates.GameState;
-import levels.LevelHandler;
+import gamestates.Menu;
+import gamestates.Playing;
 
 public class Game implements Runnable{
 
@@ -15,6 +15,9 @@ public class Game implements Runnable{
     private final int FPS_SET = 120;    // Frames per second -> draws the game(level, enemies)
     private final int UPS_SET = 200;    // Updates per second -> takes care of logic (events)
 
+    private Playing playing;
+    private Menu menu;
+
     public final static int TILE_INIT_SIZE = 16;
     public final static float SCALE = 1.0f;
     public final static int TILES_IN_WIDTH = 80;
@@ -23,8 +26,6 @@ public class Game implements Runnable{
     public final static int PANEL_WIDTH = TILE_SIZE * TILES_IN_WIDTH;
     public final static int PANEL_HEIGHT = TILE_SIZE * TILES_IN_HEIGHT;
 
-    private Player player;
-    private LevelHandler levelHandler;
 
     public Game(){
         initClasses();
@@ -36,9 +37,9 @@ public class Game implements Runnable{
     }
 
     private void initClasses() {
-        player = new Player(640, 176, (int) (256 * SCALE), (int) (128 * SCALE));
-        levelHandler = new LevelHandler(this);
-        player.loadLevelData(levelHandler.getLevelOne().getLevelData());
+
+        menu = new Menu(this);
+        playing = new Playing(this);
     }
 
     private void startGameLoop(){
@@ -49,11 +50,10 @@ public class Game implements Runnable{
     public void update(){
         switch (GameState.gameState){
             case PLAYING:
-                player.update();
-                levelHandler.update();
+                playing.update();
                 break;
             case MENU:
-                //menu.update();
+                menu.update();
                 break;
             default:
                 break;
@@ -63,11 +63,10 @@ public class Game implements Runnable{
     public void render(Graphics g){
         switch (GameState.gameState){
             case PLAYING:
-                levelHandler.draw(g);
-                player.render(g);
+                playing.draw(g);
                 break;
             case MENU:
-                //menu.update();
+                menu.draw(g);
                 break;
             default:
                 break;
@@ -119,10 +118,16 @@ public class Game implements Runnable{
     }
 
     public void windowFocusLost(){
-        player.resetDirectionBoolean();
+        if(GameState.gameState== GameState.PLAYING){
+            playing.getPlayer().resetDirectionBoolean();
+        }
     }
 
-    public Player getPlayer(){
-        return player;
+    public Menu getMenu(){
+        return menu;
+    }
+
+    public Playing getPlaying(){
+        return playing;
     }
 }
