@@ -30,7 +30,7 @@ public class Player extends  Entity{
     private float speedOfRunning = 1.2f;
     private float speedInAir = 0f;
     private float gravity = 0.1f * Game.SCALE;
-    private float speedOfJump = -2.5f * Game.SCALE;
+    private float speedOfJump = -4.0f * Game.SCALE;
     private float fallSpeedInCollisionCase = 0.5f * Game.SCALE;
     private boolean inAir = false;
 
@@ -85,6 +85,10 @@ public class Player extends  Entity{
             playerAction = RUN;
         } else {
             playerAction = IDLE;
+        }
+
+        if(inAir){
+            playerAction = JUMP;
         }
 
         if(attacking){
@@ -229,6 +233,9 @@ public class Player extends  Entity{
 
     public void loadLevelData(int[][] levelData){
         this.levelData = levelData;
+        if(!IsEntityOnFloor(hitBox, levelData)){
+            inAir = true;
+        }
     }
 
     public void resetDirectionBoolean(){
