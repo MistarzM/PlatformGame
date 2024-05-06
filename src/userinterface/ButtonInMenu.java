@@ -1,4 +1,4 @@
-package design;
+package userinterface;
 
 public class ButtonInMenu {
 
