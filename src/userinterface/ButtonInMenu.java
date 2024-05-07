@@ -13,7 +13,7 @@ public class ButtonInMenu {
     private int xPosition, yPosition, imageRow, index;
     private GameState gameState;
     private BufferedImage[] images;
-    private boolean mouseHover, mouseClicked;
+    private boolean mouseHover, mousePressed;
     private Rectangle buttonHitBox;
 
     public ButtonInMenu(int xPosition, int yPosition, int imageRow, GameState gameState){
@@ -48,7 +48,7 @@ public class ButtonInMenu {
         if(mouseHover){
             index = 1;
         }
-        if(mouseClicked){
+        if(mousePressed){
             index = 2;
         }
     }
@@ -56,15 +56,19 @@ public class ButtonInMenu {
     public boolean getMouseHover(){
         return mouseHover;
     }
-    public boolean getMouseClicked(){
-        return mouseClicked;
+    public boolean getMousePressed(){
+        return mousePressed;
     }
 
     public void setMouseHover(boolean mouseHover){
         this.mouseHover = mouseHover;
     }
-    public void setMouseClicked(boolean mouseClicked){
-        this.mouseClicked = mouseClicked;
+    public void setMousePressed(boolean mousePressed){
+        this.mousePressed = mousePressed;
+    }
+
+    public Rectangle getButtonHitBox(){
+        return buttonHitBox;
     }
 
     public void setGameState(){
@@ -73,6 +77,6 @@ public class ButtonInMenu {
 
     public void resetMenuButtons(){
         mouseHover = false;
-        mouseClicked = false;
+        mousePressed = false;
     }
 }

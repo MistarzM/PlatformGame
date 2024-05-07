@@ -1,6 +1,9 @@
 package gamestates;
 
 import main.Game;
+import userinterface.ButtonInMenu;
+
+import java.awt.event.MouseEvent;
 
 public class State {
 
@@ -11,5 +14,9 @@ public class State {
 
     public Game getGame(){
         return game;
+    }
+
+    public boolean cursorOnButton(MouseEvent e, ButtonInMenu b){
+        return b.getButtonHitBox().contains(e.getX(), e.getY());
     }
 }
