@@ -31,6 +31,8 @@ public class LoadAndSave {
     public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
     public static final String LEVEL_ONE_DESIGN = "/levels/level_one_design.png";
 
+    public static final String MENU_BUTTONS = "/gui/menu_buttons.png";
+
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadAndSave.class.getResourceAsStream(path);

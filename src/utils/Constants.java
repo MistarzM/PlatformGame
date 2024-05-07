@@ -1,6 +1,17 @@
 package utils;
 
+import main.Game;
+
 public class Constants {
+
+    public static class GUI {
+        public static class Buttons{
+            public static final int BUTTONS_WIDTH = 140;
+            public static final int BUTTONS_HEIGHT = 56;
+            public static final int SCALED_BUTTONS_WIDTH = BUTTONS_WIDTH * (int)(Game.SCALE);
+            public static final int SCALED_BUTTONS_HEIGHT = BUTTONS_HEIGHT  * (int)(Game.SCALE);
+        }
+    }
 
     public static class Direction{
         public static final int UP = 0;

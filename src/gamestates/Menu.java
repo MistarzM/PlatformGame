@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 
 public class Menu extends State implements StateMethods {
 
+
+
     public Menu(Game game) {
         super(game);
     }
