@@ -35,12 +35,12 @@ public class ButtonInMenu {
         BufferedImage buttonsImg = LoadAndSave.GetSpriteAtlas(LoadAndSave.MENU_BUTTONS);
 
         for(int i = 0; i < images.length; i++){
-            images[i] = buttonsImg.getSubimage(i * BUTTONS_WIDTH, imageRow * BUTTONS_HEIGHT, SCALED_BUTTONS_WIDTH, SCALED_BUTTONS_HEIGHT);
+            images[i] = buttonsImg.getSubimage(i * BUTTONS_WIDTH, imageRow * BUTTONS_HEIGHT, BUTTONS_WIDTH, BUTTONS_HEIGHT);
         }
     }
 
     public void draw(Graphics g){
-        g.drawImage(images[index], xPosition - SCALED_BUTTONS_WIDTH/2, yPosition, BUTTONS_WIDTH, BUTTONS_HEIGHT, null);
+        g.drawImage(images[index], xPosition - SCALED_BUTTONS_WIDTH/2, yPosition, SCALED_BUTTONS_WIDTH, SCALED_BUTTONS_HEIGHT, null);
     }
 
     public void update(){
