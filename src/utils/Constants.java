@@ -6,8 +6,8 @@ public class Constants {
 
     public static class GUI {
         public static class Buttons{
-            public static final int BUTTONS_WIDTH = 140;
-            public static final int BUTTONS_HEIGHT = 56;
+            public static final int BUTTONS_WIDTH = 184;
+            public static final int BUTTONS_HEIGHT = 89;
             public static final int SCALED_BUTTONS_WIDTH = BUTTONS_WIDTH * (int)(Game.SCALE);
             public static final int SCALED_BUTTONS_HEIGHT = BUTTONS_HEIGHT  * (int)(Game.SCALE);
         }
