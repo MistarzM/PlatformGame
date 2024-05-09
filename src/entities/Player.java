@@ -27,7 +27,7 @@ public class Player extends  Entity{
     private boolean running = false, attacking = false;
     private boolean up, left, down, right, jump;
 
-    private float speedOfRunning = 1.2f * Game.SCALE;
+    private float speedOfRunning = 1.4f * Game.SCALE;
     private float speedInAir = 0f;
     private float gravity = 0.1f * Game.SCALE;
     private float speedOfJump = -4.0f * Game.SCALE;

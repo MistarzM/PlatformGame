@@ -34,6 +34,9 @@ public class LoadAndSave {
     public static final String MENU_BUTTONS = "/gui/buttons.png";
     public static final String GUI_BACKGROUND = "/gui/background.png";
 
+    public static final String PAUSE_BUTTONS = "/gui/soundbuttons.png";
+    public static final String PAUSE_BACKGROUND = "/gui/pause.png";
+
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadAndSave.class.getResourceAsStream(path);

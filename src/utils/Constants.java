@@ -7,9 +7,14 @@ public class Constants {
     public static class GUI {
         public static class Buttons{
             public static final int BUTTONS_WIDTH = 184;
-            public static final int BUTTONS_HEIGHT = 89;
+            public static final int BUTTONS_HEIGHT = 90;
             public static final int SCALED_BUTTONS_WIDTH = (int)(BUTTONS_WIDTH * Game.SCALE * 0.8);
             public static final int SCALED_BUTTONS_HEIGHT = (int) (BUTTONS_HEIGHT  * Game.SCALE * 0.8);
+        }
+
+        public static class PauseButtons{
+            public static final int SOUND_SIZE = 90;
+            public static final int SCALED_SOUND_SIZE = (int)(SOUND_SIZE * Game.SCALE * 0.65);
         }
     }
 
