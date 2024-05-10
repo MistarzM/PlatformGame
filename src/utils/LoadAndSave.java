@@ -3,10 +3,14 @@ package utils;
 import main.Game;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.Color;
+import java.awt.Image;
+
+import java.net.URL;
 
 public class LoadAndSave {
 
@@ -35,6 +39,7 @@ public class LoadAndSave {
 
     public static final String MENU_BUTTONS = "/gui/buttons.png";
     public static final String GUI_BACKGROUND = "/gui/background.png";
+    public static final String MENU_BACKGROUND = "/knight/Preview.gif";
 
     public static final String PAUSE_BUTTONS = "/gui/soundbuttons.png";
     public static final String CONTROL_BUTTONS = "/gui/controlbuttons.png";
@@ -58,6 +63,19 @@ public class LoadAndSave {
         }
         return img;
     }
+
+    public static ImageIcon GetGIF(String path){
+        URL url = LoadAndSave.class.getResource(path);
+        if (url == null) {
+            System.err.println("Resource not found: " + path);
+            return null;
+        }
+        ImageIcon gif = new ImageIcon(url);
+        Image image = gif.getImage();
+        Image newImage = image.getScaledInstance((int)(gif.getIconWidth() * Game.SCALE * 2.04), (int)(gif.getIconHeight() * Game.SCALE * 2.04), Image.SCALE_DEFAULT);
+        return new ImageIcon(newImage);
+    }
+
 
     public static int[][] GetLevelData(){
 

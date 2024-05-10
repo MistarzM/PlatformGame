@@ -9,22 +9,28 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon; // for GIF in MENU
+
 public class Menu extends State implements StateMethods {
 
     private ButtonInMenu[] buttons = new ButtonInMenu[3];
     private BufferedImage backgroundMenuImage;
     private int menuXPosition, menuYPosition, menuWidth, menuHeight;
+    private ImageIcon backgroundMenuGIF;
+
 
     public Menu(Game game) {
         super(game);
         loadButtons();
         loadBackground();
+        backgroundMenuGIF = LoadAndSave.GetGIF(LoadAndSave.MENU_BACKGROUND);
+
     }
 
     private void loadButtons() {
-        buttons[0] = new ButtonInMenu(Game.PANEL_WIDTH /2, (int)(250 * Game.SCALE), 0, GameState.PLAYING);
-        buttons[1] = new ButtonInMenu(Game.PANEL_WIDTH /2, (int)(350 * Game.SCALE), 1, GameState.OPTIONS);
-        buttons[2] = new ButtonInMenu(Game.PANEL_WIDTH /2, (int)(450 * Game.SCALE), 2, GameState.QUIT);
+        buttons[0] = new ButtonInMenu(Game.PANEL_WIDTH /5, (int)(170 * Game.SCALE), 0, GameState.PLAYING);
+        buttons[1] = new ButtonInMenu(Game.PANEL_WIDTH /5, (int)(270 * Game.SCALE), 1, GameState.OPTIONS);
+        buttons[2] = new ButtonInMenu(Game.PANEL_WIDTH /5, (int)(370 * Game.SCALE), 2, GameState.QUIT);
     }
 
     private void loadBackground() {
@@ -34,8 +40,8 @@ public class Menu extends State implements StateMethods {
         menuWidth = (int) (background.getWidth()* 3 * Game.SCALE);
         menuHeight = (int) (background.getHeight()* 3 * Game.SCALE);
 
-        menuXPosition = Game.PANEL_WIDTH / 2 - menuWidth/2;
-        menuYPosition = (int) ( 130 * Game.SCALE);
+        menuXPosition = Game.PANEL_WIDTH / 5 - menuWidth/2;
+        menuYPosition = (int) ( 60 * Game.SCALE);
     }
 
     @Override
@@ -47,6 +53,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
+        backgroundMenuGIF.paintIcon(null, g, 0, 0);
 
         g.drawImage(backgroundMenuImage, menuXPosition, menuYPosition, menuWidth, menuHeight, null);
 

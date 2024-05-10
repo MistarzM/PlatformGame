@@ -83,6 +83,8 @@ public class Playing extends State implements StateMethods{
         player.render(g, xLevelOffset);
 
         if(paused) {
+            g.setColor(new Color(0, 0, 0, 128));
+            g.fillRect(0, 0, Game.PANEL_WIDTH, Game.PANEL_HEIGHT);
             pauseMenu.draw(g);
         }
     }
