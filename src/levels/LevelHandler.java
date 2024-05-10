@@ -33,7 +33,7 @@ public class LevelHandler {
     public void draw(Graphics g){
         BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
 
-        g.drawImage(img, 0, 0, PANEL_WIDTH, PANEL_HEIGHT, null);
+        g.drawImage(img, 0, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
     }
 
     public void update(){

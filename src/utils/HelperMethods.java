@@ -22,7 +22,8 @@ public class HelperMethods {
     }
 
     private static boolean IsLegalMovement(float x, float y, int[][] levelData){
-        if(x < 0 || x >= Game.PANEL_WIDTH){
+        int maxWidth = levelData[0].length * Game.TILE_SIZE;
+        if(x < 0 || x >= maxWidth){
             return false;
         }
         if(y < 0 || y >= Game.PANEL_HEIGHT){

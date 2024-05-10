@@ -23,7 +23,7 @@ public class Playing extends State implements StateMethods{
     }
 
     private void initClasses() {
-        player = new Player(640, 176, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
+        player = new Player(1028, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
         levelHandler = new LevelHandler(game);
         player.loadLevelData(levelHandler.getLevelOne().getLevelData());
         pauseMenu = new PauseMenu(this);

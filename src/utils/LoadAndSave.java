@@ -28,8 +28,10 @@ public class LoadAndSave {
 
     public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
     public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
-    public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
-    public static final String LEVEL_ONE_DESIGN = "/levels/level_one_design.png";
+    //public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
+    public static final String LEVEL_ONE_HIT_BOXES = "/levels/long_level.png";
+    //public static final String LEVEL_ONE_DESIGN = "/levels/level_one_design.png";
+    public static final String LEVEL_ONE_DESIGN = "/levels/level_long_design.png";
 
     public static final String MENU_BUTTONS = "/gui/buttons.png";
     public static final String GUI_BACKGROUND = "/gui/background.png";
@@ -58,8 +60,9 @@ public class LoadAndSave {
     }
 
     public static int[][] GetLevelData(){
-        int[][] levelData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+
         BufferedImage img = GetSpriteAtlas(LEVEL_ONE_HIT_BOXES);
+        int[][] levelData = new int[img.getHeight()][img.getWidth()];
 
         for(int j = 0; j < img.getHeight(); j++){
             for(int i = 0; i < img.getWidth(); i++){
