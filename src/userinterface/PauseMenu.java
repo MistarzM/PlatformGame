@@ -30,17 +30,17 @@ public class PauseMenu {
     }
 
     private void createVolumeButtons() {
-        int volumeX = (int)(535 * Game.SCALE);
+        int volumeX = (int)(533 * Game.SCALE);
         int volumeY = (int)(440 * Game.SCALE);
 
         volumeButton = new VolumeButton(volumeX, volumeY, SCALED_SLIDER_WIDTH, SCALED_VOLUME_HEIGHT);
     }
 
     private void createControlButtons() {
-        int menuX = (int)(500 * Game.SCALE);
-        int replayX = (int)(600 * Game.SCALE);
+        int menuX = (int)(520 * Game.SCALE);
+        int replayX = (int)(610 * Game.SCALE);
         int unpauseX = (int)(700 * Game.SCALE);
-        int controlY =  (int)(500 * Game.SCALE);
+        int controlY =  (int)(510 * Game.SCALE);
 
         unpauseButton = new ControlButton(unpauseX, controlY, SCALED_CONTROL_SIZE, SCALED_CONTROL_SIZE, 0);
         replayButton = new ControlButton(replayX, controlY, SCALED_CONTROL_SIZE, SCALED_CONTROL_SIZE, 1);

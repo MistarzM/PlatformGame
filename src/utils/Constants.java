@@ -18,7 +18,7 @@ public class Constants {
         }
 
         public static class ControlButtons{
-            public static final int CONTROL_SIZE = 56;
+            public static final int CONTROL_SIZE = 90;
             public static final int SCALED_CONTROL_SIZE = (int)(CONTROL_SIZE * Game.SCALE * 0.65);
         }
 

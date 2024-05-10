@@ -44,7 +44,7 @@ public class ControlButton extends ButtonInPauseMenu{
     }
 
     public void draw(Graphics g) {
-        g.drawImage(images[index], xPosition, yPosition, CONTROL_SIZE, CONTROL_SIZE, null);
+        g.drawImage(images[index], xPosition, yPosition, SCALED_CONTROL_SIZE, SCALED_CONTROL_SIZE, null);
     }
 
     public boolean isMouseHover() {
