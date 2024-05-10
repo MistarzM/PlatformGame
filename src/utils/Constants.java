@@ -16,6 +16,11 @@ public class Constants {
             public static final int SOUND_SIZE = 90;
             public static final int SCALED_SOUND_SIZE = (int)(SOUND_SIZE * Game.SCALE * 0.65);
         }
+
+        public static class ControlButtons{
+            public static final int CONTROL_SIZE = 56;
+            public static final int SCALED_CONTROL_SIZE = (int)(CONTROL_SIZE * Game.SCALE * 0.65);
+        }
     }
 
     public static class Direction{

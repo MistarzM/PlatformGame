@@ -14,7 +14,7 @@ public class Playing extends State implements StateMethods{
     private Player player;
     private LevelHandler levelHandler;
     private PauseMenu pauseMenu;
-    private boolean paused= true;
+    private boolean paused= false;
 
 
     public Playing(Game game) {
@@ -26,7 +26,7 @@ public class Playing extends State implements StateMethods{
         player = new Player(640, 176, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
         levelHandler = new LevelHandler(game);
         player.loadLevelData(levelHandler.getLevelOne().getLevelData());
-        pauseMenu = new PauseMenu();
+        pauseMenu = new PauseMenu(this);
     }
 
     public void windowFocusLost(){
@@ -37,12 +37,18 @@ public class Playing extends State implements StateMethods{
         return player;
     }
 
+    public void unpauseGame() {
+        paused = false;
+    }
+
     @Override
     public void update() {
-        levelHandler.update();
-        player.update();
-
-        pauseMenu.update();
+        if(paused) {
+            pauseMenu.update();
+        } else {
+            levelHandler.update();
+            player.update();
+        }
     }
 
     @Override
@@ -50,7 +56,9 @@ public class Playing extends State implements StateMethods{
         levelHandler.draw(g);
         player.render(g);
 
-        pauseMenu.draw(g);
+        if(paused) {
+            pauseMenu.draw(g);
+        }
     }
 
     @Override
@@ -101,7 +109,8 @@ public class Playing extends State implements StateMethods{
                 player.setJump(true);
                 break;
             case KeyEvent.VK_ESCAPE:
-                GameState.gameState = GameState.MENU;
+                paused = !paused;
+                break;
         }
     }
 
