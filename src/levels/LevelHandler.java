@@ -30,10 +30,10 @@ public class LevelHandler {
         levelBuildImg[1] = img.getSubimage(0, 0, 16, 16);       //white
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g, int xLevelOffset){
         BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
 
-        g.drawImage(img, 0, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
+        g.drawImage(img, -xLevelOffset, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
     }
 
     public void update(){

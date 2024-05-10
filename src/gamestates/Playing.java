@@ -4,6 +4,7 @@ import entities.Player;
 import levels.LevelHandler;
 import main.Game;
 import userinterface.PauseMenu;
+import utils.LoadAndSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,13 @@ public class Playing extends State implements StateMethods{
     private PauseMenu pauseMenu;
     private boolean paused= false;
 
+    private int xLevelOffset;
+    private int leftBorder = (int) (0.25 * Game.PANEL_WIDTH);
+    private int rightBorder = (int) (0.75 * Game.PANEL_WIDTH);
+    private int levelTilesWide = LoadAndSave.GetLevelData()[0].length;
+    private int maxTileOffset = levelTilesWide - Game.TILES_IN_WIDTH;
+    private int maxLevelOffsetX = maxTileOffset * Game.TILE_SIZE;
+
 
     public Playing(Game game) {
         super(game);
@@ -23,7 +31,7 @@ public class Playing extends State implements StateMethods{
     }
 
     private void initClasses() {
-        player = new Player(1028, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
+        player = new Player(960, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
         levelHandler = new LevelHandler(game);
         player.loadLevelData(levelHandler.getLevelOne().getLevelData());
         pauseMenu = new PauseMenu(this);
@@ -48,13 +56,31 @@ public class Playing extends State implements StateMethods{
         } else {
             levelHandler.update();
             player.update();
+            checkIfPlayerCloseToBorder();
+        }
+    }
+
+    private void checkIfPlayerCloseToBorder() {
+        int playerX = (int) (player.getHitBox().x);
+        int difference = playerX - xLevelOffset;
+
+        if(difference> rightBorder){
+            xLevelOffset += difference - rightBorder;
+        } else if (difference < leftBorder){
+            xLevelOffset += difference - leftBorder;
+        }
+
+        if(xLevelOffset > maxLevelOffsetX){
+            xLevelOffset = maxLevelOffsetX;
+        } else if (xLevelOffset < 0){
+            xLevelOffset = 0;
         }
     }
 
     @Override
     public void draw(Graphics g) {
-        levelHandler.draw(g);
-        player.render(g);
+        levelHandler.draw(g, xLevelOffset);
+        player.render(g, xLevelOffset);
 
         if(paused) {
             pauseMenu.draw(g);

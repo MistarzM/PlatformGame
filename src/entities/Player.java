@@ -59,10 +59,10 @@ public class Player extends  Entity{
         setAnimation();
     }
 
-    public void render(Graphics g){
+    public void render(Graphics g, int xPlayerOffset){
 
-        g.drawImage(knightAnimations[playerAction][animationIndex], (int)(hitBox.x - xPlayerHitBox), (int)(hitBox.y-yPlayerHitBox), width, height, null);
-        drawHitBox(g);
+        g.drawImage(knightAnimations[playerAction][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset, (int)(hitBox.y-yPlayerHitBox), width, height, null);
+        drawHitBox(g, xPlayerOffset);
     }
 
     private void UpdateAnimationTick() {

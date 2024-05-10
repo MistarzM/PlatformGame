@@ -68,7 +68,7 @@ public class LoadAndSave {
             for(int i = 0; i < img.getWidth(); i++){
                 Color color = new Color(img.getRGB(i, j));
                 int value = 1;
-                if(color.equals(Color.BLACK)){
+                if(color.equals(Color.BLACK) || color.equals(new Color(1,1,1))|| color.equals(new Color(4,4,4))|| color.equals(new Color(5,5,5))){
                     value = 0;
                 }
                 levelData[j][i] = value;

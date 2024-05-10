@@ -29,9 +29,9 @@ public abstract class Entity {
         return hitBox;
     }
 
-    protected void drawHitBox(Graphics graphics){
+    protected void drawHitBox(Graphics graphics, int xLevelOffset){
         // for testing hit boxes
         graphics.setColor(Color.red);
-        graphics.drawRect((int)hitBox.x, (int)hitBox.y, (int)hitBox.width, (int)hitBox.height);
+        graphics.drawRect((int)hitBox.x - xLevelOffset, (int)hitBox.y, (int)hitBox.width, (int)hitBox.height);
     }
 }
