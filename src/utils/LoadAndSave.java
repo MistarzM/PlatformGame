@@ -36,6 +36,7 @@ public class LoadAndSave {
 
     public static final String PAUSE_BUTTONS = "/gui/soundbuttons.png";
     public static final String CONTROL_BUTTONS = "/gui/controlbuttons.png";
+    public static final String VOLUME_BUTTONS = "/gui/volumebuttons.png";
     public static final String PAUSE_BACKGROUND = "/gui/pause.png";
 
     public static BufferedImage GetSpriteAtlas(String path){

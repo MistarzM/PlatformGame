@@ -66,6 +66,12 @@ public class Playing extends State implements StateMethods{
 
     }
 
+    public void mouseDragged(MouseEvent e) {
+        if(paused) {
+            pauseMenu.mouseDragged(e);
+        }
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
         if(paused) {

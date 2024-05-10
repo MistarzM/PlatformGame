@@ -6,6 +6,7 @@ import main.Game;
 import utils.LoadAndSave;
 import static utils.Constants.GUI.PauseButtons.*;
 import static utils.Constants.GUI.ControlButtons.*;
+import static utils.Constants.GUI.VolumeButtons.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -18,12 +19,21 @@ public class PauseMenu {
     private int pauseXPosition, pauseYPosition, pauseWidth, pauseHeight;
     private SoundButton musicButton, sfxButton;
     private ControlButton menuButton, replayButton, unpauseButton;
+    private VolumeButton volumeButton;
 
     public PauseMenu(Playing playing) {
         this.playing = playing;
         loadBackground();
         createSoundButtons();
         createControlButtons();
+        createVolumeButtons();
+    }
+
+    private void createVolumeButtons() {
+        int volumeX = (int)(535 * Game.SCALE);
+        int volumeY = (int)(440 * Game.SCALE);
+
+        volumeButton = new VolumeButton(volumeX, volumeY, SCALED_SLIDER_WIDTH, SCALED_VOLUME_HEIGHT);
     }
 
     private void createControlButtons() {
@@ -63,6 +73,8 @@ public class PauseMenu {
         unpauseButton.update();
         replayButton.update();
         menuButton.update();
+
+        volumeButton.update();
     }
 
     public void draw(Graphics g) {
@@ -77,6 +89,9 @@ public class PauseMenu {
         unpauseButton.draw(g);
         replayButton.draw(g);
         menuButton.draw(g);
+
+        //Volume buttons
+        volumeButton.draw(g);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -90,6 +105,8 @@ public class PauseMenu {
             replayButton.setMousePressed(true);
         } else if (isIn(e, menuButton)) {
             menuButton.setMousePressed(true);
+        } else if (isIn(e, volumeButton)) {
+            volumeButton.setMousePressed(true);
         }
     }
 
@@ -123,6 +140,7 @@ public class PauseMenu {
         unpauseButton.resetButtons();
         replayButton.resetButtons();
         menuButton.resetButtons();
+        volumeButton.resetButtons();
     }
 
     public void mouseMoves(MouseEvent e) {
@@ -133,23 +151,27 @@ public class PauseMenu {
         replayButton.setMouseHover(false);
         menuButton.setMouseHover(false);
 
+        volumeButton.setMouseHover(false);
+
         if(isIn(e, musicButton)) {
             musicButton.setMouseHover(true);
         } else if (isIn(e, sfxButton)) {
             sfxButton.setMouseHover(true);
         } else if (isIn(e, unpauseButton)) {
             unpauseButton.setMouseHover(true);
-        }
-        else if (isIn(e, replayButton)) {
+        } else if (isIn(e, replayButton)) {
             replayButton.setMouseHover(true);
-        }
-        else if (isIn(e, menuButton)) {
+        } else if (isIn(e, menuButton)) {
             menuButton.setMouseHover(true);
+        }  else if (isIn(e, volumeButton)) {
+            volumeButton.setMouseHover(true);
         }
     }
 
     public void mouseDragged(MouseEvent e) {
-
+        if(volumeButton.isMousePressed()) {
+            volumeButton.changeX(e.getX());
+        }
     }
 
     private boolean isIn(MouseEvent e, ButtonInPauseMenu b) {
