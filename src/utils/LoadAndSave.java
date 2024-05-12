@@ -48,6 +48,7 @@ public class LoadAndSave {
     public static final String PAUSE_BACKGROUND = "/gui/pause.png";
 
     public static final double MENU_GIF_SCALE = 2.04;
+    public static final double BACKGROUND_GIF_SCALE = 1.20;
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
