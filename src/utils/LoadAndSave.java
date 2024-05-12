@@ -36,6 +36,7 @@ public class LoadAndSave {
     public static final String LEVEL_ONE_HIT_BOXES = "/levels/long_level.png";
     //public static final String LEVEL_ONE_DESIGN = "/levels/level_one_design.png";
     public static final String LEVEL_ONE_DESIGN = "/levels/level_long_design.png";
+    public static final String LEVEL_ONE_BACKGROUND_GIF = "/levels/background.gif";
 
     public static final String MENU_BUTTONS = "/gui/buttons.png";
     public static final String GUI_BACKGROUND = "/gui/background.png";
@@ -45,6 +46,8 @@ public class LoadAndSave {
     public static final String CONTROL_BUTTONS = "/gui/controlbuttons.png";
     public static final String VOLUME_BUTTONS = "/gui/volumebuttons.png";
     public static final String PAUSE_BACKGROUND = "/gui/pause.png";
+
+    public static final double MENU_GIF_SCALE = 2.04;
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
@@ -64,7 +67,7 @@ public class LoadAndSave {
         return img;
     }
 
-    public static ImageIcon GetGIF(String path){
+    public static ImageIcon GetGIF(String path, double scale){
         URL url = LoadAndSave.class.getResource(path);
         if (url == null) {
             System.err.println("Resource not found: " + path);
@@ -72,7 +75,7 @@ public class LoadAndSave {
         }
         ImageIcon gif = new ImageIcon(url);
         Image image = gif.getImage();
-        Image newImage = image.getScaledInstance((int)(gif.getIconWidth() * Game.SCALE * 2.04), (int)(gif.getIconHeight() * Game.SCALE * 2.04), Image.SCALE_DEFAULT);
+        Image newImage = image.getScaledInstance((int)(gif.getIconWidth() * Game.SCALE * scale), (int)(gif.getIconHeight() * Game.SCALE * scale), Image.SCALE_DEFAULT);
         return new ImageIcon(newImage);
     }
 

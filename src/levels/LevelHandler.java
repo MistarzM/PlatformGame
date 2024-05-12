@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import main.Game;
 import utils.LoadAndSave;
 
+import javax.swing.*;
+
 import static main.Game.*;
 
 public class LevelHandler {
@@ -13,11 +15,13 @@ public class LevelHandler {
     private Game game;
     private BufferedImage[] levelBuildImg;
     private Level levelOne;
+    private ImageIcon levelOneBackgroundGIF;
 
     public LevelHandler(Game game){
         this.game = game;
         importLevelBuildSprites();
         levelOne = new Level(LoadAndSave.GetLevelData());
+        levelOneBackgroundGIF = LoadAndSave.GetGIF(LoadAndSave.LEVEL_ONE_BACKGROUND_GIF, 2.0/3.0);
     }
 
     private void importLevelBuildSprites() {            // !!!to replace -> important -> create design for hit boxes -> level_one_hitBoxes.png
@@ -31,9 +35,9 @@ public class LevelHandler {
     }
 
     public void draw(Graphics g, int xLevelOffset){
-        BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
-
-        g.drawImage(img, -xLevelOffset, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
+        //BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
+        levelOneBackgroundGIF.paintIcon(null, g, 0, 0);
+        //g.drawImage(img, -xLevelOffset, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
     }
 
     public void update(){

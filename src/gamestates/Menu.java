@@ -23,7 +23,7 @@ public class Menu extends State implements StateMethods {
         super(game);
         loadButtons();
         loadBackground();
-        backgroundMenuGIF = LoadAndSave.GetGIF(LoadAndSave.MENU_BACKGROUND);
+        backgroundMenuGIF = LoadAndSave.GetGIF(LoadAndSave.MENU_BACKGROUND, LoadAndSave.MENU_GIF_SCALE);
 
     }
 
