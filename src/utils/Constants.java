@@ -8,8 +8,9 @@ public class Constants {
         public static final int BOSS = 0;
 
         public static final int IDLE = 0;
-        public static final int ATTACK = 1;
-        public static final int ATTACK_NO_BREATH = 2;
+        public static final int RUNNING = 1;
+        public static final int ATTACK = 2;
+        public static final int ATTACK_NO_BREATH = 3;
 
         public static final int BOSS_WIDTH_DEFAULT = 160;
         public static final int BOSS_HEIGHT_DEFAULT = 144;
@@ -17,12 +18,19 @@ public class Constants {
         public static final int BOSS_WIDTH = (int)(BOSS_WIDTH_DEFAULT * 1.5 *  Game.SCALE);
         public static final int BOSS_HEIGHT = (int)(BOSS_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
 
+        public static final int BOSS_DRAW_OFFSET_X  = (int)(39 * 1.5 * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_Y  = (int)(45 * 1.5 * Game.SCALE);
+
+        public static final int NUMBER_OF_BOSS_TILES_WIDTH = 5;
+        public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 8;
+
         public static final int GetSpriteAmount(int enemyType, int enemyState) {
 
             switch (enemyType){
                 case BOSS:
                     switch(enemyState){
                         case IDLE:
+                        case RUNNING:
                             return 6;
                         case ATTACK:
                             return 11;

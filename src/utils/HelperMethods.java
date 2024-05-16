@@ -75,4 +75,8 @@ public class HelperMethods {
         }
         return true;
     }
+
+    public static boolean IsFloor(Rectangle2D.Float hitBox, float xSpeed, int[][] levelData){
+        return !IsLegalMovement(hitBox.x + xSpeed, hitBox.y + hitBox.height + 1, levelData);
+    }
 }

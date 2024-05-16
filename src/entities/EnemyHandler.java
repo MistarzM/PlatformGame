@@ -26,24 +26,32 @@ public class EnemyHandler {
         System.out.println("size of bosses: " + bosses.size());
     }
 
-    public void update(){
+    public void update(int[][] levelData){
         for(Boss b : bosses){
-            b.update();
+            b.update(levelData);
         }
     }
 
     public void draw(Graphics g, int xLevelOffset){
         drawBoss(g, xLevelOffset);
+        drawHitBox(g, xLevelOffset);
     }
 
     private void drawBoss(Graphics g, int xLevelOffset) {
         for(Boss b : bosses){
-            g.drawImage(bossAnimations[b.getEnemyState()][b.getAnimationIndex()], (int)(b.getHitBox().x) - xLevelOffset , (int)(b.getHitBox().y), BOSS_WIDTH, BOSS_HEIGHT,null);
+            g.drawImage(bossAnimations[b.getEnemyState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X, (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y, BOSS_WIDTH, BOSS_HEIGHT,null);
+        }
+    }
+    protected void drawHitBox(Graphics graphics, int xLevelOffset){
+        // for testing hit boxes
+        graphics.setColor(Color.red);
+        for(Boss b : bosses) {
+            graphics.drawRect((int)b.getHitBox().x - xLevelOffset, (int)b.getHitBox().y, (int)b.getHitBox().width, (int)b.getHitBox().height);
         }
     }
 
     private void loadEnemyImages() {
-        bossAnimations = new BufferedImage[3][11];
+        bossAnimations = new BufferedImage[4][11];
 
         BufferedImage temp_idle = LoadAndSave.GetSpriteAtlas(LoadAndSave.BOSS_IDLE);
         BufferedImage temp_attack = LoadAndSave.GetSpriteAtlas(LoadAndSave.BOSS_ATTACK);
@@ -52,6 +60,7 @@ public class EnemyHandler {
         for(int i = 0; i < bossAnimations[0].length; i++){
             if(i<6){
                 bossAnimations[IDLE][i] = temp_idle.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
+                bossAnimations[RUNNING][i] = temp_idle.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
             }
             if(i<11){
                 bossAnimations[ATTACK][i] = temp_attack.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);

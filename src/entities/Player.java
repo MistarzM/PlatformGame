@@ -195,7 +195,7 @@ public class Player extends  Entity{
         BufferedImage crouchAttackImg   = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_CROUCH_ATTACK);
 
         knightAnimations = new BufferedImage[22][12];
-        for (int i = 0; i < knightAnimations[i].length; i++) {
+        for (int i = 0; i < knightAnimations[0].length; i++) {
             if (i < 8) {
                 knightAnimations[IDLE][i] = idleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
                 knightAnimations[CROUCH_IDLE][i] = crouchIdleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
