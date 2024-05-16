@@ -26,16 +26,23 @@ public class EnemyHandler {
     private void addEnemies() {
         bosses = LoadAndSave.GetBoss();
         System.out.println("size of bosses: " + bosses.size());
+
+        skeletonsSword = LoadAndSave.GetSkeletonSword();
+        System.out.println("size of skeleton: " + skeletonsSword.size());
     }
 
     public void update(int[][] levelData){
         for(Boss b : bosses){
             b.update(levelData);
         }
+        for(SkeletonSword s : skeletonsSword){
+            s.update(levelData);
+        }
     }
 
     public void draw(Graphics g, int xLevelOffset){
         drawBoss(g, xLevelOffset);
+        drawSkeletonSword(g, xLevelOffset);
         drawHitBox(g, xLevelOffset);
     }
 
@@ -44,11 +51,21 @@ public class EnemyHandler {
             g.drawImage(bossAnimations[b.getEnemyState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X, (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y , BOSS_WIDTH, BOSS_HEIGHT,null);
         }
     }
+
+    private void drawSkeletonSword(Graphics g, int xLevelOffset){
+        for(SkeletonSword s : skeletonsSword){
+            g.drawImage(skeletonSwordAnimations[s.getEnemyState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X, (int)s.getHitBox().y - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH, SKELETON_SWORD_HEIGHT,null );
+        }
+    }
+
     protected void drawHitBox(Graphics graphics, int xLevelOffset){
         // for testing hit boxes
         graphics.setColor(Color.red);
         for(Boss b : bosses) {
             graphics.drawRect((int)b.getHitBox().x - xLevelOffset, (int)b.getHitBox().y, (int)b.getHitBox().width, (int)b.getHitBox().height);
+        }
+        for(SkeletonSword s : skeletonsSword){
+            graphics.drawRect((int)s.getHitBox().x - xLevelOffset, (int)s.getHitBox().y, (int)s.getHitBox().width, (int)s.getHitBox().height);
         }
     }
 

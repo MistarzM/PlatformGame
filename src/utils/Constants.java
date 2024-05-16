@@ -43,7 +43,7 @@ public class Constants {
         public static final int SKELETON_SWORD_WIDTH = (int)(SKELETON_SWORD_WIDTH_DEFAULT * 1.5 *  Game.SCALE);
         public static final int SKELETON_SWORD_HEIGHT = (int)(SKELETON_SWORD_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
 
-        public static final int SKELETON_SWORD_DRAW_OFFSET_X  = (int)(4 * 1.5 * Game.SCALE);
+        public static final int SKELETON_SWORD_DRAW_OFFSET_X  = (int)(36 * 1.5 * Game.SCALE);
         public static final int SKELETON_SWORD_DRAW_OFFSET_Y  = (int)(37 * 1.5 * Game.SCALE);
 
         public static final int NUMBER_OF_SKELETON_SWORD_TILES_WIDTH = 2;
