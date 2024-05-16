@@ -1,5 +1,6 @@
 package utils;
 
+import entities.Boss;
 import main.Game;
 
 import javax.imageio.ImageIO;
@@ -11,6 +12,9 @@ import java.awt.Color;
 import java.awt.Image;
 
 import java.net.URL;
+import java.util.ArrayList;
+
+import static utils.Constants.EnemyConstants.*;
 
 public class LoadAndSave {
 
@@ -91,6 +95,20 @@ public class LoadAndSave {
         return new ImageIcon(newImage);
     }
 
+
+    public static ArrayList<Boss> GetBoss(){
+        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_HIT_BOXES);
+        ArrayList<Boss> list = new ArrayList<>();
+        for(int j = 0; j < img.getHeight(); j++){
+            for(int i = 0; i < img.getWidth(); i++){
+                Color color = new Color(img.getRGB(i, j));
+                if(color.equals(Color.red)){
+                    list.add(new Boss(i * Game.TILE_SIZE, j * Game.TILE_SIZE));
+                }
+            }
+        }
+        return list;
+    }
 
     public static int[][] GetLevelData(){
 

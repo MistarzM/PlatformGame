@@ -14,8 +14,8 @@ public class Constants {
         public static final int BOSS_WIDTH_DEFAULT = 160;
         public static final int BOSS_HEIGHT_DEFAULT = 144;
 
-        public static final int BOSS_WIDTH = (int)(BOSS_WIDTH_DEFAULT * Game.SCALE);
-        public static final int BOSS_HEIGHT = (int)(BOSS_HEIGHT_DEFAULT * Game.SCALE);
+        public static final int BOSS_WIDTH = (int)(BOSS_WIDTH_DEFAULT * 1.5 *  Game.SCALE);
+        public static final int BOSS_HEIGHT = (int)(BOSS_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
 
         public static final int GetSpriteAmount(int enemyType, int enemyState) {
 

@@ -1,5 +1,6 @@
 package gamestates;
 
+import entities.EnemyHandler;
 import entities.Player;
 import levels.LevelHandler;
 import main.Game;
@@ -14,6 +15,7 @@ public class Playing extends State implements StateMethods{
 
     private Player player;
     private LevelHandler levelHandler;
+    private EnemyHandler enemyHandler;
     private PauseMenu pauseMenu;
     private boolean paused= false;
 
@@ -33,6 +35,7 @@ public class Playing extends State implements StateMethods{
     private void initClasses() {
         player = new Player(960, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
         levelHandler = new LevelHandler(game);
+        enemyHandler = new EnemyHandler(this);
         player.loadLevelData(levelHandler.getLevelOne().getLevelData());
         pauseMenu = new PauseMenu(this);
     }
@@ -56,6 +59,7 @@ public class Playing extends State implements StateMethods{
         } else {
             levelHandler.update();
             player.update();
+            enemyHandler.update();
             checkIfPlayerCloseToBorder();
         }
     }
@@ -81,6 +85,7 @@ public class Playing extends State implements StateMethods{
     public void draw(Graphics g) {
         levelHandler.draw(g, xLevelOffset);
         player.render(g, xLevelOffset);
+        enemyHandler.draw(g, xLevelOffset);
 
         if(paused) {
             g.setColor(new Color(0, 0, 0, 128));
