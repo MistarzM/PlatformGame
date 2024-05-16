@@ -4,6 +4,37 @@ import main.Game;
 
 public class Constants {
 
+    public static class EnemyConstants{
+        public static final int BOSS = 0;
+
+        public static final int IDLE = 0;
+        public static final int ATTACK = 1;
+        public static final int ATTACK_NO_BREATH = 2;
+
+        public static final int BOSS_WIDTH_DEFAULT = 160;
+        public static final int BOSS_HEIGHT_DEFAULT = 144;
+
+        public static final int BOSS_WIDTH = (int)(BOSS_WIDTH_DEFAULT * Game.SCALE);
+        public static final int BOSS_HEIGHT = (int)(BOSS_HEIGHT_DEFAULT * Game.SCALE);
+
+        public static final int GetSpriteAmount(int enemyType, int enemyState) {
+
+            switch (enemyType){
+                case BOSS:
+                    switch(enemyState){
+                        case IDLE:
+                            return 6;
+                        case ATTACK:
+                            return 11;
+                        case ATTACK_NO_BREATH:
+                            return 8;
+                    }
+
+            }
+            return 0;
+        }
+    }
+
     public static class GUI {
         public static class Buttons{
             public static final int BUTTONS_WIDTH = 184;
