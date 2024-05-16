@@ -35,7 +35,7 @@ public class LoadAndSave {
     //public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
     public static final String LEVEL_ONE_HIT_BOXES = "/levels/long_level.png";
     //public static final String LEVEL_ONE_DESIGN = "/levels/level_one_design.png";
-    public static final String LEVEL_ONE_DESIGN = "/levels/level_long_design.png";
+    public static final String LEVEL_ONE_DESIGN = "/levels/long_level_design.png";
     public static final String LEVEL_ONE_BACKGROUND_GIF = "/levels/background.gif";
 
     public static final String MENU_BUTTONS = "/gui/buttons.png";
@@ -49,6 +49,17 @@ public class LoadAndSave {
 
     public static final double MENU_GIF_SCALE = 2.04;
     public static final double BACKGROUND_GIF_SCALE = 0.66;
+
+    // boss
+    public static final String BOSS_BREATH = "/boss/breath.png";
+    public static final String BOSS_BREATH_FIRE = "/boss/breath-fire.png";
+    public static final String BOSS_ATTACK = "/boss/demon-attack.png";
+    public static final String BOSS_ATTACK_NO_BREATH = "/boss/demon-attack-no-breath.png";
+    public static final String BOSS_IDLE = "/boss/demon-idle.png";
+    public static final String BOSS_NIGHTMARE_GALLOPING = "/boss/nightmare-galloping.png";
+    public static final String BOSS_NIGHTMARE_IDLE= "/boss/nightmare-idle.png";
+
+
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;

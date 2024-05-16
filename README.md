@@ -29,3 +29,15 @@ A Licence does not allow the Purchaser to:
 (e) Resell it, original or modified; Credit is not required but appreciated.
 
 Credit is not required but appreciated.
+
+### Gothicvania Patreon Collection
+
+The game also uses the gothicvania patreon collection asset pack.
+
+#### License
+
+Artwork created by Luis Zuno @ansimuz
+
+This is an old collection (2016-17) of Pixel Art Assets from my patreon page https://www.patreon.com/ansimuz
+
+License for Everyone. 

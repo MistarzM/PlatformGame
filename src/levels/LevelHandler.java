@@ -35,11 +35,11 @@ public class LevelHandler {
     }
 
     public void draw(Graphics g, int xLevelOffset){
-//      BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
+        BufferedImage img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_ONE_DESIGN);
         g.setColor(new Color(25, 33, 40, 255));
         g.fillRect(0, 0, 1920, 1080);
         levelOneBackgroundGIF.paintIcon(null, g, 0, 0);
-//      g.drawImage(img, -xLevelOffset, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
+        g.drawImage(img, -xLevelOffset, 0, (int)(img.getWidth()* Game.SCALE), (int)(img.getHeight() * SCALE), null);
     }
 
     public void update(){
