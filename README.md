@@ -40,4 +40,14 @@ Artwork created by Luis Zuno @ansimuz
 
 This is an old collection (2016-17) of Pixel Art Assets from my patreon page https://www.patreon.com/ansimuz
 
-License for Everyone. 
+License for Everyone.
+
+### HeroandOpponents_v1
+
+The game also uses the HeroandOpponents_v1 asset pack.
+
+#### License
+
+Created by Szadzi art.
+
+You can edit, change but not sell asset content. Use of content for personal and commercial use.

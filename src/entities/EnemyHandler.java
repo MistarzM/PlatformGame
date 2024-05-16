@@ -39,7 +39,7 @@ public class EnemyHandler {
 
     private void drawBoss(Graphics g, int xLevelOffset) {
         for(Boss b : bosses){
-            g.drawImage(bossAnimations[b.getEnemyState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X, (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y, BOSS_WIDTH, BOSS_HEIGHT,null);
+            g.drawImage(bossAnimations[b.getEnemyState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X, (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y , BOSS_WIDTH, BOSS_HEIGHT,null);
         }
     }
     protected void drawHitBox(Graphics graphics, int xLevelOffset){
