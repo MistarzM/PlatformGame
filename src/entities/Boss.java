@@ -27,10 +27,10 @@ public class Boss extends Enemy{
             updateInAir(levelData);
         } else {
             switch(enemyState) {
-                case IDLE:
-                    enemyState = RUNNING;
+                case BOSS_IDLE:
+                    enemyState = BOSS_FLYING;
                     break;
-                case RUNNING:
+                case BOSS_FLYING:
                   updateMovement(levelData);
 
                     break;

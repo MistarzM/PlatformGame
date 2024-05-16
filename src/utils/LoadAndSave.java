@@ -63,7 +63,14 @@ public class LoadAndSave {
     public static final String BOSS_NIGHTMARE_GALLOPING = "/boss/nightmare-galloping.png";
     public static final String BOSS_NIGHTMARE_IDLE= "/boss/nightmare-idle.png";
 
-
+    //skeleton_sword
+    public static final String[] SKELETON_SWORD_ATTACK1 = {"/skeleton_sword/attack-A1.png", "/skeleton_sword/attack-A2.png", "/skeleton_sword/attack-A3.png", "/skeleton_sword/attack-A4.png","/skeleton_sword/attack-A5.png", "/skeleton_sword/attack-A6.png", "/skeleton_sword/attack-A7.png", "/skeleton_sword/attack-A8.png"};
+    public static final String[] SKELETON_SWORD_ATTACK2 = {"/skeleton_sword/attack-B1.png", "/skeleton_sword/attack-B2.png", "/skeleton_sword/attack-B3.png", "/skeleton_sword/attack-B4.png","/skeleton_sword/attack-B5.png", "/skeleton_sword/attack-B6.png", "/skeleton_sword/attack-B7.png", "/skeleton_sword/attack-B8.png", "/skeleton_sword/attack-B9.png", "/skeleton_sword/attack-B10.png", "/skeleton_sword/attack-B11.png"};
+    public static final String[] SKELETON_SWORD_DEAD = {"/skeleton_sword/dead-1.png", "/skeleton_sword/dead-2.png","/skeleton_sword/dead-3.png","/skeleton_sword/dead-4.png"};
+    public static final String[] SKELETON_SWORD_HIT =  {"/skeleton_sword/hit-1.png", "/skeleton_sword/hit-2.png","/skeleton_sword/hit-3.png"};
+    public static final String[] SKELETON_SWORD_IDLE = {"/skeleton_sword/idle-1.png", "/skeleton_sword/idle-2.png","/skeleton_sword/idle-3.png","/skeleton_sword/idle-4.png"};
+    public static final String[] SKELETON_SWORD_JUMP = {"/skeleton_sword/jump-1.png", "/skeleton_sword/jump-2.png","/skeleton_sword/jump-3.png","/skeleton_sword/jump-4.png", "/skeleton_sword/jump-5.png","/skeleton_sword/jump-6.png"};
+    public static final String[] SKELETON_SWORD_WALK = {"/skeleton_sword/walk-1.png", "/skeleton_sword/walk-2.png","/skeleton_sword/walk-3.png","/skeleton_sword/walk-4.png", "/skeleton_sword/walk-5.png","/skeleton_sword/walk-6.png"};
 
     public static BufferedImage GetSpriteAtlas(String path){
         BufferedImage img = null;
@@ -78,6 +85,25 @@ public class LoadAndSave {
                 is.close();
             } catch (IOException e){
                 e.printStackTrace();
+            }
+        }
+        return img;
+    }
+
+    public static BufferedImage[] GetSpriteAtlas(String[] path){
+        BufferedImage[] img = new BufferedImage[path.length];
+        for(int i = 0; i < path.length; i++){
+            InputStream is = LoadAndSave.class.getResourceAsStream(path[i]);
+            try{
+                img[i] = ImageIO.read(is);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return img;

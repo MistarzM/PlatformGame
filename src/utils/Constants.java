@@ -5,12 +5,14 @@ import main.Game;
 public class Constants {
 
     public static class EnemyConstants{
+
+        // boss
         public static final int BOSS = 0;
 
-        public static final int IDLE = 0;
-        public static final int RUNNING = 1;
-        public static final int ATTACK = 2;
-        public static final int ATTACK_NO_BREATH = 3;
+        public static final int BOSS_IDLE = 0;
+        public static final int BOSS_FLYING = 1;
+        public static final int BOSS_ATTACK = 2;
+        public static final int BOSS_ATTACK_NO_BREATH = 3;
 
         public static final int BOSS_WIDTH_DEFAULT = 160;
         public static final int BOSS_HEIGHT_DEFAULT = 144;
@@ -24,18 +26,57 @@ public class Constants {
         public static final int NUMBER_OF_BOSS_TILES_WIDTH = 5;
         public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 8;
 
+        // skeleton sword
+        public static final int SKELETON_SWORD = 1;
+
+        public static final int SKELETON_SWORD_IDLE = 0;
+        public static final int SKELETON_SWORD_WALK = 1;
+        public static final int SKELETON_SWORD_JUMP = 2;
+        public static final int SKELETON_SWORD_HIT = 3;
+        public static final int SKELETON_SWORD_DEAD = 4;
+        public static final int SKELETON_SWORD_ATTACK_1 = 5;
+        public static final int SKELETON_SWORD_ATTACK_2 = 6;
+
+        public static final int SKELETON_SWORD_WIDTH_DEFAULT = 128;
+        public static final int SKELETON_SWORD_HEIGHT_DEFAULT = 96;
+
+        public static final int SKELETON_SWORD_WIDTH = (int)(SKELETON_SWORD_WIDTH_DEFAULT * 1.5 *  Game.SCALE);
+        public static final int SKELETON_SWORD_HEIGHT = (int)(SKELETON_SWORD_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
+
+        public static final int SKELETON_SWORD_DRAW_OFFSET_X  = (int)(4 * 1.5 * Game.SCALE);
+        public static final int SKELETON_SWORD_DRAW_OFFSET_Y  = (int)(37 * 1.5 * Game.SCALE);
+
+        public static final int NUMBER_OF_SKELETON_SWORD_TILES_WIDTH = 2;
+        public static final int NUMBER_OF_SKELETON_SWORD_TILES_HEIGHT = 6;
+
+
         public static final int GetSpriteAmount(int enemyType, int enemyState) {
 
             switch (enemyType){
                 case BOSS:
                     switch(enemyState){
-                        case IDLE:
-                        case RUNNING:
+                        case BOSS_IDLE:
+                        case BOSS_FLYING:
                             return 6;
-                        case ATTACK:
+                        case BOSS_ATTACK:
                             return 11;
-                        case ATTACK_NO_BREATH:
+                        case BOSS_ATTACK_NO_BREATH:
                             return 8;
+                    }
+                case SKELETON_SWORD:
+                    switch(enemyState){
+                        case SKELETON_SWORD_IDLE:
+                        case SKELETON_SWORD_DEAD:
+                            return 4;
+                        case SKELETON_SWORD_JUMP:
+                        case SKELETON_SWORD_WALK:
+                            return 6;
+                        case SKELETON_SWORD_HIT:
+                            return 3;
+                        case SKELETON_SWORD_ATTACK_1:
+                            return 8;
+                        case SKELETON_SWORD_ATTACK_2:
+                            return 11;
                     }
 
             }
