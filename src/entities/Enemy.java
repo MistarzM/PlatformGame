@@ -90,12 +90,17 @@ public abstract class Enemy extends Entity{
 
     protected boolean playerDetected(int[][] levelData, Player player){
             int playerTileY = (int)(player.getHitBox().y / Game.TILE_SIZE);
-            if(playerTileY == enemyTileY){
-               if(playerInPatrolRange(player)){
-                   if(NoObstaclesBetween(levelData, hitBox, player.hitBox, enemyTileY)){
-                       return true;
-                   }
-               }
+            for(int i = 0; i < 6 ;i++) {                                    // player height(6 tiles) check
+                for(int j = 0; j < numberOfEnemyTilesHeight; j++) {         // enemy height (all tiles) check
+                    if (playerTileY + i == enemyTileY + j) {
+                        if (playerInPatrolRange(player)) {
+                            if (NoObstaclesBetween(levelData, hitBox, player.hitBox, enemyTileY + j)) {
+                                //System.out.println("detected");
+                                return true;
+                            }
+                        }
+                    }
+                }
             }
             return false;
     }
