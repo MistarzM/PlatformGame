@@ -45,6 +45,13 @@ public class Player extends  Entity{
     private int numberOfPlayerTilesWidth = 3;    // because 38 < 16 (Tile_size) * 3 => 38 < 48
     private int numberOfPlayerTilesHeight = 6;   // because 91 < 16 (Tile_size) * 6 => 91 < 96
 
+    // health bar
+    private BufferedImage[] healthBar;
+
+    private int healthBarWidth = (int) (64 * 4 * Game.SCALE);
+    private int healthBarHeight = (int) (16 * 4 * Game.SCALE);
+    private int healthBarX = (int) (32 * Game.SCALE);
+    private int healthBarY = (int) (32 * Game.SCALE);
 
     public Player(float x, float y, int width, int height){
         super(x, y, width, height);
@@ -63,6 +70,11 @@ public class Player extends  Entity{
 
         g.drawImage(knightAnimations[playerAction][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset, (int)(hitBox.y-yPlayerHitBox), width, height, null);
         drawHitBox(g, xPlayerOffset);
+        drawHealthBar(g);
+    }
+
+    private void drawHealthBar(Graphics g) {
+        g.drawImage(healthBar[0], healthBarX, healthBarY, healthBarWidth, healthBarHeight, null);
     }
 
     private void UpdateAnimationTick() {
@@ -194,7 +206,11 @@ public class Player extends  Entity{
         BufferedImage airAttackImg      = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_AIR_ATTACK);
         BufferedImage crouchAttackImg   = LoadAndSave.GetSpriteAtlas(LoadAndSave.KNIGHT_CROUCH_ATTACK);
 
+        BufferedImage healthBarImg      = LoadAndSave.GetSpriteAtlas(LoadAndSave.HEALTH_BAR_MEDIUM_DAMAGE);
+
         knightAnimations = new BufferedImage[22][12];
+        healthBar = new BufferedImage[26];
+
         for (int i = 0; i < knightAnimations[0].length; i++) {
             if (i < 8) {
                 knightAnimations[IDLE][i] = idleImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
@@ -230,6 +246,10 @@ public class Player extends  Entity{
                 knightAnimations[CROUCH_ATTACK][i] = crouchAttackImg.getSubimage((i % 2) * 128, (i / 2) * 64, 128, 64);
             }
             knightAnimations[PRAY][i] = prayImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
+        }
+
+        for(int i = 0; i < healthBar.length; i++){
+            healthBar[i] = healthBarImg.getSubimage(0, i * 16, 64, 16);
         }
     }
 

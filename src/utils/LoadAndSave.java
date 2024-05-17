@@ -35,6 +35,8 @@ public class LoadAndSave {
     public static final String KNIGHT_AIR_ATTACK = "/knight/attack_from_air.png";
     public static final String KNIGHT_CROUCH_ATTACK = "/knight/crouch_attacks.png";
 
+    public static final String HEALTH_BAR_MEDIUM_DAMAGE = "/gui/MediumDamage-Sheet.png";
+
     public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
     public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
     //public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
