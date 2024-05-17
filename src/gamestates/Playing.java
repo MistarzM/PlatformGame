@@ -81,6 +81,10 @@ public class Playing extends State implements StateMethods{
         }
     }
 
+    public void resetAll(){
+
+    }
+
     @Override
     public void draw(Graphics g) {
         levelHandler.draw(g, xLevelOffset);
