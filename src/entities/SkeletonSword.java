@@ -3,7 +3,7 @@ package entities;
 import main.Game;
 
 import static utils.Constants.EnemyConstants.*;
-import static utils.Constants.EnemyConstants.BOSS_FLYING;
+import static utils.Constants.Direction.*;
 
 public class SkeletonSword extends Enemy {
 
@@ -42,6 +42,22 @@ public class SkeletonSword extends Enemy {
 
                     break;
             }
+        }
+    }
+
+    public int flipX(){
+        if(walkingDirection == RIGHT){
+            return 0;
+        } else {
+            return width - 4 * Game.TILE_SIZE;
+        }
+    }
+
+    public int flipW(){
+        if(walkingDirection == RIGHT){
+            return 1;
+        } else {
+            return -1;
         }
     }
 

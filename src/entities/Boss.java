@@ -2,7 +2,7 @@ package entities;
 
 import main.Game;
 
-import static utils.Constants.Direction.LEFT;
+import static utils.Constants.Direction.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.HelperMethods.*;
 
@@ -43,6 +43,22 @@ public class Boss extends Enemy{
 
                     break;
             }
+        }
+    }
+
+    public int flipX(){
+        if(walkingDirection == RIGHT){
+            return width - 3 * Game.TILE_SIZE;
+        } else {
+            return 0;
+        }
+    }
+
+    public int flipW(){
+        if(walkingDirection == RIGHT){
+            return -1;
+        } else {
+            return 1;
         }
     }
 
