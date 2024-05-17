@@ -13,12 +13,12 @@ public class Boss extends Enemy{
         initHitBox(x, y, (int)(50 * 1.5 * Game.SCALE), (int)(78 * 1.5 * Game.SCALE));
     }
 
-    public void update(int[][] levelData){
-        updateMove(levelData);
-        updateAnimationTick();
+    public void update(int[][] levelData, Player player){
+        updateMove(levelData, player);
+        updateAnimationTick(BOSS_IDLE, BOSS_ATTACK);
     }
 
-    private void updateMove(int[][] levelData) {
+    private void updateMove(int[][] levelData, Player player) {
         if(firstUpdate){
             firstUpdateCheck(levelData);
         }
@@ -28,10 +28,18 @@ public class Boss extends Enemy{
         } else {
             switch(enemyState) {
                 case BOSS_IDLE:
-                    enemyState = BOSS_FLYING;
+                    updateState(BOSS_FLYING);
                     break;
                 case BOSS_FLYING:
-                  updateMovement(levelData);
+
+                    if(playerDetected(levelData, player)){
+                        turnTowardsPlayer(player);
+                    }
+                    if(playerInAttackRange(player)){
+                        updateState(BOSS_ATTACK);
+                    }
+
+                    updateMovement(levelData);
 
                     break;
             }

@@ -17,8 +17,10 @@ public abstract class Enemy extends Entity{
     protected boolean inAir;
     protected float speedInAir;
     protected float gravity = 0.02f * Game.SCALE;
-    protected float walkingSpeed = 0.6f * Game.SCALE;
+    protected float walkingSpeed = 0.4f * Game.SCALE;
     protected int walkingDirection = LEFT;
+    protected int enemyTileY;
+    protected float attackRange = 4 * Game.TILE_SIZE;
 
     protected int numberOfEnemyTilesWidth;
     protected int numberOfEnemyTilesHeight;
@@ -49,6 +51,7 @@ public abstract class Enemy extends Entity{
             } else {
                 inAir = false;
                 hitBox.y = EntityAndRoofAndFloorYPositionCollision(hitBox, speedInAir, numberOfEnemyTilesHeight);
+                enemyTileY = (int) (hitBox.y / Game.TILE_SIZE);
             }
         }
     }
@@ -71,8 +74,45 @@ public abstract class Enemy extends Entity{
         changeWalkingDirection();
 
     }
+    protected void turnTowardsPlayer(Player player){
+         if(player.hitBox.x < hitBox.x){
+             walkingDirection = LEFT;
+         } else {
+             walkingDirection = RIGHT;
+         }
+    }
 
-    protected void updateAnimationTick(){
+    protected void updateState(int enemyState){
+         this.enemyState = enemyState;
+         animationTick = 0;
+         animationIndex = 0;
+    }
+
+    protected boolean playerDetected(int[][] levelData, Player player){
+            int playerTileY = (int)(player.getHitBox().y / Game.TILE_SIZE);
+            if(playerTileY == enemyTileY){
+               if(playerInPatrolRange(player)){
+                   if(NoObstaclesBetween(levelData, hitBox, player.hitBox, enemyTileY)){
+                       return true;
+                   }
+               }
+            }
+            return false;
+    }
+
+    protected boolean playerInPatrolRange(Player player) {
+         int distanceBetween = (int) Math.abs(player.hitBox.x - hitBox.x);
+
+         return distanceBetween <= attackRange * 6;
+    }
+
+    protected boolean playerInAttackRange(Player player){
+        int distanceBetween = (int) Math.abs(player.hitBox.x - hitBox.x);
+
+        return distanceBetween <= attackRange;
+    }
+
+    protected void updateAnimationTick(int enemyIdle, int enemyAttack){
          animationTick++;
          if(animationTick>=animationSpeed){
              animationTick = 0;
@@ -80,6 +120,9 @@ public abstract class Enemy extends Entity{
 
              if(animationIndex>=GetSpriteAmount(enemyType, enemyState)){
                  animationIndex = 0;
+                 if(enemyState == enemyAttack){
+                     enemyState = enemyIdle;
+                 }
              }
          }
     }

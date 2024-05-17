@@ -12,12 +12,12 @@ public class SkeletonSword extends Enemy {
         initHitBox(x, y, (int)(15 * 1.5 * Game.SCALE), (int)(59 * 1.5 * Game.SCALE));
     }
 
-    public void update(int[][] levelData){
-        updateMove(levelData);
-        updateAnimationTick();
+    public void update(int[][] levelData, Player player){
+        updateMove(levelData, player);
+        updateAnimationTick(SKELETON_SWORD_IDLE, SKELETON_SWORD_ATTACK_1);
     }
 
-    private void updateMove(int[][] levelData) {
+    private void updateMove(int[][] levelData, Player player) {
         if(firstUpdate){
             firstUpdateCheck(levelData);
         }
@@ -27,9 +27,17 @@ public class SkeletonSword extends Enemy {
         } else {
             switch(enemyState) {
                 case SKELETON_SWORD_IDLE:
-                    enemyState = SKELETON_SWORD_WALK;
+                    updateState(SKELETON_SWORD_WALK);
                     break;
                 case SKELETON_SWORD_WALK:
+
+                    if(playerDetected(levelData, player)){
+                        turnTowardsPlayer(player);
+                    }
+                    if(playerInAttackRange(player)){
+                        updateState(SKELETON_SWORD_ATTACK_1);
+                    }
+
                     updateMovement(levelData);
 
                     break;

@@ -31,12 +31,12 @@ public class EnemyHandler {
         System.out.println("size of skeleton: " + skeletonsSword.size());
     }
 
-    public void update(int[][] levelData){
+    public void update(int[][] levelData, Player player){
         for(Boss b : bosses){
-            b.update(levelData);
+            b.update(levelData, player);
         }
         for(SkeletonSword s : skeletonsSword){
-            s.update(levelData);
+            s.update(levelData, player);
         }
     }
 
@@ -82,7 +82,7 @@ public class EnemyHandler {
                 bossAnimations[BOSS_FLYING][i] = temp_boss_idle.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
             }
             if(i<11){
-                bossAnimations[BOSS_ATTACK][i] = temp_boss_attack.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
+                bossAnimations[BOSS_ATTACK][i] = temp_boss_attack.getSubimage(i*240, 0, 240,192);
             }
             if(i < 8){
                 bossAnimations[BOSS_ATTACK_NO_BREATH][i] = temp_boss_attack_no_breath.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);

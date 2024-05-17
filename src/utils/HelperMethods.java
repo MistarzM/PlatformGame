@@ -33,7 +33,12 @@ public class HelperMethods {
         float xIndex = x / Game.TILE_SIZE;
         float yIndex = y / Game.TILE_SIZE;
 
-        int valueInLevelData = levelData[(int) yIndex][(int) xIndex];
+        return TileCanBePassed((int) xIndex, (int)yIndex, levelData);
+    }
+
+    public static boolean TileCanBePassed(int xTile, int yTile, int[][] levelData){
+
+        int valueInLevelData = levelData[yTile][xTile];
 
         if(valueInLevelData != 1) {
             return false;
@@ -78,5 +83,28 @@ public class HelperMethods {
 
     public static boolean IsFloor(Rectangle2D.Float hitBox, float xSpeed, int[][] levelData){
         return !IsLegalMovement(hitBox.x + xSpeed, hitBox.y + hitBox.height + 1, levelData);
+    }
+
+    public static boolean DistanceBetweenCanBePassed(int xStart, int xEnd, int yTile, int[][] levelData){
+        for(int i = 0; i < xEnd - xStart; i++) {
+            if (!TileCanBePassed(xStart + i, yTile, levelData)) {
+                return false;
+            }
+            if (TileCanBePassed(xStart + i, yTile + 1, levelData)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean NoObstaclesBetween(int [][] levelData, Rectangle2D.Float firstHitBox,Rectangle2D.Float secondHitBox, int yTile){
+        int firstTileX =(int)(firstHitBox.x / Game.TILE_SIZE);
+        int secondTileX =(int)(secondHitBox.x / Game.TILE_SIZE);
+
+        if(firstTileX > secondTileX){
+            return DistanceBetweenCanBePassed(secondTileX, firstTileX, yTile, levelData);
+        } else {
+            return DistanceBetweenCanBePassed(firstTileX, secondTileX, yTile, levelData);
+        }
     }
 }
