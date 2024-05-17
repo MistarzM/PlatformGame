@@ -66,6 +66,7 @@ public class EnemyHandler {
         }
         for(SkeletonSword s : skeletonsSword){
             graphics.drawRect((int)s.getHitBox().x - xLevelOffset, (int)s.getHitBox().y, (int)s.getHitBox().width, (int)s.getHitBox().height);
+            s.drawAttackHitBox(graphics, xLevelOffset);
         }
     }
 

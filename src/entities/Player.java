@@ -184,7 +184,7 @@ public class Player extends  Entity{
 
         if(left){                                   // we do not have to check left && !right because
             xMovingSpeed -= speedOfRunning;         // if left && right => pos = speed - speed = 0
-            flipX = width + Game.TILE_SIZE;
+            flipX = width + (int)(0.7 * Game.TILE_SIZE);
             flipW = -1;
         }
         if(right){
