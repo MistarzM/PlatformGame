@@ -32,7 +32,9 @@ public abstract class Enemy extends Entity{
     protected boolean alive = true;
     protected boolean attackChecked;
 
-     public Enemy(float x, float y, int width, int height, int enemyType, int numberOfEnemyTilesWidth, int numberOfEnemyTilesHeight){
+    private int enemyIdle;
+
+     public Enemy(float x, float y, int width, int height, int enemyType, int numberOfEnemyTilesWidth, int numberOfEnemyTilesHeight, int enemyIdle){
         super(x, y, width, height);
         this.enemyType = enemyType;
         hitBox = new Rectangle2D.Float(x, y, width, height);
@@ -40,6 +42,7 @@ public abstract class Enemy extends Entity{
         this.numberOfEnemyTilesHeight = numberOfEnemyTilesHeight;
         maxHealth = GetEnemyMaxHealth(enemyType);
         currentHealth = maxHealth;
+        this.enemyIdle = enemyIdle;
     }
 
     protected void firstUpdateCheck(int[][] levelData){
@@ -143,7 +146,7 @@ public abstract class Enemy extends Entity{
 
     }
 
-    protected void updateAnimationTick(int enemyIdle, int enemyAttack, int enemyHurt, int enemyDead){
+    protected void updateAnimationTick(int enemyAttack, int enemyHurt, int enemyDead){
          animationTick++;
          if(animationTick>=animationSpeed){
              animationTick = 0;
@@ -181,5 +184,15 @@ public abstract class Enemy extends Entity{
 
     public boolean isAlive(){
          return alive;
+    }
+
+    public void resetEnemy(){
+         hitBox.x  = x;
+         hitBox.y = y;
+         firstUpdate = true;
+         currentHealth = maxHealth;
+         updateState(enemyIdle);
+         alive = true;
+         speedInAir = 0;
     }
 }

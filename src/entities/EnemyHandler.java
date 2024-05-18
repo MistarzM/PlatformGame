@@ -138,4 +138,13 @@ public class EnemyHandler {
         }
 
     }
+
+    public void resetEnemies(){
+     for(SkeletonSword s : skeletonsSword){
+         s.resetEnemy();
+     }
+     for(Boss b : bosses){
+         b.resetEnemy();
+     }
+    }
 }

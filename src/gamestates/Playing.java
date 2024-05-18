@@ -6,6 +6,7 @@ import levels.LevelHandler;
 import main.Game;
 import userinterface.PauseMenu;
 import utils.LoadAndSave;
+import userinterface.GameOver;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,7 @@ public class Playing extends State implements StateMethods{
     private LevelHandler levelHandler;
     private EnemyHandler enemyHandler;
     private PauseMenu pauseMenu;
+    private GameOver gameOver;
     private boolean paused= false;
 
     private int xLevelOffset;
@@ -27,6 +29,7 @@ public class Playing extends State implements StateMethods{
     private int maxTileOffset = levelTilesWide - Game.TILES_IN_WIDTH;
     private int maxLevelOffsetX = maxTileOffset * Game.TILE_SIZE;
 
+    private boolean isGameOver;
 
     public Playing(Game game) {
         super(game);
@@ -39,6 +42,7 @@ public class Playing extends State implements StateMethods{
         enemyHandler = new EnemyHandler(this);
         player.loadLevelData(levelHandler.getLevelOne().getLevelData());
         pauseMenu = new PauseMenu(this);
+        gameOver = new GameOver(this);
     }
 
     public void windowFocusLost(){
@@ -55,7 +59,7 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void update() {
-        if(paused) {
+        if(paused || isGameOver) {
             pauseMenu.update();
         } else {
             levelHandler.update();
@@ -83,11 +87,19 @@ public class Playing extends State implements StateMethods{
     }
 
     public void resetAll(){
+        isGameOver = false;
+        paused = false;
 
+        player.reset();
+        enemyHandler.resetEnemies();
     }
 
     public void checkEnemyHitBox(Rectangle2D.Float attackHitBox){
         enemyHandler.checkEnemyHurt(attackHitBox);
+    }
+
+    public void setGameOver(boolean isGameOver){
+        this.isGameOver = isGameOver;
     }
 
     @Override
@@ -100,6 +112,8 @@ public class Playing extends State implements StateMethods{
             g.setColor(new Color(0, 0, 0, 128));
             g.fillRect(0, 0, Game.PANEL_WIDTH, Game.PANEL_HEIGHT);
             pauseMenu.draw(g);
+        } else if(isGameOver){
+            gameOver.draw(g);
         }
     }
 
@@ -109,77 +123,91 @@ public class Playing extends State implements StateMethods{
     }
 
     public void mouseDragged(MouseEvent e) {
-        if(paused) {
-            pauseMenu.mouseDragged(e);
+        if(!isGameOver) {
+            if (paused) {
+                pauseMenu.mouseDragged(e);
+            }
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(paused) {
-            pauseMenu.mousePressed(e);
+        if(!isGameOver) {
+            if (paused) {
+                pauseMenu.mousePressed(e);
+            }
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(paused) {
-            pauseMenu.mouseReleased(e);
+        if(!isGameOver) {
+            if (paused) {
+                pauseMenu.mouseReleased(e);
+            }
         }
     }
 
     @Override
     public void mouseMoves(MouseEvent e) {
-        if(paused) {
-            pauseMenu.mouseMoves(e);
+        if(!isGameOver) {
+            if (paused) {
+                pauseMenu.mouseMoves(e);
+            }
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()){
-            case KeyEvent.VK_W:
-                player.setUp(true);
-                break;
-            case KeyEvent.VK_A:
-                player.setLeft(true);
-                break;
-            case KeyEvent.VK_S:
-                player.setDown(true);
-                break;
-            case KeyEvent.VK_D:
-                player.setRight(true);
-                break;
-            case KeyEvent.VK_J:
-                player.setAttacking(true);
-                break;
-            case KeyEvent.VK_SPACE:
-                player.setJump(true);
-                break;
-            case KeyEvent.VK_ESCAPE:
-                paused = !paused;
-                break;
+        if(isGameOver){
+            gameOver.pressEnterToContinue(e);
+        } else {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    player.setUp(true);
+                    break;
+                case KeyEvent.VK_A:
+                    player.setLeft(true);
+                    break;
+                case KeyEvent.VK_S:
+                    player.setDown(true);
+                    break;
+                case KeyEvent.VK_D:
+                    player.setRight(true);
+                    break;
+                case KeyEvent.VK_J:
+                    player.setAttacking(true);
+                    break;
+                case KeyEvent.VK_SPACE:
+                    player.setJump(true);
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    paused = !paused;
+                    break;
+            }
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch(e.getKeyCode()){
-            case KeyEvent.VK_W:
-                player.setUp(false);
-                break;
-            case KeyEvent.VK_A:
-                player.setLeft(false);
-                break;
-            case KeyEvent.VK_S:
-                player.setDown(false);
-                break;
-            case KeyEvent.VK_D:
-                player.setRight(false);
-                break;
-            case KeyEvent.VK_SPACE:
-                player.setJump(false);
-                break;
+        if(!isGameOver) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    player.setUp(false);
+                    break;
+                case KeyEvent.VK_A:
+                    player.setLeft(false);
+                    break;
+                case KeyEvent.VK_S:
+                    player.setDown(false);
+                    break;
+                case KeyEvent.VK_D:
+                    player.setRight(false);
+                    break;
+                case KeyEvent.VK_SPACE:
+                    player.setJump(false);
+                    break;
+            }
         }
     }
 }

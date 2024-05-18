@@ -9,13 +9,13 @@ import static utils.HelperMethods.*;
 public class Boss extends Enemy{
 
     public Boss(float x, float y) {
-        super(x, y, BOSS_WIDTH, BOSS_HEIGHT, BOSS, NUMBER_OF_BOSS_TILES_WIDTH, NUMBER_OF_BOSS_TILES_HEIGHT);
+        super(x, y, BOSS_WIDTH, BOSS_HEIGHT, BOSS, NUMBER_OF_BOSS_TILES_WIDTH, NUMBER_OF_BOSS_TILES_HEIGHT, BOSS_IDLE);
         initHitBox(x, y, (int)(50 * 1.5 * Game.SCALE), (int)(78 * 1.5 * Game.SCALE));
     }
 
     public void update(int[][] levelData, Player player){
         updateMove(levelData, player);
-        updateAnimationTick(BOSS_IDLE, BOSS_ATTACK, BOSS_ATTACK_NO_BREATH, BOSS_IDLE);
+        updateAnimationTick(BOSS_ATTACK, BOSS_ATTACK_NO_BREATH, BOSS_IDLE);
     }
 
     private void updateMove(int[][] levelData, Player player) {
