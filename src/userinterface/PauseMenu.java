@@ -125,7 +125,8 @@ public class PauseMenu {
             };
         } else if (isIn(e, replayButton)) {
             if (replayButton.isMousePressed()) {
-                System.out.println("Replay level");
+                playing.resetAll();
+                playing.unpauseGame();
             };
         } else if (isIn(e, menuButton)) {
             if (menuButton.isMousePressed()) {

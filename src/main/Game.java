@@ -31,6 +31,7 @@ public class Game implements Runnable{
         initClasses();
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
+        gamePanel.setFocusable(true);    // fixes problem with moving(sometimes keyboards keys didn't work)
         gamePanel.requestFocus();       // used to focus on a certain component
 
         startGameLoop();

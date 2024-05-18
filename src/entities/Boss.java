@@ -14,11 +14,11 @@ public class Boss extends Enemy{
     }
 
     public void update(int[][] levelData, Player player){
-        updateMove(levelData, player);
+        updateBossBehavior(levelData, player);
         updateAnimationTick(BOSS_ATTACK, BOSS_ATTACK_NO_BREATH, BOSS_IDLE);
     }
 
-    private void updateMove(int[][] levelData, Player player) {
+    private void updateBossBehavior(int[][] levelData, Player player) {
         if(firstUpdate){
             firstUpdateCheck(levelData);
         }
@@ -32,11 +32,11 @@ public class Boss extends Enemy{
                     break;
                 case BOSS_FLYING:
 
-                    if(playerDetected(levelData, player)){
+                    if(playerDetected(levelData, player)) {
                         turnTowardsPlayer(player);
-                    }
-                    if(playerInAttackRange(player)){
-                        updateState(BOSS_ATTACK);
+                        if (playerInAttackRange(player)) {
+                            updateState(BOSS_ATTACK);
+                        }
                     }
 
                     updateMovement(levelData);

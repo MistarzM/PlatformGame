@@ -55,11 +55,10 @@ public class SkeletonSword extends Enemy {
 
                     if(playerDetected(levelData, player)){
                         turnTowardsPlayer(player);
+                        if(playerInAttackRange(player)){
+                            updateState(SKELETON_SWORD_ATTACK_1);
+                        }
                     }
-                    if(playerInAttackRange(player)){
-                        updateState(SKELETON_SWORD_ATTACK_1);
-                    }
-
                     updateMovement(levelData);
 
                     break;
