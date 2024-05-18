@@ -3,7 +3,7 @@ package entities;
 import gamestates.Playing;
 import main.Game;
 import utils.LoadAndSave;
-
+import levels.LevelHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -14,7 +14,6 @@ import java.io.InputStream;
 import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
 import static utils.Constants.Direction.*;          // import direction - movement for characters
 import static utils.LoadAndSave.*;
-import static main.Game.TILE_SIZE;
 import static utils.HelperMethods.LegalMove;
 import static utils.HelperMethods.EntityAndWallXPositionCollision;
 import static utils.HelperMethods.EntityAndRoofAndFloorYPositionCollision;
@@ -27,7 +26,7 @@ public class Player extends  Entity{
     private int animationTick, animationIndex, animationRefresh = 15;
     private int playerAction = IDLE;
     private boolean running = false, attacking = false;
-    private boolean up, left, down, right, jump;
+    private boolean up, left, down, right, jump, interaction;
 
     private int flipX = 0;
     private int flipW = 1;
@@ -90,11 +89,22 @@ public class Player extends  Entity{
         updateAttackHitBox();
 
         updatePosition();
+
+        checkInteraction();
+
         if(attacking){
             checkAttack();
         }
         UpdateAnimationTick();
         setAnimation();
+    }
+
+    private void checkInteraction() {
+        int midTileWidth = (int)((hitBox.x + hitBox.width/2)/Game.TILE_SIZE);
+        int midTileHeight = (int)((hitBox.y + hitBox.height/2)/Game.TILE_SIZE);
+        if(levelData[midTileHeight][midTileWidth] == 2 && interaction){
+            System.out.println("Next map");
+        }
     }
 
     private void checkAttack() {
@@ -366,6 +376,9 @@ public class Player extends  Entity{
     public void setJump(boolean jump){
         this.jump = jump;
     }
+    public void setInteraction(boolean interaction){
+        this.interaction = interaction;
+    }
     public boolean getUp(){
          return up;
     }
@@ -380,6 +393,9 @@ public class Player extends  Entity{
     }
     public boolean getJump(){
         return jump;
+    }
+    public boolean getInteraction(){
+        return interaction;
     }
 
     public void reset(){            // reset player -> position, health etc.

@@ -40,7 +40,7 @@ public class HelperMethods {
 
         int valueInLevelData = levelData[yTile][xTile];
 
-        if(valueInLevelData != 1) {
+        if(valueInLevelData != 1 && valueInLevelData != 2) {
             return false;
         }
 

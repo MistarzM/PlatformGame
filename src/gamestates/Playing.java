@@ -184,6 +184,9 @@ public class Playing extends State implements StateMethods{
                 case KeyEvent.VK_ESCAPE:
                     paused = !paused;
                     break;
+                case KeyEvent.VK_E:
+                    player.setInteraction(true);
+                    break;
             }
         }
     }
@@ -206,6 +209,9 @@ public class Playing extends State implements StateMethods{
                     break;
                 case KeyEvent.VK_SPACE:
                     player.setJump(false);
+                    break;
+                case KeyEvent.VK_E:
+                    player.setInteraction(false);
                     break;
             }
         }
