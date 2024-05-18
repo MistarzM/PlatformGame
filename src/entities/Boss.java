@@ -15,7 +15,7 @@ public class Boss extends Enemy{
 
     public void update(int[][] levelData, Player player){
         updateMove(levelData, player);
-        updateAnimationTick(BOSS_IDLE, BOSS_ATTACK);
+        updateAnimationTick(BOSS_IDLE, BOSS_ATTACK, BOSS_ATTACK_NO_BREATH, BOSS_IDLE);
     }
 
     private void updateMove(int[][] levelData, Player player) {

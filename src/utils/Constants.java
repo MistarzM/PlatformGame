@@ -4,7 +4,7 @@ import main.Game;
 
 public class Constants {
 
-    public static class EnemyConstants{
+    public static class EnemyConstants {
 
         // boss
         public static final int BOSS = 0;
@@ -17,11 +17,11 @@ public class Constants {
         public static final int BOSS_WIDTH_DEFAULT = 160;
         public static final int BOSS_HEIGHT_DEFAULT = 144;
 
-        public static final int BOSS_WIDTH = (int)(BOSS_WIDTH_DEFAULT * 1.5 *  Game.SCALE);
-        public static final int BOSS_HEIGHT = (int)(BOSS_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
+        public static final int BOSS_WIDTH = (int) (BOSS_WIDTH_DEFAULT * 1.5 * Game.SCALE);
+        public static final int BOSS_HEIGHT = (int) (BOSS_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
 
-        public static final int BOSS_DRAW_OFFSET_X  = (int)(39 * 1.5 * Game.SCALE);
-        public static final int BOSS_DRAW_OFFSET_Y  = (int)(45 * 1.5 * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_X = (int) (39 * 1.5 * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_Y = (int) (45 * 1.5 * Game.SCALE);
 
         public static final int NUMBER_OF_BOSS_TILES_WIDTH = 5;
         public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 8;
@@ -40,11 +40,11 @@ public class Constants {
         public static final int SKELETON_SWORD_WIDTH_DEFAULT = 128;
         public static final int SKELETON_SWORD_HEIGHT_DEFAULT = 96;
 
-        public static final int SKELETON_SWORD_WIDTH = (int)(SKELETON_SWORD_WIDTH_DEFAULT * 1.5 *  Game.SCALE);
-        public static final int SKELETON_SWORD_HEIGHT = (int)(SKELETON_SWORD_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
+        public static final int SKELETON_SWORD_WIDTH = (int) (SKELETON_SWORD_WIDTH_DEFAULT * 1.5 * Game.SCALE);
+        public static final int SKELETON_SWORD_HEIGHT = (int) (SKELETON_SWORD_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
 
-        public static final int SKELETON_SWORD_DRAW_OFFSET_X  = (int)(36 * 1.5 * Game.SCALE);
-        public static final int SKELETON_SWORD_DRAW_OFFSET_Y  = (int)(37 * 1.5 * Game.SCALE);
+        public static final int SKELETON_SWORD_DRAW_OFFSET_X = (int) (36 * 1.5 * Game.SCALE);
+        public static final int SKELETON_SWORD_DRAW_OFFSET_Y = (int) (37 * 1.5 * Game.SCALE);
 
         public static final int NUMBER_OF_SKELETON_SWORD_TILES_WIDTH = 2;
         public static final int NUMBER_OF_SKELETON_SWORD_TILES_HEIGHT = 6;
@@ -52,9 +52,9 @@ public class Constants {
 
         public static final int GetSpriteAmount(int enemyType, int enemyState) {
 
-            switch (enemyType){
+            switch (enemyType) {
                 case BOSS:
-                    switch(enemyState){
+                    switch (enemyState) {
                         case BOSS_IDLE:
                         case BOSS_FLYING:
                             return 6;
@@ -64,7 +64,7 @@ public class Constants {
                             return 8;
                     }
                 case SKELETON_SWORD:
-                    switch(enemyState){
+                    switch (enemyState) {
                         case SKELETON_SWORD_IDLE:
                         case SKELETON_SWORD_DEAD:
                             return 4;
@@ -82,6 +82,31 @@ public class Constants {
             }
             return 0;
         }
+
+        public static int GetEnemyMaxHealth(int enemyType) {
+            switch (enemyType) {
+                case BOSS:
+                    return 20;
+                case SKELETON_SWORD:
+                    return 4;
+                default:
+                    return 1;
+
+            }
+        }
+
+        public static int GetEnemyDamage(int enemyType) {
+            switch (enemyType) {
+                case BOSS:
+                    return 2;
+                case SKELETON_SWORD:
+                    return 1;
+                default:
+                    return 1;
+
+            }
+        }
+
     }
 
     public static class GUI {

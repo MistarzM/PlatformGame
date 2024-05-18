@@ -4,6 +4,7 @@ import gamestates.Playing;
 import utils.LoadAndSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -36,7 +37,20 @@ public class EnemyHandler {
             b.update(levelData, player);
         }
         for(SkeletonSword s : skeletonsSword){
-            s.update(levelData, player);
+            if(s.isAlive()) {
+                s.update(levelData, player);
+            }
+        }
+    }
+
+    public void checkEnemyHurt(Rectangle2D.Float attackHitBox){
+        for(SkeletonSword s :  skeletonsSword){
+            if(s.isAlive()) {
+                if (attackHitBox.intersects(s.getHitBox())) {
+                    s.hurt(1);      //damage player->enemy
+                    return;
+                }
+            }
         }
     }
 
@@ -54,7 +68,8 @@ public class EnemyHandler {
 
     private void drawSkeletonSword(Graphics g, int xLevelOffset){
         for(SkeletonSword s : skeletonsSword){
-            g.drawImage(skeletonSwordAnimations[s.getEnemyState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X + s.flipX(), (int)s.getHitBox().y - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH * s.flipW(), SKELETON_SWORD_HEIGHT,null );
+            if(s.isAlive())
+                g.drawImage(skeletonSwordAnimations[s.getEnemyState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X + s.flipX(), (int)s.getHitBox().y - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH * s.flipW(), SKELETON_SWORD_HEIGHT,null );
         }
     }
 
@@ -65,8 +80,10 @@ public class EnemyHandler {
             graphics.drawRect((int)b.getHitBox().x - xLevelOffset, (int)b.getHitBox().y, (int)b.getHitBox().width, (int)b.getHitBox().height);
         }
         for(SkeletonSword s : skeletonsSword){
-            graphics.drawRect((int)s.getHitBox().x - xLevelOffset, (int)s.getHitBox().y, (int)s.getHitBox().width, (int)s.getHitBox().height);
-            s.drawAttackHitBox(graphics, xLevelOffset);
+            if(s.isAlive()) {
+                graphics.drawRect((int) s.getHitBox().x - xLevelOffset, (int) s.getHitBox().y, (int) s.getHitBox().width, (int) s.getHitBox().height);
+                s.drawAttackHitBox(graphics, xLevelOffset);
+            }
         }
     }
 

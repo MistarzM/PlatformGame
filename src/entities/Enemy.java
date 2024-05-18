@@ -25,12 +25,21 @@ public abstract class Enemy extends Entity{
     protected int numberOfEnemyTilesWidth;
     protected int numberOfEnemyTilesHeight;
 
+    // enemy health
+    protected int maxHealth;
+    protected int currentHealth;
+
+    protected boolean alive = true;
+    protected boolean attackChecked;
+
      public Enemy(float x, float y, int width, int height, int enemyType, int numberOfEnemyTilesWidth, int numberOfEnemyTilesHeight){
         super(x, y, width, height);
         this.enemyType = enemyType;
         hitBox = new Rectangle2D.Float(x, y, width, height);
         this.numberOfEnemyTilesWidth = numberOfEnemyTilesWidth;
         this.numberOfEnemyTilesHeight = numberOfEnemyTilesHeight;
+        maxHealth = GetEnemyMaxHealth(enemyType);
+        currentHealth = maxHealth;
     }
 
     protected void firstUpdateCheck(int[][] levelData){
@@ -117,7 +126,24 @@ public abstract class Enemy extends Entity{
         return distanceBetween <= attackRange;
     }
 
-    protected void updateAnimationTick(int enemyIdle, int enemyAttack){
+    public void hurt(int damage){
+         currentHealth -=damage;
+         if(currentHealth <= 0){
+             updateState(SKELETON_SWORD_DEAD);
+         } else {
+             updateState(SKELETON_SWORD_HIT);
+         }
+    }
+
+    protected void checkPlayerHitBox(Player player, Rectangle2D.Float attackHitBox){
+        if(attackHitBox.intersects(player.hitBox)){
+            player.changeHealth(-GetEnemyDamage(enemyType));
+        }
+        attackChecked = true;
+
+    }
+
+    protected void updateAnimationTick(int enemyIdle, int enemyAttack, int enemyHurt, int enemyDead){
          animationTick++;
          if(animationTick>=animationSpeed){
              animationTick = 0;
@@ -125,8 +151,13 @@ public abstract class Enemy extends Entity{
 
              if(animationIndex>=GetSpriteAmount(enemyType, enemyState)){
                  animationIndex = 0;
+
                  if(enemyState == enemyAttack){
                      enemyState = enemyIdle;
+                 } else if (enemyState == enemyHurt){
+                     enemyState = enemyIdle;
+                 } else if ( enemyState == enemyDead){
+                     alive = false;
                  }
              }
          }
@@ -146,5 +177,9 @@ public abstract class Enemy extends Entity{
 
     public int getEnemyState(){
          return enemyState;
+    }
+
+    public boolean isAlive(){
+         return alive;
     }
 }

@@ -1,5 +1,6 @@
 package entities;
 
+import gamestates.Playing;
 import main.Game;
 import utils.LoadAndSave;
 
@@ -51,6 +52,7 @@ public class Player extends  Entity{
 
     // attack hit boxes
     private Rectangle2D.Float attackHitBox;
+    private boolean attackChecked;
 
     // health bar
     private BufferedImage[] healthBar;
@@ -64,8 +66,11 @@ public class Player extends  Entity{
     private int currentHealth = maxHealth;
     private int healthImageIndex = 0;   // img[0] = full hp
 
-    public Player(float x, float y, int width, int height){
+    private Playing playing;
+
+    public Player(float x, float y, int width, int height, Playing playing){
         super(x, y, width, height);
+        this.playing = playing;
         loadAnimations();
         initHitBox(x, y, (int)(widthPlayerHitBox), (int)(heightPlayerHitBox));
         initAttackHitBox();
@@ -80,8 +85,19 @@ public class Player extends  Entity{
         updateAttackHitBox();
 
         updatePosition();
+        if(attacking){
+            checkAttack();
+        }
         UpdateAnimationTick();
         setAnimation();
+    }
+
+    private void checkAttack() {
+        if(attackChecked || animationIndex != 4){
+            return;
+        }
+        attackChecked = true;
+        playing.checkEnemyHitBox(attackHitBox);
     }
 
     private void updateAttackHitBox() {
@@ -97,7 +113,7 @@ public class Player extends  Entity{
         healthImageIndex = 48 - (currentHealth * 6);
     }
 
-    private void changeHealth(int value){
+    public void changeHealth(int value){
         currentHealth += value;
 
         if(currentHealth <= 0) {
@@ -134,6 +150,7 @@ public class Player extends  Entity{
             if(animationIndex>= GetSpriteAmount(playerAction)){
                 animationIndex = 0;
                 attacking = false;
+                attackChecked = false;
             }
         }
     }
@@ -154,6 +171,11 @@ public class Player extends  Entity{
 
         if(attacking){
             playerAction = RIGHT_ATTACK_1;
+            if(startAnimation != RIGHT_ATTACK_1){
+                animationIndex = 1;
+                animationTick = 0;
+                return;
+            }
         }
 
         if(startAnimation != playerAction){

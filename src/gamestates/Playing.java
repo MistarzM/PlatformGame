@@ -10,6 +10,7 @@ import utils.LoadAndSave;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 public class Playing extends State implements StateMethods{
 
@@ -33,7 +34,7 @@ public class Playing extends State implements StateMethods{
     }
 
     private void initClasses() {
-        player = new Player(960, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE));
+        player = new Player(960, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE), this);
         levelHandler = new LevelHandler(game);
         enemyHandler = new EnemyHandler(this);
         player.loadLevelData(levelHandler.getLevelOne().getLevelData());
@@ -83,6 +84,10 @@ public class Playing extends State implements StateMethods{
 
     public void resetAll(){
 
+    }
+
+    public void checkEnemyHitBox(Rectangle2D.Float attackHitBox){
+        enemyHandler.checkEnemyHurt(attackHitBox);
     }
 
     @Override
