@@ -35,15 +35,21 @@ public class EnemyHandler {
 
     public void update(int[][] levelData, Player player){
 
-
+        victory = true;
         for(Boss b : bosses){
-            b.update(levelData, player);
-            victory = false;
+            if(b.isAlive()) {
+                b.update(levelData, player);
+                victory = false;
+            }
         }
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive()) {
                 s.update(levelData, player);
             }
+        }
+        if(playing.getLevelHandler().getLevelIndex() == 1 && victory){
+            System.out.println("Victory");
+            playing.setChangeLevel(true);
         }
     }
 
@@ -52,6 +58,14 @@ public class EnemyHandler {
             if(s.isAlive()) {
                 if (attackHitBox.intersects(s.getHitBox())) {
                     s.hurt(1);      //damage player->enemy
+                    return;
+                }
+            }
+        }
+        for(Boss b : bosses){
+            if(b.isAlive()){
+                if(attackHitBox.intersects(b.getHitBox())){
+                    b.hurt(1);
                     return;
                 }
             }
@@ -66,18 +80,20 @@ public class EnemyHandler {
 
     private void drawBoss(Graphics g, int xLevelOffset) {
         for(Boss b : bosses) {
-            if (b.getState() == 2) {    //attacking
-                int xFlip = b.flipX() == 0 ? -80 : 80;
-                g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
-                        (int) (b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX()+xFlip * Game.SCALE),
-                        (int)( b.getHitBox().y - BOSS_DRAW_OFFSET_Y - 80 * Game.SCALE),
-                        (int)(BOSS_WIDTH + 90 * Game.SCALE) * b.flipW(), (int)(BOSS_HEIGHT + 90 * Game.SCALE), null);
-            } else {
-                g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
-                        (int) b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(),
-                        (int) b.getHitBox().y - BOSS_DRAW_OFFSET_Y,
-                        BOSS_WIDTH * b.flipW(), BOSS_HEIGHT, null);
+            if (b.isAlive()) {
+                if (b.getState() == 2) {    //attacking
+                    int xFlip = b.flipX() == 0 ? -80 : 80;
+                    g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
+                            (int) (b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX() + xFlip * Game.SCALE),
+                            (int) (b.getHitBox().y - BOSS_DRAW_OFFSET_Y - 80 * Game.SCALE),
+                            (int) (BOSS_WIDTH + 90 * Game.SCALE) * b.flipW(), (int) (BOSS_HEIGHT + 90 * Game.SCALE), null);
+                } else {
+                    g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
+                            (int) b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(),
+                            (int) b.getHitBox().y - BOSS_DRAW_OFFSET_Y,
+                            BOSS_WIDTH * b.flipW(), BOSS_HEIGHT, null);
 
+                }
             }
         }
     }
@@ -93,7 +109,10 @@ public class EnemyHandler {
         // for testing hit boxes
         graphics.setColor(Color.red);
         for(Boss b : bosses) {
-            graphics.drawRect((int)b.getHitBox().x - xLevelOffset, (int)b.getHitBox().y, (int)b.getHitBox().width, (int)b.getHitBox().height);
+            if(b.isAlive()) {
+                graphics.drawRect((int) b.getHitBox().x - xLevelOffset, (int) b.getHitBox().y, (int) b.getHitBox().width, (int) b.getHitBox().height);
+                b.drawAttackHitBox(graphics, xLevelOffset);
+            }
         }
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive()) {
@@ -104,7 +123,7 @@ public class EnemyHandler {
     }
 
     private void loadEnemyImages() {
-        bossAnimations = new BufferedImage[4][11];
+        bossAnimations = new BufferedImage[5][11];
 
         BufferedImage temp_boss_idle = LoadAndSave.GetSpriteAtlas(LoadAndSave.BOSS_IDLE);
         BufferedImage temp_boss_attack = LoadAndSave.GetSpriteAtlas(LoadAndSave.BOSS_ATTACK);
@@ -114,6 +133,7 @@ public class EnemyHandler {
             if(i<6){
                 bossAnimations[BOSS_IDLE][i] = temp_boss_idle.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
                 bossAnimations[BOSS_FLYING][i] = temp_boss_idle.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
+                bossAnimations[BOSS_DEAD][i] = temp_boss_idle.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
             }
             if(i<11){
                 bossAnimations[BOSS_ATTACK][i] = temp_boss_attack.getSubimage(i*240, 0, 240,192);

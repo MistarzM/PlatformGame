@@ -17,7 +17,7 @@ public abstract class Enemy extends Entity{
     protected  boolean firstUpdate = true;
     protected int walkingDirection = LEFT;
     protected int enemyTileY;
-    protected float attackRange = 5 * Game.TILE_SIZE;
+    protected float attackRange;
 
     protected int numberOfEnemyTilesWidth;
     protected int numberOfEnemyTilesHeight;
@@ -25,9 +25,9 @@ public abstract class Enemy extends Entity{
     protected boolean alive = true;
     protected boolean attackChecked;
 
-    private int enemyIdle;
+    private int enemyIdle, enemyHurt, enemyDead;
 
-     public Enemy(float x, float y, int width, int height, int enemyType, int numberOfEnemyTilesWidth, int numberOfEnemyTilesHeight, int enemyIdle){
+     public Enemy(float x, float y, int width, int height, int enemyType, int numberOfEnemyTilesWidth, int numberOfEnemyTilesHeight, int enemyIdle, int enemyHurt, int enemyDead){
         super(x, y, width, height);
         this.enemyType = enemyType;
         hitBox = new Rectangle2D.Float(x, y, width, height);
@@ -37,6 +37,8 @@ public abstract class Enemy extends Entity{
         maxHealth = GetEnemyMaxHealth(enemyType);
         currentHealth = maxHealth;
         this.enemyIdle = enemyIdle;
+        this.enemyHurt = enemyHurt;
+        this.enemyDead = enemyDead;
     }
 
     protected void firstUpdateCheck(int[][] levelData){
@@ -126,9 +128,9 @@ public abstract class Enemy extends Entity{
     public void hurt(int damage){
          currentHealth -=damage;
          if(currentHealth <= 0){
-             updateState(SKELETON_SWORD_DEAD);
+             updateState(enemyDead);
          } else {
-             updateState(SKELETON_SWORD_HIT);
+             updateState(enemyHurt);
          }
     }
 
@@ -140,7 +142,7 @@ public abstract class Enemy extends Entity{
 
     }
 
-    protected void updateAnimationTick(int enemyAttack, int enemyHurt, int enemyDead){
+    protected void updateAnimationTick(int enemyAttack){
          animationTick++;
          if(animationTick>=ANIMATION_REFRESH){
              animationTick = 0;

@@ -37,8 +37,7 @@ public class LevelHandler {
 
     public void loadNextLevel(){
         levelIndex++;
-        if(levelIndex>= levels.size() && game.getPlaying().getEnemyHandler().isVictory()){
-            System.out.println("Victory");
+        if(levelIndex>= levels.size()){
             levelIndex = 0;
             GameState.gameState = GameState.MENU;
         }
@@ -63,6 +62,10 @@ public class LevelHandler {
 
     public Level getCurrentLevel(){
         return levels.get(levelIndex);
+    }
+
+    public int getLevelIndex(){
+        return levelIndex;
     }
 
     public int getHowManyLevels(){

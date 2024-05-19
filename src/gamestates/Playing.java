@@ -114,6 +114,10 @@ public class Playing extends State implements StateMethods{
         enemyHandler.resetEnemies();
     }
 
+    public LevelHandler getLevelHandler(){
+        return levelHandler;
+    }
+
     public void checkEnemyHitBox(Rectangle2D.Float attackHitBox){
         enemyHandler.checkEnemyHurt(attackHitBox);
     }

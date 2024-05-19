@@ -14,8 +14,9 @@ public class SkeletonSword extends Enemy {
     private Rectangle2D.Float attackHitBox;
 
     public SkeletonSword(float x, float y) {
-        super(x, y, SKELETON_SWORD_WIDTH, SKELETON_SWORD_HEIGHT, SKELETON_SWORD, NUMBER_OF_SKELETON_SWORD_TILES_WIDTH, NUMBER_OF_SKELETON_SWORD_TILES_HEIGHT, SKELETON_SWORD_IDLE);
+        super(x, y, SKELETON_SWORD_WIDTH, SKELETON_SWORD_HEIGHT, SKELETON_SWORD, NUMBER_OF_SKELETON_SWORD_TILES_WIDTH, NUMBER_OF_SKELETON_SWORD_TILES_HEIGHT, SKELETON_SWORD_IDLE, SKELETON_SWORD_HIT, SKELETON_SWORD_DEAD);
         initHitBox((int)(15 * 1.5), (int)(59 * 1.5));
+        this.attackRange = 5 * Game.TILE_SIZE;
         initAttackHitBox();
     }
 
@@ -36,7 +37,7 @@ public class SkeletonSword extends Enemy {
         updateAttackHitBox();
 
         updateSkeletonBehavior(levelData, player);
-        updateAnimationTick(SKELETON_SWORD_ATTACK_1, SKELETON_SWORD_HIT, SKELETON_SWORD_DEAD);
+        updateAnimationTick(SKELETON_SWORD_ATTACK_1);
     }
 
     private void updateSkeletonBehavior(int[][] levelData, Player player) {

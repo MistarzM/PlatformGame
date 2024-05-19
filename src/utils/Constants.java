@@ -16,6 +16,7 @@ public class Constants {
         public static final int BOSS_FLYING = 1;
         public static final int BOSS_ATTACK = 2;
         public static final int BOSS_ATTACK_NO_BREATH = 3;
+        public static final int BOSS_DEAD = 4;
 
         public static final int BOSS_WIDTH_DEFAULT = 160;
         public static final int BOSS_HEIGHT_DEFAULT = 144;
@@ -60,6 +61,7 @@ public class Constants {
                     switch (enemyState) {
                         case BOSS_IDLE:
                         case BOSS_FLYING:
+                        case BOSS_DEAD:
                             return 6;
                         case BOSS_ATTACK:
                             return 11;
