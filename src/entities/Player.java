@@ -109,8 +109,10 @@ public class Player extends  Entity{
         if(levelData[midTileHeight][midTileWidth] == 2) {
             eInteraction = true;
             if(interaction){
-                System.out.println(midTileWidth + " " + midTileHeight);
-                System.out.println("Next map");
+                //System.out.println("Next map");
+                playing.setChangeLevel(true);
+                playing.resetAll();
+                playing.setChangeLevel(false);
             }
         } else {
             eInteraction = false;

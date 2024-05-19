@@ -30,6 +30,7 @@ public class Playing extends State implements StateMethods{
     private int maxLevelOffsetX = maxTileOffset * Game.TILE_SIZE;
 
     private boolean isGameOver;
+    private boolean changeLevel = false;
 
     public Playing(Game game) {
         super(game);
@@ -61,7 +62,9 @@ public class Playing extends State implements StateMethods{
     public void update() {
         if(paused || isGameOver) {
             pauseMenu.update();
-        } else {
+        } else if(changeLevel){
+            //level change
+        }else {
             levelHandler.update();
             player.update();
             enemyHandler.update(levelHandler.getLevelOne().getLevelData(), player);
@@ -100,6 +103,10 @@ public class Playing extends State implements StateMethods{
 
     public void setGameOver(boolean isGameOver){
         this.isGameOver = isGameOver;
+    }
+
+    public void setChangeLevel(boolean changeLevel){
+        this.changeLevel = changeLevel;
     }
 
     @Override

@@ -15,8 +15,6 @@ import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
 
-import static utils.Constants.EnemyConstants.*;
-
 public class LoadAndSave {
 
     public static final String KNIGHT_IDLE = "/knight/Idle.png";
@@ -37,11 +35,16 @@ public class LoadAndSave {
 
     public static final String HEALTH_BAR_MINIMUM_DAMAGE = "/gui/MinimumDamage-Sheet.png";
     // level
-    public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
-    public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
-    public static final String LEVEL_ONE_HIT_BOXES = "/levels/long_level.png";
-    public static final String LEVEL_ONE_DESIGN = "/levels/long_level_design.png";
+    // -> to design new levels
+    public static final String MAIN_LEVEL = "/levels/to_design_new_levels/main_lev_build.png";
+    public static final String OTHER_AND_DECORATIVE = "/levels/to_design_new_levels/other_and_decorative.png";
+
+    // -> hit boxes and design
+    public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_1_hitBox.png";
+    public static final String LEVEL_ONE_DESIGN = "/levels/level_1_design.png";
     public static final String LEVEL_ONE_BACKGROUND_GIF = "/levels/background.gif";
+    public static final String LEVEL_TWO_HIT_BOXES = "/levels/level_2_hitBox.png";
+    public static final String LEVEL_TWO_DESIGN = "/levels/level_2_design.png";
 
     // user interface
     public static final String MENU_BUTTONS = "/gui/buttons.png";
