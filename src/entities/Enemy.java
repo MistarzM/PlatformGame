@@ -5,29 +5,22 @@ import utils.Constants;
 
 import java.awt.geom.Rectangle2D;
 
+import static utils.Constants.ANIMATION_REFRESH;
 import static utils.Constants.EnemyConstants.*;
+import static utils.Constants.GRAVITY;
 import static utils.HelperMethods.*;
 import static utils.Constants.Direction.*;
 
 public abstract class Enemy extends Entity{
 
-    protected int animationIndex, enemyState, enemyType;
-    protected int animationTick, animationSpeed = 25;
+    protected int enemyType;
     protected  boolean firstUpdate = true;
-    protected boolean inAir;
-    protected float speedInAir;
-    protected float gravity = 0.02f * Game.SCALE;
-    protected float walkingSpeed = 0.4f * Game.SCALE;
     protected int walkingDirection = LEFT;
     protected int enemyTileY;
     protected float attackRange = 4 * Game.TILE_SIZE;
 
     protected int numberOfEnemyTilesWidth;
     protected int numberOfEnemyTilesHeight;
-
-    // enemy health
-    protected int maxHealth;
-    protected int currentHealth;
 
     protected boolean alive = true;
     protected boolean attackChecked;
@@ -38,6 +31,7 @@ public abstract class Enemy extends Entity{
         super(x, y, width, height);
         this.enemyType = enemyType;
         hitBox = new Rectangle2D.Float(x, y, width, height);
+        this.runningSpeed = 0.4f * Game.SCALE;
         this.numberOfEnemyTilesWidth = numberOfEnemyTilesWidth;
         this.numberOfEnemyTilesHeight = numberOfEnemyTilesHeight;
         maxHealth = GetEnemyMaxHealth(enemyType);
@@ -58,7 +52,7 @@ public abstract class Enemy extends Entity{
         if(inAir){
             if(LegalMove(hitBox.x, hitBox.y + speedInAir, hitBox.width, hitBox.height, levelData)){
                 hitBox.y += speedInAir;
-                speedInAir += gravity;
+                speedInAir += GRAVITY;
 
             } else {
                 inAir = false;
@@ -72,9 +66,9 @@ public abstract class Enemy extends Entity{
         float xSpeed = 0;
 
         if(walkingDirection == LEFT){
-            xSpeed = -walkingSpeed;
+            xSpeed = -runningSpeed;
         } else {
-            xSpeed = walkingSpeed;
+            xSpeed = runningSpeed;
         }
 
         if(LegalMove(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, levelData)){
@@ -95,7 +89,7 @@ public abstract class Enemy extends Entity{
     }
 
     protected void updateState(int enemyState){
-         this.enemyState = enemyState;
+         this.state = enemyState;
          animationTick = 0;
          animationIndex = 0;
     }
@@ -148,18 +142,18 @@ public abstract class Enemy extends Entity{
 
     protected void updateAnimationTick(int enemyAttack, int enemyHurt, int enemyDead){
          animationTick++;
-         if(animationTick>=animationSpeed){
+         if(animationTick>=ANIMATION_REFRESH){
              animationTick = 0;
              animationIndex++;
 
-             if(animationIndex>=GetSpriteAmount(enemyType, enemyState)){
+             if(animationIndex>=GetSpriteAmount(enemyType, state)){
                  animationIndex = 0;
 
-                 if(enemyState == enemyAttack){
-                     enemyState = enemyIdle;
-                 } else if (enemyState == enemyHurt){
-                     enemyState = enemyIdle;
-                 } else if ( enemyState == enemyDead){
+                 if(state == enemyAttack){
+                     state= enemyIdle;
+                 } else if (state== enemyHurt){
+                     state = enemyIdle;
+                 } else if ( state == enemyDead){
                      alive = false;
                  }
              }
@@ -174,15 +168,7 @@ public abstract class Enemy extends Entity{
         }
     }
 
-    public int getAnimationIndex(){
-         return animationIndex;
-    }
-
-    public int getEnemyState(){
-         return enemyState;
-    }
-
-    public boolean isAlive(){
+     public boolean isAlive(){
          return alive;
     }
 

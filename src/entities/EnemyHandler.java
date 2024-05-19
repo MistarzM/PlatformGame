@@ -65,14 +65,14 @@ public class EnemyHandler {
 
     private void drawBoss(Graphics g, int xLevelOffset) {
         for(Boss b : bosses){
-            g.drawImage(bossAnimations[b.getEnemyState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(), (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y , BOSS_WIDTH * b.flipW(), BOSS_HEIGHT,null);
+            g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(), (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y , BOSS_WIDTH * b.flipW(), BOSS_HEIGHT,null);
         }
     }
 
     private void drawSkeletonSword(Graphics g, int xLevelOffset){
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive())
-                g.drawImage(skeletonSwordAnimations[s.getEnemyState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X + s.flipX(), (int)s.getHitBox().y - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH * s.flipW(), SKELETON_SWORD_HEIGHT,null );
+                g.drawImage(skeletonSwordAnimations[s.getState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X + s.flipX(), (int)s.getHitBox().y - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH * s.flipW(), SKELETON_SWORD_HEIGHT,null );
         }
     }
 

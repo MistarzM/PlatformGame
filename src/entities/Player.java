@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static utils.Constants.ANIMATION_REFRESH;
+import static utils.Constants.GRAVITY;
 import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
 import static utils.Constants.Direction.*;          // import direction - movement for characters
 import static utils.LoadAndSave.*;
@@ -23,27 +25,21 @@ public class Player extends  Entity{
 
 
     private BufferedImage[][] knightAnimations;
-    private int animationTick, animationIndex, animationRefresh = 15;
-    private int playerAction = IDLE;
     private boolean running = false, attacking = false;
     private boolean up, left, down, right, jump, interaction;
 
     private int flipX = 0;
     private int flipW = 1;
 
-    private float speedOfRunning = 1.4f * Game.SCALE;
-    private float speedInAir = 0f;
-    private float gravity = 0.1f * Game.SCALE;
-    private float speedOfJump = -4.0f * Game.SCALE;
+    private float speedOfJump = -5.0f * Game.SCALE;
     private float fallSpeedInCollisionCase = 0.5f * Game.SCALE;
-    private boolean inAir = false;
 
     private int[][] levelData;
 
     private float xPlayerHitBox = 57 * 2 * Game.SCALE;      // *2 because we increased the size of the knight(128, 64)->(256, 128)
     private float yPlayerHitBox = 18 * 2 * Game.SCALE;
-    private float widthPlayerHitBox = 19 * 2 * Game.SCALE;  // 38
-    private float heightPlayerHitBox = 91 * Game.SCALE; // 46 * 2 -1
+    private float widthPlayerHitBox = 19 * 2;  // 38
+    private float heightPlayerHitBox = 91; // 46 * 2 -1
 
     // helpers for gravity and jumping
     private int numberOfPlayerTilesWidth = 3;    // because 38 < 16 (Tile_size) * 3 => 38 < 48
@@ -65,8 +61,6 @@ public class Player extends  Entity{
     private int healthBarX = (int) (32 * Game.SCALE);
     private int healthBarY = (int) (32 * Game.SCALE);
 
-    private int maxHealth = 8;
-    private int currentHealth = maxHealth;
     private int healthImageIndex = 0;   // img[0] = full hp
 
     private Playing playing;
@@ -74,8 +68,12 @@ public class Player extends  Entity{
     public Player(float x, float y, int width, int height, Playing playing){
         super(x, y, width, height);
         this.playing = playing;
+        this.state = IDLE;
+        this.maxHealth = 8;
+        this.runningSpeed = 1.4f * Game.SCALE;
+        this.currentHealth = maxHealth;
         loadAnimations();
-        initHitBox(x, y, (int)(widthPlayerHitBox), (int)(heightPlayerHitBox));
+        initHitBox((int)(widthPlayerHitBox), (int)(heightPlayerHitBox));
         initAttackHitBox();
     }
 
@@ -159,7 +157,7 @@ public class Player extends  Entity{
 
     public void render(Graphics g, int xPlayerOffset){
 
-        g.drawImage(knightAnimations[playerAction][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset + flipX, (int)(hitBox.y-yPlayerHitBox), width * flipW, height, null);
+        g.drawImage(knightAnimations[state][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset + flipX, (int)(hitBox.y-yPlayerHitBox), width * flipW, height, null);
         drawHitBox(g, xPlayerOffset);
         drawAttackHitBox(g, xPlayerOffset);
         drawHealthBar(g);
@@ -183,10 +181,10 @@ public class Player extends  Entity{
 
     private void UpdateAnimationTick() {
         animationTick++;
-        if(animationTick >= animationRefresh){
+        if(animationTick >= ANIMATION_REFRESH){
             animationTick = 0;
             animationIndex++;
-            if(animationIndex>= GetSpriteAmount(playerAction)){
+            if(animationIndex>= GetSpriteAmount(state)){
                 animationIndex = 0;
                 attacking = false;
                 attackChecked = false;
@@ -196,20 +194,20 @@ public class Player extends  Entity{
 
     private void setAnimation(){
 
-        int startAnimation = playerAction;
+        int startAnimation = state;
 
         if(running){
-            playerAction = RUN;
+            state = RUN;
         } else {
-            playerAction = IDLE;
+            state = IDLE;
         }
 
         if(inAir){
-            playerAction = JUMP;
+            state = JUMP;
         }
 
         if(attacking){
-            playerAction = RIGHT_ATTACK_1;
+            state = RIGHT_ATTACK_1;
             if(startAnimation != RIGHT_ATTACK_1){
                 animationIndex = 1;
                 animationTick = 0;
@@ -217,7 +215,7 @@ public class Player extends  Entity{
             }
         }
 
-        if(startAnimation != playerAction){
+        if(startAnimation != state){
             resetAnimationTick();
         }
     }
@@ -244,12 +242,12 @@ public class Player extends  Entity{
         float xMovingSpeed = 0;
 
         if(left){                                   // we do not have to check left && !right because
-            xMovingSpeed -= speedOfRunning;         // if left && right => pos = speed - speed = 0
+            xMovingSpeed -= runningSpeed;         // if left && right => pos = speed - speed = 0
             flipX = width + (int)(0.7 * Game.TILE_SIZE);
             flipW = -1;
         }
         if(right){
-            xMovingSpeed += speedOfRunning;
+            xMovingSpeed += runningSpeed;
             flipX = 0;
             flipW = 1;
         }
@@ -263,7 +261,7 @@ public class Player extends  Entity{
         if(inAir){
             if(LegalMove(hitBox.x, hitBox.y + speedInAir, hitBox.width, hitBox.height, levelData)){
                 hitBox.y += speedInAir;
-                speedInAir += gravity;
+                speedInAir += GRAVITY;
                 updateXPosition(xMovingSpeed);
             } else {
                 hitBox.y = EntityAndRoofAndFloorYPositionCollision(hitBox, speedInAir, numberOfPlayerTilesHeight);
@@ -433,7 +431,7 @@ public class Player extends  Entity{
         inAir = false;
         attacking = false;
         running = false;
-        playerAction = IDLE;
+        state = IDLE;
         currentHealth = maxHealth;
 
         hitBox.x = x;

@@ -15,7 +15,7 @@ public class SkeletonSword extends Enemy {
 
     public SkeletonSword(float x, float y) {
         super(x, y, SKELETON_SWORD_WIDTH, SKELETON_SWORD_HEIGHT, SKELETON_SWORD, NUMBER_OF_SKELETON_SWORD_TILES_WIDTH, NUMBER_OF_SKELETON_SWORD_TILES_HEIGHT, SKELETON_SWORD_IDLE);
-        initHitBox(x, y, (int)(15 * 1.5 * Game.SCALE), (int)(59 * 1.5 * Game.SCALE));
+        initHitBox((int)(15 * 1.5), (int)(59 * 1.5));
         initAttackHitBox();
     }
 
@@ -47,7 +47,7 @@ public class SkeletonSword extends Enemy {
         if(inAir){
             updateInAir(levelData);
         } else {
-            switch(enemyState) {
+            switch(state) {
                 case SKELETON_SWORD_IDLE:
                     updateState(SKELETON_SWORD_WALK);
                     break;

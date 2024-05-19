@@ -4,6 +4,9 @@ import main.Game;
 
 public class Constants {
 
+    public static final float GRAVITY = 0.1f * Game.SCALE;
+    public static final int ANIMATION_REFRESH = 20;
+
     public static class EnemyConstants {
 
         // boss

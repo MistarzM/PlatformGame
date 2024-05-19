@@ -10,7 +10,7 @@ public class Boss extends Enemy{
 
     public Boss(float x, float y) {
         super(x, y, BOSS_WIDTH, BOSS_HEIGHT, BOSS, NUMBER_OF_BOSS_TILES_WIDTH, NUMBER_OF_BOSS_TILES_HEIGHT, BOSS_IDLE);
-        initHitBox(x, y, (int)(50 * 1.5 * Game.SCALE), (int)(78 * 1.5 * Game.SCALE));
+        initHitBox((int)(50 * 1.5), (int)(78 * 1.5));
     }
 
     public void update(int[][] levelData, Player player){
@@ -26,7 +26,7 @@ public class Boss extends Enemy{
         if(inAir){
             updateInAir(levelData);
         } else {
-            switch(enemyState) {
+            switch(state) {
                 case BOSS_IDLE:
                     updateState(BOSS_FLYING);
                     break;
