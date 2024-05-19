@@ -36,15 +36,14 @@ public class LoadAndSave {
     public static final String KNIGHT_CROUCH_ATTACK = "/knight/crouch_attacks.png";
 
     public static final String HEALTH_BAR_MINIMUM_DAMAGE = "/gui/MinimumDamage-Sheet.png";
-
+    // level
     public static final String MAIN_LEVEL = "/levels/main_lev_build.png";
     public static final String OTHER_AND_DECORATIVE = "/levels/other_and_decorative.png";
-    //public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_one_hitBoxes.png";
     public static final String LEVEL_ONE_HIT_BOXES = "/levels/long_level.png";
-    //public static final String LEVEL_ONE_DESIGN = "/levels/level_one_design.png";
     public static final String LEVEL_ONE_DESIGN = "/levels/long_level_design.png";
     public static final String LEVEL_ONE_BACKGROUND_GIF = "/levels/background.gif";
 
+    // user interface
     public static final String MENU_BUTTONS = "/gui/buttons.png";
     public static final String GUI_BACKGROUND = "/gui/background.png";
     public static final String MENU_BACKGROUND = "/knight/Preview.gif";
@@ -54,6 +53,9 @@ public class LoadAndSave {
     public static final String VOLUME_BUTTONS = "/gui/volumebuttons.png";
     public static final String PAUSE_BACKGROUND = "/gui/pause.png";
 
+    public static final String KEYBOARD_BUTTONS = "/gui/Keyboard_Letters_and_Symbols.png";
+
+    // GIF - background (menu and game)
     public static final double MENU_GIF_SCALE = 2.04;
     public static final double BACKGROUND_GIF_SCALE = 0.66;
 

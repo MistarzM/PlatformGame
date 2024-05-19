@@ -53,6 +53,10 @@ public class Player extends  Entity{
     private Rectangle2D.Float attackHitBox;
     private boolean attackChecked;
 
+    // user interface -> keyboard tips
+   private BufferedImage[] keyboardInteraction;
+   private boolean eInteraction;
+
     // health bar
     private BufferedImage[] healthBar;
 
@@ -102,8 +106,14 @@ public class Player extends  Entity{
     private void checkInteraction() {
         int midTileWidth = (int)((hitBox.x + hitBox.width/2)/Game.TILE_SIZE);
         int midTileHeight = (int)((hitBox.y + hitBox.height/2)/Game.TILE_SIZE);
-        if(levelData[midTileHeight][midTileWidth] == 2 && interaction){
-            System.out.println("Next map");
+        if(levelData[midTileHeight][midTileWidth] == 2) {
+            eInteraction = true;
+            if(interaction){
+                System.out.println(midTileWidth + " " + midTileHeight);
+                System.out.println("Next map");
+            }
+        } else {
+            eInteraction = false;
         }
     }
 
@@ -146,6 +156,13 @@ public class Player extends  Entity{
         drawHitBox(g, xPlayerOffset);
         drawAttackHitBox(g, xPlayerOffset);
         drawHealthBar(g);
+        if(eInteraction){
+            drawButtonE(g, xPlayerOffset);
+        }
+    }
+
+    private void drawButtonE(Graphics g, int xPlayerOffset) {
+        g.drawImage(keyboardInteraction[20],(int)(hitBox.x+ hitBox.width/2 - 20 * Game.SCALE) - xPlayerOffset, (int)(hitBox.y - 40 * Game.SCALE),(int)(40 * Game.SCALE),(int)(40 * Game.SCALE), null);
     }
 
     private void drawAttackHitBox(Graphics g, int xPlayerOffset) {
@@ -298,8 +315,11 @@ public class Player extends  Entity{
 
         BufferedImage healthBarImg      = LoadAndSave.GetSpriteAtlas(LoadAndSave.HEALTH_BAR_MINIMUM_DAMAGE);
 
+        BufferedImage keyboardImg       = LoadAndSave.GetSpriteAtlas(LoadAndSave.KEYBOARD_BUTTONS);
+
         knightAnimations = new BufferedImage[22][12];
         healthBar = new BufferedImage[50];
+        keyboardInteraction = new BufferedImage[54];
 
         for (int i = 0; i < knightAnimations[0].length; i++) {
             if (i < 8) {
@@ -338,8 +358,11 @@ public class Player extends  Entity{
             knightAnimations[PRAY][i] = prayImg.getSubimage((i % 4) * 128, (i / 4) * 64, 128, 64);
         }
 
-        for(int i = 0; i < healthBar.length; i++){
-            healthBar[i] = healthBarImg.getSubimage(0, i * 16, 64, 16);
+        for(int i = 0; i < keyboardInteraction.length; i++){
+            if(i<50) {
+                healthBar[i] = healthBarImg.getSubimage(0, i * 16, 64, 16);
+            }
+            keyboardInteraction[i] = keyboardImg.getSubimage((i % 8) * 16, (i / 8) * 16, 16, 16);
         }
     }
 
