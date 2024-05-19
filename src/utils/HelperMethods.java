@@ -1,9 +1,13 @@
 package utils;
 
+import entities.Boss;
+import entities.SkeletonSword;
 import main.Game;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class HelperMethods {
 
@@ -111,4 +115,51 @@ public class HelperMethods {
             return DistanceBetweenCanBePassed(firstTileX, secondTileX, yTile, levelData);
         }
     }
+
+    public static ArrayList<Boss> GetBoss(BufferedImage bufferedImage){
+        ArrayList<Boss> list = new ArrayList<>();
+        for(int j = 0; j < bufferedImage.getHeight(); j++){
+            for(int i = 0; i < bufferedImage.getWidth(); i++){
+                Color color = new Color(bufferedImage.getRGB(i, j));
+                if(color.equals(Color.red)){
+                    list.add(new Boss(i * Game.TILE_SIZE, j * Game.TILE_SIZE));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static ArrayList<SkeletonSword> GetSkeletonSword(BufferedImage bufferedImage){
+        ArrayList<SkeletonSword> list = new ArrayList<>();
+        for(int j = 0; j < bufferedImage.getHeight(); j++){
+            for(int i = 0; i < bufferedImage.getWidth(); i++){
+                Color color = new Color(bufferedImage.getRGB(i, j));
+                if(color.equals(Color.green)){
+                    list.add(new SkeletonSword(i * Game.TILE_SIZE, j * Game.TILE_SIZE));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static int[][] GetLevelData(BufferedImage bufferedImage){
+
+        int[][] levelData = new int[bufferedImage.getHeight()][bufferedImage.getWidth()];
+
+        for(int j = 0; j < bufferedImage.getHeight(); j++){
+            for(int i = 0; i < bufferedImage.getWidth(); i++){
+                Color color = new Color(bufferedImage.getRGB(i, j));
+                int value = 1;
+                if(color.equals(Color.BLACK) || color.equals(new Color(1,1,1))|| color.equals(new Color(4,4,4))|| color.equals(new Color(5,5,5))){
+                    value = 0;
+                }
+                if(color.equals(new Color(128, 128, 128))){
+                    value = 2;
+                }
+                levelData[j][i] = value;
+            }
+        }
+        return levelData;
+    }
+
 }

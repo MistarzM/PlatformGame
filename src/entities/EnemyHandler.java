@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
+import levels.*;
 import static utils.Constants.EnemyConstants.*;
 
 public class EnemyHandler {
@@ -21,14 +21,13 @@ public class EnemyHandler {
     public EnemyHandler(Playing playing){
         this.playing = playing;
         loadEnemyImages();
-        addEnemies();
     }
 
-    private void addEnemies() {
-        bosses = LoadAndSave.GetBoss();
+    public void loadEnemies(Level level) {
+        bosses = level.getBosses();
         System.out.println("size of bosses: " + bosses.size());
 
-        skeletonsSword = LoadAndSave.GetSkeletonSword();
+        skeletonsSword = level.getSkeletonsSword();
         System.out.println("size of skeleton: " + skeletonsSword.size());
     }
 

@@ -7,11 +7,13 @@ import main.Game;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.Color;
 import java.awt.Image;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -40,11 +42,10 @@ public class LoadAndSave {
     public static final String OTHER_AND_DECORATIVE = "/levels/to_design_new_levels/other_and_decorative.png";
 
     // -> hit boxes and design
-    public static final String LEVEL_ONE_HIT_BOXES = "/levels/level_1_hitBox.png";
-    public static final String LEVEL_ONE_DESIGN = "/levels/level_1_design.png";
+    public static final String LEVEL_ONE_HIT_BOXES = "/levels/levels_hit_box/level_1_hitBox.png";
+    public static final String LEVEL_TWO_HIT_BOXES = "/levels/levels_hit_box/level_2_hitBox.png";
+    public static final String[] LEVEL_DESIGN = {"/levels/level_1_design.png", "/levels/level_2_design.png"};
     public static final String LEVEL_ONE_BACKGROUND_GIF = "/levels/background.gif";
-    public static final String LEVEL_TWO_HIT_BOXES = "/levels/level_2_hitBox.png";
-    public static final String LEVEL_TWO_DESIGN = "/levels/level_2_design.png";
 
     // user interface
     public static final String MENU_BUTTONS = "/gui/buttons.png";
@@ -130,52 +131,38 @@ public class LoadAndSave {
     }
 
 
-    public static ArrayList<Boss> GetBoss(){
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_HIT_BOXES);
-        ArrayList<Boss> list = new ArrayList<>();
-        for(int j = 0; j < img.getHeight(); j++){
-            for(int i = 0; i < img.getWidth(); i++){
-                Color color = new Color(img.getRGB(i, j));
-                if(color.equals(Color.red)){
-                    list.add(new Boss(i * Game.TILE_SIZE, j * Game.TILE_SIZE));
+    public static BufferedImage[] GetAllLevels(){
+        URL url = LoadAndSave.class.getResource("/levels/levels_hit_box");
+        File file = null;
+
+        try{
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        File[] files = file.listFiles();
+        File[] filesSorted = new File[files.length];
+
+        for(int i = 0; i < filesSorted.length; i++){
+            for(int j = 0; j < files.length; j++){
+                if(files[j].getName().equals("level_"+(i + 1) + "_hitBox.png")){
+                    filesSorted[i] = files[j];
                 }
             }
         }
-        return list;
-    }
 
-    public static ArrayList<SkeletonSword> GetSkeletonSword(){
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_HIT_BOXES);
-        ArrayList<SkeletonSword> list = new ArrayList<>();
-        for(int j = 0; j < img.getHeight(); j++){
-            for(int i = 0; i < img.getWidth(); i++){
-                Color color = new Color(img.getRGB(i, j));
-                if(color.equals(Color.green)){
-                    list.add(new SkeletonSword(i * Game.TILE_SIZE, j * Game.TILE_SIZE));
-                }
+        BufferedImage[] imgs = new BufferedImage[filesSorted.length];
+
+        for(int i = 0; i < imgs.length; i++){
+            try{
+                imgs[i] = ImageIO.read(filesSorted[i]);
+            } catch( IOException e){
+                e.printStackTrace();
             }
         }
-        return list;
+
+        return imgs;
     }
 
-    public static int[][] GetLevelData(){
-
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_HIT_BOXES);
-        int[][] levelData = new int[img.getHeight()][img.getWidth()];
-
-        for(int j = 0; j < img.getHeight(); j++){
-            for(int i = 0; i < img.getWidth(); i++){
-                Color color = new Color(img.getRGB(i, j));
-                int value = 1;
-                if(color.equals(Color.BLACK) || color.equals(new Color(1,1,1))|| color.equals(new Color(4,4,4))|| color.equals(new Color(5,5,5))){
-                    value = 0;
-                }
-                if(color.equals(new Color(128, 128, 128))){
-                    value = 2;
-                }
-                levelData[j][i] = value;
-            }
-        }
-        return levelData;
-    }
 }

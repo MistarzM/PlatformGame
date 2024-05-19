@@ -25,23 +25,37 @@ public class Playing extends State implements StateMethods{
     private int xLevelOffset;
     private int leftBorder = (int) (0.25 * Game.PANEL_WIDTH);
     private int rightBorder = (int) (0.75 * Game.PANEL_WIDTH);
-    private int levelTilesWide = LoadAndSave.GetLevelData()[0].length;
-    private int maxTileOffset = levelTilesWide - Game.TILES_IN_WIDTH;
-    private int maxLevelOffsetX = maxTileOffset * Game.TILE_SIZE;
+    private int maxLevelOffsetX;
 
     private boolean isGameOver;
-    private boolean changeLevel = false;
+    private boolean changeLevel;
 
     public Playing(Game game) {
         super(game);
         initClasses();
+
+        calculateLevelOffset();
+        loadStartLevel();
+    }
+
+    public void loadNextLevel() {
+        resetAll();
+        levelHandler.loadNextLevel();
+    }
+
+    private void loadStartLevel() {
+        enemyHandler.loadEnemies(levelHandler.getCurrentLevel());
+    }
+
+    private void calculateLevelOffset(){
+        maxLevelOffsetX = levelHandler.getCurrentLevel().getMaxLevelOffsetX();
     }
 
     private void initClasses() {
         player = new Player(960, 16, (int) (256 * Game.SCALE), (int) (128 * Game.SCALE), this);
         levelHandler = new LevelHandler(game);
         enemyHandler = new EnemyHandler(this);
-        player.loadLevelData(levelHandler.getLevelOne().getLevelData());
+        player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
         pauseMenu = new PauseMenu(this);
         gameOver = new GameOver(this);
     }
@@ -63,11 +77,12 @@ public class Playing extends State implements StateMethods{
         if(paused || isGameOver) {
             pauseMenu.update();
         } else if(changeLevel){
-            //level change
+            loadNextLevel();
+            changeLevel = false;
         }else {
             levelHandler.update();
             player.update();
-            enemyHandler.update(levelHandler.getLevelOne().getLevelData(), player);
+            enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player);
             checkIfPlayerCloseToBorder();
         }
     }
@@ -92,7 +107,7 @@ public class Playing extends State implements StateMethods{
     public void resetAll(){
         isGameOver = false;
         paused = false;
-
+        changeLevel = false;
         player.reset();
         enemyHandler.resetEnemies();
     }
@@ -107,6 +122,14 @@ public class Playing extends State implements StateMethods{
 
     public void setChangeLevel(boolean changeLevel){
         this.changeLevel = changeLevel;
+    }
+
+    public EnemyHandler getEnemyHandler(){
+        return enemyHandler;
+    }
+
+    public void setMaxLevelOffsetX(int maxLevelOffsetX){
+        this.maxLevelOffsetX = maxLevelOffsetX;
     }
 
     @Override

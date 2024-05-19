@@ -111,8 +111,6 @@ public class Player extends  Entity{
             if(interaction){
                 //System.out.println("Next map");
                 playing.setChangeLevel(true);
-                playing.resetAll();
-                playing.setChangeLevel(false);
             }
         } else {
             eInteraction = false;
