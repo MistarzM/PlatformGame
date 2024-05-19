@@ -14,23 +14,23 @@ public class Boss extends Enemy{
     private Rectangle2D.Float attackHitBox;
 
     public Boss(float x, float y) {
-        super(x, y, BOSS_WIDTH, BOSS_HEIGHT, BOSS, NUMBER_OF_BOSS_TILES_WIDTH, NUMBER_OF_BOSS_TILES_HEIGHT, BOSS_IDLE, BOSS_ATTACK_NO_BREATH, BOSS_DEAD);
-        initHitBox(50 * 2, 78 * 2 +  2 * Game.TILE_SIZE);
-        this.attackRange = 9 * Game.TILE_SIZE;
+        super(x, y, BOSS_WIDTH, BOSS_HEIGHT, BOSS, NUMBER_OF_BOSS_TILES_WIDTH, NUMBER_OF_BOSS_TILES_HEIGHT, BOSS_IDLE, BOSS_HURT, BOSS_DEAD);
+        initHitBox(22 * 3, 54 * 3);
+        this.attackRange = 7 * Game.TILE_SIZE;
         initAttackHitBox();
     }
 
     private void initAttackHitBox() {
-        attackHitBox = new Rectangle2D.Float(x, y, (int) (140 * Game.SCALE), (int)(80 * Game.SCALE));
+        attackHitBox = new Rectangle2D.Float(x, y, (int) (190 * Game.SCALE), (int)(130 * Game.SCALE));
     }
 
     private void updateAttackHitBox(){
         if(walkingDirection == RIGHT){
-            attackHitBox.x = hitBox.x + attackHitBox.width - (int) (Game.SCALE * 40);
+            attackHitBox.x = hitBox.x + attackHitBox.width - (int) (Game.SCALE *115);
         } else if (walkingDirection == LEFT){
-            attackHitBox.x = hitBox.x - hitBox.width - (int)(Game.SCALE * 40);
+            attackHitBox.x = hitBox.x - hitBox.width - (int)(Game.SCALE * 130);
         }
-        attackHitBox.y = hitBox.y + (Game.SCALE * 100);
+        attackHitBox.y = hitBox.y + (Game.SCALE * 30);
     }
 
     public void update(int[][] levelData, Player player){
@@ -49,9 +49,9 @@ public class Boss extends Enemy{
         } else {
             switch(state) {
                 case BOSS_IDLE:
-                    updateState(BOSS_FLYING);
+                    updateState(BOSS_WALK);
                     break;
-                case BOSS_FLYING:
+                case BOSS_WALK:
 
                     if(playerDetected(levelData, player)) {
                         turnTowardsPlayer(player);
@@ -68,11 +68,11 @@ public class Boss extends Enemy{
                         attackChecked = false;
                     }
 
-                    if(animationIndex == 9 && !attackChecked){
+                    if(animationIndex == 5 && !attackChecked){
                         checkPlayerHitBox(player, attackHitBox);
                     }
                     break;
-                case BOSS_ATTACK_NO_BREATH:
+                case BOSS_HURT:
                     break;
             }
         }
@@ -85,7 +85,7 @@ public class Boss extends Enemy{
 
     public int flipX(){
         if(walkingDirection == RIGHT){
-            return width - 3 * Game.TILE_SIZE;
+            return width + 14 * Game.TILE_SIZE;
         } else {
             return 0;
         }

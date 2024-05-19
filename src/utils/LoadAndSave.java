@@ -66,9 +66,7 @@ public class LoadAndSave {
     // boss
     public static final String BOSS_BREATH = "/boss/breath.png";
     public static final String BOSS_BREATH_FIRE = "/boss/breath-fire.png";
-    public static final String BOSS_ATTACK = "/boss/demon-attack.png";
-    public static final String BOSS_ATTACK_NO_BREATH = "/boss/demon-attack-no-breath.png";
-    public static final String BOSS_IDLE = "/boss/demon-idle.png";
+    public static final String BOSS = "/boss/boss.png";
     public static final String BOSS_NIGHTMARE_GALLOPING = "/boss/nightmare-galloping.png";
     public static final String BOSS_NIGHTMARE_IDLE= "/boss/nightmare-idle.png";
 

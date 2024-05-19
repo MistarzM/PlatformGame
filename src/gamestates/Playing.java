@@ -5,6 +5,7 @@ import entities.Player;
 import levels.LevelHandler;
 import main.Game;
 import userinterface.PauseMenu;
+import userinterface.Victory;
 import utils.LoadAndSave;
 import userinterface.GameOver;
 
@@ -20,6 +21,7 @@ public class Playing extends State implements StateMethods{
     private EnemyHandler enemyHandler;
     private PauseMenu pauseMenu;
     private GameOver gameOver;
+    private Victory victory;
     private boolean paused= false;
 
     private int xLevelOffset;
@@ -29,6 +31,7 @@ public class Playing extends State implements StateMethods{
 
     private boolean isGameOver;
     private boolean changeLevel;
+    private boolean isVictory;
 
     public Playing(Game game) {
         super(game);
@@ -60,6 +63,7 @@ public class Playing extends State implements StateMethods{
         player.setPlayerSpawn(levelHandler.getCurrentLevel().getLevelSpawn());
         pauseMenu = new PauseMenu(this);
         gameOver = new GameOver(this);
+        victory = new Victory(this);
     }
 
     public void windowFocusLost(){
@@ -76,7 +80,7 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void update() {
-        if(paused || isGameOver) {
+        if(paused || isGameOver || isVictory) {
             pauseMenu.update();
         } else if(changeLevel){
             loadNextLevel();
@@ -110,6 +114,7 @@ public class Playing extends State implements StateMethods{
         isGameOver = false;
         paused = false;
         changeLevel = false;
+        isVictory = false;
         player.reset();
         enemyHandler.resetEnemies();
     }
@@ -124,6 +129,10 @@ public class Playing extends State implements StateMethods{
 
     public void setGameOver(boolean isGameOver){
         this.isGameOver = isGameOver;
+    }
+
+    public void setIsVictory(boolean isVictory){
+        this.isVictory = isVictory;
     }
 
     public void setChangeLevel(boolean changeLevel){
@@ -150,6 +159,8 @@ public class Playing extends State implements StateMethods{
             pauseMenu.draw(g);
         } else if(isGameOver){
             gameOver.draw(g);
+        } else if(isVictory){
+            victory.draw(g);
         }
     }
 
@@ -159,7 +170,7 @@ public class Playing extends State implements StateMethods{
     }
 
     public void mouseDragged(MouseEvent e) {
-        if(!isGameOver) {
+        if(!isGameOver || !isVictory) {
             if (paused) {
                 pauseMenu.mouseDragged(e);
             }
@@ -168,7 +179,7 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(!isGameOver) {
+        if(!isGameOver || !isVictory) {
             if (paused) {
                 pauseMenu.mousePressed(e);
             }
@@ -177,7 +188,7 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(!isGameOver) {
+        if(!isGameOver || !isVictory) {
             if (paused) {
                 pauseMenu.mouseReleased(e);
             }
@@ -186,7 +197,7 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void mouseMoves(MouseEvent e) {
-        if(!isGameOver) {
+        if(!isGameOver || !isVictory) {
             if (paused) {
                 pauseMenu.mouseMoves(e);
             }
@@ -195,9 +206,11 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(isGameOver){
+        if (isGameOver) {
             gameOver.pressEnterToContinue(e);
-        } else {
+        } else if (isVictory){
+            victory.pressEnterToContinue(e);
+        }else {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_W:
                     player.setUp(true);
@@ -229,7 +242,7 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(!isGameOver) {
+        if(!isGameOver || !isVictory) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_W:
                     player.setUp(false);

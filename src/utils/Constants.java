@@ -13,22 +13,24 @@ public class Constants {
         public static final int BOSS = 0;
 
         public static final int BOSS_IDLE = 0;
-        public static final int BOSS_FLYING = 1;
+        public static final int BOSS_WALK = 1;
         public static final int BOSS_ATTACK = 2;
-        public static final int BOSS_ATTACK_NO_BREATH = 3;
+        public static final int BOSS_HURT = 3;
         public static final int BOSS_DEAD = 4;
+        public static final int BOSS_CAST = 5;
+        public static final int BOSS_SPELL = 6;
 
-        public static final int BOSS_WIDTH_DEFAULT = 160;
-        public static final int BOSS_HEIGHT_DEFAULT = 144;
+        public static final int BOSS_WIDTH_DEFAULT = 140;
+        public static final int BOSS_HEIGHT_DEFAULT = 93;
 
-        public static final int BOSS_WIDTH = (int) (BOSS_WIDTH_DEFAULT * 2 * Game.SCALE);
-        public static final int BOSS_HEIGHT = (int) (BOSS_HEIGHT_DEFAULT * 2 * Game.SCALE);
+        public static final int BOSS_WIDTH = (int) (BOSS_WIDTH_DEFAULT* 3  * Game.SCALE);
+        public static final int BOSS_HEIGHT = (int) (BOSS_HEIGHT_DEFAULT * 3 * Game.SCALE);
 
-        public static final int BOSS_DRAW_OFFSET_X = (int) (39 * 2 * Game.SCALE);
-        public static final int BOSS_DRAW_OFFSET_Y = (int) (45 * 2 * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_X = (int) (95 * 3  * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_Y = (int) (38 * 3 * Game.SCALE);
 
-        public static final int NUMBER_OF_BOSS_TILES_WIDTH = 7;
-        public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 12;       // height: 10 but boss should fly
+        public static final int NUMBER_OF_BOSS_TILES_WIDTH = 5;
+        public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 11;
 
         // skeleton sword
         public static final int SKELETON_SWORD = 1;
@@ -60,13 +62,17 @@ public class Constants {
                 case BOSS:
                     switch (enemyState) {
                         case BOSS_IDLE:
-                        case BOSS_FLYING:
-                        case BOSS_DEAD:
-                            return 6;
-                        case BOSS_ATTACK:
-                            return 11;
-                        case BOSS_ATTACK_NO_BREATH:
+                        case BOSS_WALK:
                             return 8;
+                        case BOSS_ATTACK:
+                        case BOSS_DEAD:
+                            return 10;
+                        case BOSS_HURT:
+                            return 3;
+                        case BOSS_CAST:
+                            return 9;
+                        case BOSS_SPELL:
+                            return 16;
                     }
                 case SKELETON_SWORD:
                     switch (enemyState) {
