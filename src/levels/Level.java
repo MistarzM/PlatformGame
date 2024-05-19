@@ -4,12 +4,11 @@ import entities.Boss;
 import entities.SkeletonSword;
 import main.Game;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static utils.HelperMethods.GetLevelData;
-import static utils.HelperMethods.GetBoss;
-import static utils.HelperMethods.GetSkeletonSword;
+import static utils.HelperMethods.*;
 
 public class Level {
 
@@ -22,11 +21,18 @@ public class Level {
     private int maxTileOffset;
     private int maxLevelOffsetX;
 
+    private Point playerSpawn;
+
     public Level(BufferedImage bufferedImage){
         this.bufferedImage = bufferedImage;
         createLevelData();
         addEnemies();
         calculateLevelOffset();
+        findPlayerSpawn();
+    }
+
+    private void findPlayerSpawn() {
+        playerSpawn = GetPlayerSpawn(bufferedImage);
     }
 
     private void calculateLevelOffset() {
@@ -63,5 +69,9 @@ public class Level {
 
     public ArrayList<Boss> getBosses(){
         return bosses;
+    }
+
+    public Point getLevelSpawn(){
+        return playerSpawn;
     }
 }

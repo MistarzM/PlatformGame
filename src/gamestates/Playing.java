@@ -41,6 +41,7 @@ public class Playing extends State implements StateMethods{
     public void loadNextLevel() {
         resetAll();
         levelHandler.loadNextLevel();
+        player.setPlayerSpawn(levelHandler.getCurrentLevel().getLevelSpawn());
     }
 
     private void loadStartLevel() {
@@ -56,6 +57,7 @@ public class Playing extends State implements StateMethods{
         levelHandler = new LevelHandler(game);
         enemyHandler = new EnemyHandler(this);
         player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
+        player.setPlayerSpawn(levelHandler.getCurrentLevel().getLevelSpawn());
         pauseMenu = new PauseMenu(this);
         gameOver = new GameOver(this);
     }

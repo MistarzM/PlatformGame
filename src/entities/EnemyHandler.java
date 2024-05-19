@@ -17,6 +17,7 @@ public class EnemyHandler {
     private BufferedImage[][] skeletonSwordAnimations;
     private ArrayList<Boss> bosses = new ArrayList<>();
     private ArrayList<SkeletonSword> skeletonsSword = new ArrayList<>();
+    private boolean victory = true;
 
     public EnemyHandler(Playing playing){
         this.playing = playing;
@@ -32,8 +33,11 @@ public class EnemyHandler {
     }
 
     public void update(int[][] levelData, Player player){
+
+
         for(Boss b : bosses){
             b.update(levelData, player);
+            victory = false;
         }
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive()) {
@@ -102,7 +106,7 @@ public class EnemyHandler {
                 bossAnimations[BOSS_ATTACK][i] = temp_boss_attack.getSubimage(i*240, 0, 240,192);
             }
             if(i < 8){
-                bossAnimations[BOSS_ATTACK_NO_BREATH][i] = temp_boss_attack_no_breath.getSubimage(i*BOSS_WIDTH_DEFAULT, 0, BOSS_WIDTH_DEFAULT, BOSS_HEIGHT_DEFAULT);
+                bossAnimations[BOSS_ATTACK_NO_BREATH][i] = temp_boss_attack_no_breath.getSubimage(i*192, 0, 192, 176);
             }
         }
 
@@ -145,5 +149,9 @@ public class EnemyHandler {
      for(Boss b : bosses){
          b.resetEnemy();
      }
+    }
+
+    public boolean isVictory(){
+        return victory;
     }
 }

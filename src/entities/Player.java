@@ -103,6 +103,13 @@ public class Player extends  Entity{
         setAnimation();
     }
 
+    public void setPlayerSpawn(Point playerSpawn){
+        this.x = playerSpawn.x;
+        this.y = playerSpawn.y;
+        hitBox.x = x;
+        hitBox.y = y;
+    }
+
     private void checkInteraction() {
         int midTileWidth = (int)((hitBox.x + hitBox.width/2)/Game.TILE_SIZE);
         int midTileHeight = (int)((hitBox.y + hitBox.height/2)/Game.TILE_SIZE);

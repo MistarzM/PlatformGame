@@ -142,6 +142,18 @@ public class HelperMethods {
         return list;
     }
 
+    public static Point GetPlayerSpawn(BufferedImage bufferedImage){
+        for(int j = 0; j < bufferedImage.getHeight(); j++){
+            for(int i = 0; i < bufferedImage.getWidth(); i++){
+                Color color = new Color(bufferedImage.getRGB(i, j));
+                if(color.equals(Color.yellow)){
+                    return new Point (i * Game.TILE_SIZE, j * Game.TILE_SIZE);
+                }
+            }
+        }
+        return new Point (Game.TILE_SIZE, Game.TILE_SIZE);
+    }
+
     public static int[][] GetLevelData(BufferedImage bufferedImage){
 
         int[][] levelData = new int[bufferedImage.getHeight()][bufferedImage.getWidth()];
