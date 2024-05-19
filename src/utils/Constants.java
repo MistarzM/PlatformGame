@@ -20,14 +20,14 @@ public class Constants {
         public static final int BOSS_WIDTH_DEFAULT = 160;
         public static final int BOSS_HEIGHT_DEFAULT = 144;
 
-        public static final int BOSS_WIDTH = (int) (BOSS_WIDTH_DEFAULT * 1.5 * Game.SCALE);
-        public static final int BOSS_HEIGHT = (int) (BOSS_HEIGHT_DEFAULT * 1.5 * Game.SCALE);
+        public static final int BOSS_WIDTH = (int) (BOSS_WIDTH_DEFAULT * 2 * Game.SCALE);
+        public static final int BOSS_HEIGHT = (int) (BOSS_HEIGHT_DEFAULT * 2 * Game.SCALE);
 
-        public static final int BOSS_DRAW_OFFSET_X = (int) (39 * 1.5 * Game.SCALE);
-        public static final int BOSS_DRAW_OFFSET_Y = (int) (45 * 1.5 * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_X = (int) (39 * 2 * Game.SCALE);
+        public static final int BOSS_DRAW_OFFSET_Y = (int) (45 * 2 * Game.SCALE);
 
-        public static final int NUMBER_OF_BOSS_TILES_WIDTH = 5;
-        public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 8;
+        public static final int NUMBER_OF_BOSS_TILES_WIDTH = 7;
+        public static final int NUMBER_OF_BOSS_TILES_HEIGHT = 12;       // height: 10 but boss should fly
 
         // skeleton sword
         public static final int SKELETON_SWORD = 1;

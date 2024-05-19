@@ -17,7 +17,7 @@ public abstract class Enemy extends Entity{
     protected  boolean firstUpdate = true;
     protected int walkingDirection = LEFT;
     protected int enemyTileY;
-    protected float attackRange = 4 * Game.TILE_SIZE;
+    protected float attackRange = 5 * Game.TILE_SIZE;
 
     protected int numberOfEnemyTilesWidth;
     protected int numberOfEnemyTilesHeight;
@@ -118,7 +118,7 @@ public abstract class Enemy extends Entity{
     }
 
     protected boolean playerInAttackRange(Player player){
-        int distanceBetween = (int) Math.abs(player.hitBox.x - hitBox.x);
+        int distanceBetween = (int) Math.abs(player.hitBox.x + player.hitBox.width/2 - (hitBox.x + hitBox.width/2));
 
         return distanceBetween <= attackRange;
     }

@@ -1,6 +1,7 @@
 package entities;
 
 import gamestates.Playing;
+import main.Game;
 import utils.LoadAndSave;
 
 import java.awt.*;
@@ -64,8 +65,20 @@ public class EnemyHandler {
     }
 
     private void drawBoss(Graphics g, int xLevelOffset) {
-        for(Boss b : bosses){
-            g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()], (int)b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(), (int)b.getHitBox().y - BOSS_DRAW_OFFSET_Y , BOSS_WIDTH * b.flipW(), BOSS_HEIGHT,null);
+        for(Boss b : bosses) {
+            if (b.getState() == 2) {    //attacking
+                int xFlip = b.flipX() == 0 ? -80 : 80;
+                g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
+                        (int) (b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX()+xFlip * Game.SCALE),
+                        (int)( b.getHitBox().y - BOSS_DRAW_OFFSET_Y - 80 * Game.SCALE),
+                        (int)(BOSS_WIDTH + 90 * Game.SCALE) * b.flipW(), (int)(BOSS_HEIGHT + 90 * Game.SCALE), null);
+            } else {
+                g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
+                        (int) b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(),
+                        (int) b.getHitBox().y - BOSS_DRAW_OFFSET_Y,
+                        BOSS_WIDTH * b.flipW(), BOSS_HEIGHT, null);
+
+            }
         }
     }
 
