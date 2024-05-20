@@ -26,16 +26,23 @@ public class HelperMethods {
     }
 
     public static boolean LegalMovePlayer(float x, float y, float width, float height, int[][] levelData){        // checks if the player can move on (without object collisions)
-        int segments = 8;
 
-        for(int i = 0; i <= segments; i++){
-            for(int j = 0; j <= segments; j++){
-                float xi = x + i * (width/segments);
-                float yj = y + j * (height/ segments);
+        int hitBoxPrecision = 8;
 
-                if(!IsLegalMovement(xi, yj, levelData)){
-                    return false;
-                }
+        for(int i = (int)x; i <= (int)(x + width); i += (int)(width/hitBoxPrecision)){
+           if(!IsLegalMovement(i, y, levelData)){
+               return false;
+           }
+           if(!IsLegalMovement(i, y + height, levelData)){
+               return false;
+           }
+       }
+        for(int i = (int)y; i <= (int)(y + height); i += (int)(height/hitBoxPrecision)){
+            if(!IsLegalMovement(x , i, levelData)){
+                return false;
+            }
+            if(!IsLegalMovement(x + width, i, levelData)){
+                return false;
             }
         }
 
