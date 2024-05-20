@@ -46,14 +46,15 @@ public class LevelHandler {
         game.getPlaying().getEnemyHandler().loadEnemies(newLevel);
         game.getPlaying().getPlayer().loadLevelData(newLevel.getLevelData());
         game.getPlaying().setMaxLevelOffsetX(newLevel.getMaxLevelOffsetX());
+        game.getPlaying().setMaxLevelOffsetY(newLevel.getMaxLevelOffsetY());
     }
 
-    public void draw(Graphics g, int xLevelOffset){
+    public void draw(Graphics g, int xLevelOffset, int yLevelOffset){
         BufferedImage[] img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_DESIGN);
         g.setColor(new Color(25, 33, 40, 255));
         g.fillRect(0, 0, 1920, 1080);
         levelOneBackgroundGIF.paintIcon(null, g, 0, 0);
-        g.drawImage(img[levelIndex], -xLevelOffset, 0, (int)(img[levelIndex].getWidth()* Game.SCALE), (int)(img[levelIndex].getHeight() * SCALE), null);
+        g.drawImage(img[levelIndex], -xLevelOffset, -yLevelOffset, (int)(img[levelIndex].getWidth()* Game.SCALE), (int)(img[levelIndex].getHeight() * SCALE), null);
     }
 
     public void update(){

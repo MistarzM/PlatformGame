@@ -18,8 +18,12 @@ public class Level {
     private ArrayList<Boss> bosses;
 
     private int levelTilesWide;
-    private int maxTileOffset;
+    private int maxTileOffsetX;
     private int maxLevelOffsetX;
+
+    private int levelTilesHigh;
+    private int maxTileOffsetY;
+    private int maxLevelOffsetY;
 
     private Point playerSpawn;
 
@@ -37,8 +41,12 @@ public class Level {
 
     private void calculateLevelOffset() {
         levelTilesWide = bufferedImage.getWidth();
-        maxTileOffset = levelTilesWide - Game.TILES_IN_WIDTH;
-        maxLevelOffsetX = Game.TILE_SIZE * maxTileOffset;
+        maxTileOffsetX = levelTilesWide - Game.TILES_IN_WIDTH;
+        maxLevelOffsetX = Game.TILE_SIZE * maxTileOffsetX;
+
+        levelTilesHigh = bufferedImage.getHeight();
+        maxTileOffsetY = levelTilesHigh - Game.TILES_IN_HEIGHT;
+        maxLevelOffsetY = Game.TILE_SIZE * maxTileOffsetY;
     }
 
     private void addEnemies() {
@@ -61,6 +69,10 @@ public class Level {
 
     public int getMaxLevelOffsetX(){
         return maxLevelOffsetX;
+    }
+
+    public int getMaxLevelOffsetY(){
+        return maxLevelOffsetY;
     }
 
     public ArrayList<SkeletonSword> getSkeletonsSword(){

@@ -78,9 +78,9 @@ public class Boss extends Enemy{
         }
     }
 
-    public void drawAttackHitBox(Graphics g, int levelOffsetX){
+    public void drawAttackHitBox(Graphics g, int levelOffsetX, int levelOffsetY){
         g.setColor(Color.red);
-        g.drawRect((int)attackHitBox.x - levelOffsetX, (int)attackHitBox.y, (int)attackHitBox.width, (int)attackHitBox.height);
+        g.drawRect((int)attackHitBox.x - levelOffsetX, (int)attackHitBox.y - levelOffsetY, (int)attackHitBox.width, (int)attackHitBox.height);
     }
 
     public int flipX(){

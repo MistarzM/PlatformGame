@@ -155,24 +155,24 @@ public class Player extends  Entity{
         }
     }
 
-    public void render(Graphics g, int xPlayerOffset){
+    public void render(Graphics g, int xPlayerOffset, int yPlayerOffset){
 
-        g.drawImage(knightAnimations[state][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset + flipX, (int)(hitBox.y-yPlayerHitBox), width * flipW, height, null);
-        drawHitBox(g, xPlayerOffset);
-        drawAttackHitBox(g, xPlayerOffset);
+        g.drawImage(knightAnimations[state][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset + flipX, (int)(hitBox.y-yPlayerHitBox)- yPlayerOffset, width * flipW, height, null);
+        drawHitBox(g, xPlayerOffset, yPlayerOffset);
+        drawAttackHitBox(g, xPlayerOffset, yPlayerOffset);
         drawHealthBar(g);
         if(eInteraction){
-            drawButtonE(g, xPlayerOffset);
+            drawButtonE(g, xPlayerOffset, yPlayerOffset);
         }
     }
 
-    private void drawButtonE(Graphics g, int xPlayerOffset) {
-        g.drawImage(keyboardInteraction[20],(int)(hitBox.x+ hitBox.width/2 - 20 * Game.SCALE) - xPlayerOffset, (int)(hitBox.y - 40 * Game.SCALE),(int)(40 * Game.SCALE),(int)(40 * Game.SCALE), null);
+    private void drawButtonE(Graphics g, int xPlayerOffset, int yPlayerOffset) {
+        g.drawImage(keyboardInteraction[20],(int)(hitBox.x+ hitBox.width/2 - 20 * Game.SCALE) - xPlayerOffset, (int)(hitBox.y - 40 * Game.SCALE) - yPlayerOffset,(int)(40 * Game.SCALE),(int)(40 * Game.SCALE), null);
     }
 
-    private void drawAttackHitBox(Graphics g, int xPlayerOffset) {
+    private void drawAttackHitBox(Graphics g, int xPlayerOffset, int yPlayerOffset) {
         g.setColor(Color.red);
-        g.drawRect((int)attackHitBox.x - xPlayerOffset, (int)attackHitBox.y, (int)attackHitBox.width, (int)attackHitBox.height);
+        g.drawRect((int)attackHitBox.x - xPlayerOffset, (int)attackHitBox.y - yPlayerOffset, (int)attackHitBox.width, (int)attackHitBox.height);
     }
 
     private void drawHealthBar(Graphics g) {

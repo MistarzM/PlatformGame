@@ -29,6 +29,11 @@ public class Playing extends State implements StateMethods{
     private int rightBorder = (int) (0.75 * Game.PANEL_WIDTH);
     private int maxLevelOffsetX;
 
+    private int yLevelOffset;
+    private int topBorder = (int) (0.3 * Game.PANEL_HEIGHT);
+    private int bottomBorder = (int) (0.7 * Game.PANEL_HEIGHT);
+    private int maxLevelOffsetY;
+
     private boolean isGameOver;
     private boolean changeLevel;
     private boolean isVictory;
@@ -53,6 +58,7 @@ public class Playing extends State implements StateMethods{
 
     private void calculateLevelOffset(){
         maxLevelOffsetX = levelHandler.getCurrentLevel().getMaxLevelOffsetX();
+        maxLevelOffsetY = levelHandler.getCurrentLevel().getMaxLevelOffsetY();
     }
 
     private void initClasses() {
@@ -95,18 +101,34 @@ public class Playing extends State implements StateMethods{
 
     private void checkIfPlayerCloseToBorder() {
         int playerX = (int) (player.getHitBox().x);
-        int difference = playerX - xLevelOffset;
+        int differenceX = playerX - xLevelOffset;
 
-        if(difference> rightBorder){
-            xLevelOffset += difference - rightBorder;
-        } else if (difference < leftBorder){
-            xLevelOffset += difference - leftBorder;
+        if(differenceX> rightBorder){
+            xLevelOffset += differenceX - rightBorder;
+        } else if (differenceX < leftBorder){
+            xLevelOffset += differenceX - leftBorder;
         }
 
         if(xLevelOffset > maxLevelOffsetX){
             xLevelOffset = maxLevelOffsetX;
         } else if (xLevelOffset < 0){
             xLevelOffset = 0;
+        }
+
+        // upper and lower border
+        int playerY = (int) (player.getHitBox().y);
+        int differenceY = playerY - yLevelOffset;
+
+        if(differenceY > bottomBorder){
+            yLevelOffset += differenceY - bottomBorder;
+        } else if (differenceY < topBorder){
+            yLevelOffset += differenceY - topBorder;
+        }
+
+        if(yLevelOffset > maxLevelOffsetY){
+            yLevelOffset = maxLevelOffsetY;
+        } else if (yLevelOffset < 0){
+            yLevelOffset = 0;
         }
     }
 
@@ -147,11 +169,15 @@ public class Playing extends State implements StateMethods{
         this.maxLevelOffsetX = maxLevelOffsetX;
     }
 
+    public void setMaxLevelOffsetY(int maxLevelOffsetY){
+        this.maxLevelOffsetY = maxLevelOffsetY;
+    }
+
     @Override
     public void draw(Graphics g) {
-        levelHandler.draw(g, xLevelOffset);
-        player.render(g, xLevelOffset);
-        enemyHandler.draw(g, xLevelOffset);
+        levelHandler.draw(g, xLevelOffset, yLevelOffset);
+        player.render(g, xLevelOffset, yLevelOffset);
+        enemyHandler.draw(g, xLevelOffset, yLevelOffset);
 
         if(paused) {
             g.setColor(new Color(0, 0, 0, 128));

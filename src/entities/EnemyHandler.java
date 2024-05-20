@@ -71,43 +71,43 @@ public class EnemyHandler {
         }
     }
 
-    public void draw(Graphics g, int xLevelOffset){
-        drawBoss(g, xLevelOffset);
-        drawSkeletonSword(g, xLevelOffset);
-        drawHitBox(g, xLevelOffset);
+    public void draw(Graphics g, int xLevelOffset, int yLevelOffset){
+        drawBoss(g, xLevelOffset, yLevelOffset);
+        drawSkeletonSword(g, xLevelOffset, yLevelOffset);
+        drawHitBox(g, xLevelOffset, yLevelOffset);
     }
 
-    private void drawBoss(Graphics g, int xLevelOffset) {
+    private void drawBoss(Graphics g, int xLevelOffset, int yLevelOffset) {
         for(Boss b : bosses) {
             if (b.isAlive()) {
                 g.drawImage(bossAnimations[b.getState()][b.getAnimationIndex()],
                         (int) b.getHitBox().x - xLevelOffset - BOSS_DRAW_OFFSET_X + b.flipX(),
-                        (int) b.getHitBox().y - BOSS_DRAW_OFFSET_Y,
+                        (int) b.getHitBox().y- yLevelOffset - BOSS_DRAW_OFFSET_Y,
                         BOSS_WIDTH * b.flipW(), BOSS_HEIGHT, null);
             }
         }
     }
 
-    private void drawSkeletonSword(Graphics g, int xLevelOffset){
+    private void drawSkeletonSword(Graphics g, int xLevelOffset, int yLevelOffset){
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive())
-                g.drawImage(skeletonSwordAnimations[s.getState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X + s.flipX(), (int)s.getHitBox().y - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH * s.flipW(), SKELETON_SWORD_HEIGHT,null );
+                g.drawImage(skeletonSwordAnimations[s.getState()][s.getAnimationIndex()],(int)s.getHitBox().x - xLevelOffset - SKELETON_SWORD_DRAW_OFFSET_X + s.flipX(), (int)s.getHitBox().y- yLevelOffset - SKELETON_SWORD_DRAW_OFFSET_Y , SKELETON_SWORD_WIDTH * s.flipW(), SKELETON_SWORD_HEIGHT,null );
         }
     }
 
-    protected void drawHitBox(Graphics graphics, int xLevelOffset){
+    protected void drawHitBox(Graphics graphics, int xLevelOffset, int yLevelOffset){
         // for testing hit boxes
         graphics.setColor(Color.red);
         for(Boss b : bosses) {
             if(b.isAlive()) {
-                graphics.drawRect((int) b.getHitBox().x - xLevelOffset, (int) b.getHitBox().y, (int) b.getHitBox().width, (int) b.getHitBox().height);
-                b.drawAttackHitBox(graphics, xLevelOffset);
+                graphics.drawRect((int) b.getHitBox().x - xLevelOffset, (int) b.getHitBox().y-yLevelOffset, (int) b.getHitBox().width, (int) b.getHitBox().height);
+                b.drawAttackHitBox(graphics, xLevelOffset, yLevelOffset);
             }
         }
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive()) {
-                graphics.drawRect((int) s.getHitBox().x - xLevelOffset, (int) s.getHitBox().y, (int) s.getHitBox().width, (int) s.getHitBox().height);
-                s.drawAttackHitBox(graphics, xLevelOffset);
+                graphics.drawRect((int) s.getHitBox().x - xLevelOffset, (int) s.getHitBox().y - yLevelOffset, (int) s.getHitBox().width, (int) s.getHitBox().height);
+                s.drawAttackHitBox(graphics, xLevelOffset, yLevelOffset);
             }
         }
     }

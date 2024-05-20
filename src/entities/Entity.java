@@ -39,10 +39,10 @@ public abstract class Entity {
         return hitBox;
     }
 
-    protected void drawHitBox(Graphics graphics, int xLevelOffset){
+    protected void drawHitBox(Graphics graphics, int xLevelOffset, int yLevelOffset){
         // for testing hit boxes
         graphics.setColor(Color.red);
-        graphics.drawRect((int)hitBox.x - xLevelOffset, (int)hitBox.y, (int)hitBox.width, (int)hitBox.height);
+        graphics.drawRect((int)hitBox.x - xLevelOffset, (int)hitBox.y - yLevelOffset , (int)hitBox.width, (int)hitBox.height);
     }
 
     public int getState(){
