@@ -47,7 +47,7 @@ public class EnemyHandler {
                 s.update(levelData, player);
             }
         }
-        if(playing.getLevelHandler().getLevelIndex() == 1 && defeatBoss){
+        if(playing.getLevelHandler().getLevelIndex() == 2 && defeatBoss){
             playing.setIsVictory(true);
         }
     }

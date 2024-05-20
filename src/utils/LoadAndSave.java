@@ -1,7 +1,5 @@
 package utils;
 
-import entities.Boss;
-import entities.SkeletonSword;
 import main.Game;
 
 import javax.imageio.ImageIO;
@@ -10,12 +8,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.awt.Color;
 import java.awt.Image;
 
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class LoadAndSave {
 
@@ -42,9 +38,7 @@ public class LoadAndSave {
     public static final String OTHER_AND_DECORATIVE = "/levels/to_design_new_levels/other_and_decorative.png";
 
     // -> hit boxes and design
-    public static final String LEVEL_ONE_HIT_BOXES = "/levels/levels_hit_box/level_1_hitBox.png";
-    public static final String LEVEL_TWO_HIT_BOXES = "/levels/levels_hit_box/level_2_hitBox.png";
-    public static final String[] LEVEL_DESIGN = {"/levels/level_1_design.png", "/levels/level_2_design.png"};
+    public static final String[] LEVEL_DESIGN = {"/levels/level_1_design.png", "/levels/level_2_design.png", "/levels/level_3_design.png"};
     public static final String LEVEL_ONE_BACKGROUND_GIF = "/levels/background.gif";
 
     // user interface
