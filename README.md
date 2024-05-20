@@ -51,3 +51,14 @@ The game also uses the HeroandOpponents_v1 asset pack.
 Created by Szadzi art.
 
 You can edit, change but not sell asset content. Use of content for personal and commercial use.
+
+### Bringer-Of-Death 
+
+The game also uses the Bringer-Of-Death asset pack.
+
+#### License
+
+Created by @Clembod.
+
+You can use this asset for personal and commercial purpose,
+you can modify this object to your needs.
