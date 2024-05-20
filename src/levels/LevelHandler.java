@@ -53,7 +53,7 @@ public class LevelHandler {
         BufferedImage[] img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_DESIGN);
         g.setColor(new Color(25, 33, 40, 255));
         g.fillRect(0, 0, 1920, 1080);
-        levelOneBackgroundGIF.paintIcon(null, g, 0, 0);
+        levelOneBackgroundGIF.paintIcon(null, g, -xLevelOffset/2, -yLevelOffset/2);
         g.drawImage(img[levelIndex], -xLevelOffset, -yLevelOffset, (int)(img[levelIndex].getWidth()* Game.SCALE), (int)(img[levelIndex].getHeight() * SCALE), null);
     }
 
