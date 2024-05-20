@@ -70,7 +70,7 @@ public class Player extends  Entity{
         this.playing = playing;
         this.state = IDLE;
         this.maxHealth = 8;
-        this.runningSpeed = 1.4f * Game.SCALE;
+        this.runningSpeed = 1.6f * Game.SCALE;
         this.currentHealth = maxHealth;
         loadAnimations();
         initHitBox((int)(widthPlayerHitBox), (int)(heightPlayerHitBox));
