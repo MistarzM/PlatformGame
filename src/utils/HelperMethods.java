@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class HelperMethods {
 
-    public static boolean LegalMove(float x, float y, float width, float height, int[][] levelData){        // checks if the player can move on (without object collisions)
+    public static boolean LegalMove(float x, float y, float width, float height, int[][] levelData){        // checks if the enemy can move on (without object collisions)
 
         if(IsLegalMovement(x, y, levelData)) {
             if(IsLegalMovement(x + width, y + height, levelData)) {
@@ -23,6 +23,23 @@ public class HelperMethods {
             }
         }
         return false;
+    }
+
+    public static boolean LegalMovePlayer(float x, float y, float width, float height, int[][] levelData){        // checks if the player can move on (without object collisions)
+        int segments = 8;
+
+        for(int i = 0; i <= segments; i++){
+            for(int j = 0; j <= segments; j++){
+                float xi = x + i * (width/segments);
+                float yj = y + j * (height/ segments);
+
+                if(!IsLegalMovement(xi, yj, levelData)){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private static boolean IsLegalMovement(float x, float y, int[][] levelData){

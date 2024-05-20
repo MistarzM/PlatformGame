@@ -16,7 +16,7 @@ import static utils.Constants.GRAVITY;
 import static utils.Constants.PlayerConstants.*;    // import all actions: IDLE, ATTACK etc.
 import static utils.Constants.Direction.*;          // import direction - movement for characters
 import static utils.LoadAndSave.*;
-import static utils.HelperMethods.LegalMove;
+import static utils.HelperMethods.LegalMovePlayer;
 import static utils.HelperMethods.EntityAndWallXPositionCollision;
 import static utils.HelperMethods.EntityAndRoofAndFloorYPositionCollision;
 import static utils.HelperMethods.IsEntityOnFloor;
@@ -259,7 +259,7 @@ public class Player extends  Entity{
         }
 
         if(inAir){
-            if(LegalMove(hitBox.x, hitBox.y + speedInAir, hitBox.width, hitBox.height, levelData)){
+            if(LegalMovePlayer(hitBox.x, hitBox.y + speedInAir, hitBox.width, hitBox.height, levelData)){
                 hitBox.y += speedInAir;
                 speedInAir += GRAVITY;
                 updateXPosition(xMovingSpeed);
@@ -293,7 +293,7 @@ public class Player extends  Entity{
     }
 
     private void updateXPosition(float xMovingSpeed) {
-        if(LegalMove(hitBox.x + xMovingSpeed, hitBox.y, hitBox.width ,hitBox.height, levelData)){
+        if(LegalMovePlayer(hitBox.x + xMovingSpeed, hitBox.y, hitBox.width ,hitBox.height, levelData)){
             hitBox.x += xMovingSpeed;
         } else {
             hitBox.x = EntityAndWallXPositionCollision(hitBox, xMovingSpeed, numberOfPlayerTilesWidth);
