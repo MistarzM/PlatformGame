@@ -5,6 +5,7 @@ import main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static utils.Constants.ANIMATION_REFRESH;
 import static utils.Constants.Direction.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.HelperMethods.*;
@@ -12,12 +13,14 @@ import static utils.HelperMethods.*;
 public class Boss extends Enemy{
 
     private Rectangle2D.Float attackHitBox;
+    private int attackNumber;
 
     public Boss(float x, float y) {
         super(x, y, BOSS_WIDTH, BOSS_HEIGHT, BOSS, NUMBER_OF_BOSS_TILES_WIDTH, NUMBER_OF_BOSS_TILES_HEIGHT, BOSS_IDLE, BOSS_HURT, BOSS_DEAD);
         initHitBox(22 * 3, 54 * 3);
         this.attackRange = 7 * Game.TILE_SIZE;
         initAttackHitBox();
+        attackNumber = 0;
     }
 
     private void initAttackHitBox() {
@@ -36,7 +39,7 @@ public class Boss extends Enemy{
     public void update(int[][] levelData, Player player){
         updateAttackHitBox();
         updateBossBehavior(levelData, player);
-        updateAnimationTick(BOSS_ATTACK);
+        updateAnimationTick();
     }
 
     private void updateBossBehavior(int[][] levelData, Player player) {
@@ -96,6 +99,26 @@ public class Boss extends Enemy{
             return -1;
         } else {
             return 1;
+        }
+    }
+
+    protected void updateAnimationTick(){
+        animationTick++;
+        if(animationTick>=ANIMATION_REFRESH){
+            animationTick = 0;
+            animationIndex++;
+
+            if(animationIndex>=GetSpriteAmount(enemyType, state)){
+                animationIndex = 0;
+
+                if(state == BOSS_ATTACK){
+                    state= BOSS_IDLE;
+                } else if (state== BOSS_HURT){
+                    state = BOSS_IDLE;
+                } else if ( state == BOSS_DEAD){
+                    alive = false;
+                }
+            }
         }
     }
 

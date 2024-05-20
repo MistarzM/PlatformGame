@@ -5,6 +5,7 @@ import main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static utils.Constants.ANIMATION_REFRESH;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.Direction.*;
 
@@ -12,12 +13,14 @@ public class SkeletonSword extends Enemy {
 
     // attack hit boxes
     private Rectangle2D.Float attackHitBox;
+    private int attackNumber;
 
     public SkeletonSword(float x, float y) {
         super(x, y, SKELETON_SWORD_WIDTH, SKELETON_SWORD_HEIGHT, SKELETON_SWORD, NUMBER_OF_SKELETON_SWORD_TILES_WIDTH, NUMBER_OF_SKELETON_SWORD_TILES_HEIGHT, SKELETON_SWORD_IDLE, SKELETON_SWORD_HIT, SKELETON_SWORD_DEAD);
         initHitBox((int)(15 * 1.5), (int)(59 * 1.5));
         this.attackRange = 5 * Game.TILE_SIZE;
         initAttackHitBox();
+        attackNumber = 0;
     }
 
     private void initAttackHitBox() {
@@ -37,7 +40,7 @@ public class SkeletonSword extends Enemy {
         updateAttackHitBox();
 
         updateSkeletonBehavior(levelData, player);
-        updateAnimationTick(SKELETON_SWORD_ATTACK_1);
+        updateAnimationTick();
     }
 
     private void updateSkeletonBehavior(int[][] levelData, Player player) {
@@ -57,7 +60,13 @@ public class SkeletonSword extends Enemy {
                     if(playerDetected(levelData, player)){
                         turnTowardsPlayer(player);
                         if(playerInAttackRange(player)){
-                            updateState(SKELETON_SWORD_ATTACK_1);
+                            if(attackNumber == 0) {
+                                updateState(SKELETON_SWORD_ATTACK_1);
+                                attackNumber++;
+                            } else if (attackNumber == 1){
+                                updateState(SKELETON_SWORD_ATTACK_2);
+                                attackNumber--;
+                            }
                         }
                     }
                     updateMovement(levelData);
@@ -68,10 +77,23 @@ public class SkeletonSword extends Enemy {
                         attackChecked = false;
                     }
 
-                    if(animationIndex == 5 && !attackChecked){
+                    if(animationIndex == 4 && !attackChecked){
                         checkPlayerHitBox(player, attackHitBox);
                     }
                     break;
+                case SKELETON_SWORD_ATTACK_2:
+                    if(animationIndex == 0){
+                        attackChecked = false;
+                    }
+                    if(animationIndex==3){
+                        attackChecked = false;
+                    }
+
+                    if((animationIndex == 2 || animationIndex == 7) && !attackChecked){
+                        checkPlayerHitBox(player, attackHitBox);
+                    }
+                    break;
+
                 case SKELETON_SWORD_HIT:
                     break;
             }
@@ -96,6 +118,26 @@ public class SkeletonSword extends Enemy {
             return 1;
         } else {
             return -1;
+        }
+    }
+
+    protected void updateAnimationTick(){
+        animationTick++;
+        if(animationTick>=ANIMATION_REFRESH){
+            animationTick = 0;
+            animationIndex++;
+
+            if(animationIndex>=GetSpriteAmount(enemyType, state)){
+                animationIndex = 0;
+
+                if(state == SKELETON_SWORD_ATTACK_1 || state == SKELETON_SWORD_ATTACK_2){
+                    state= SKELETON_SWORD_IDLE;
+                } else if (state== SKELETON_SWORD_HIT){
+                    state = SKELETON_SWORD_IDLE;
+                } else if ( state == SKELETON_SWORD_DEAD){
+                    alive = false;
+                }
+            }
         }
     }
 

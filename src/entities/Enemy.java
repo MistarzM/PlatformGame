@@ -142,25 +142,6 @@ public abstract class Enemy extends Entity{
 
     }
 
-    protected void updateAnimationTick(int enemyAttack){
-         animationTick++;
-         if(animationTick>=ANIMATION_REFRESH){
-             animationTick = 0;
-             animationIndex++;
-
-             if(animationIndex>=GetSpriteAmount(enemyType, state)){
-                 animationIndex = 0;
-
-                 if(state == enemyAttack){
-                     state= enemyIdle;
-                 } else if (state== enemyHurt){
-                     state = enemyIdle;
-                 } else if ( state == enemyDead){
-                     alive = false;
-                 }
-             }
-         }
-    }
 
     protected void changeWalkingDirection(){
         if(walkingDirection == LEFT){
