@@ -50,8 +50,11 @@ public class LoadAndSave {
     public static final String CONTROL_BUTTONS = "/gui/controlbuttons.png";
     public static final String VOLUME_BUTTONS = "/gui/volumebuttons.png";
     public static final String PAUSE_BACKGROUND = "/gui/pause.png";
+    public static final String VICTORY = "/gui/victory.png";
+    public static final String DEFEAT = "/gui/defeat.png";
 
     public static final String KEYBOARD_BUTTONS = "/gui/Keyboard_Letters_and_Symbols.png";
+    public static final String KEYBOARD_EXTRAS = "/gui/Keyboard_Extras.png";
 
     // GIF - background (menu and game)
     public static final double MENU_GIF_SCALE = 2.04;
