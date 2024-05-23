@@ -58,7 +58,12 @@ public class LoadAndSave {
 
     // GIF - background (menu and game)
     public static final double MENU_GIF_SCALE = 2.04;
-    public static final double BACKGROUND_GIF_SCALE = 0.66;
+    public static final double BACKGROUND_1_GIF_SCALE = 0.67;
+    public static final double BACKGROUND_2_GIF_SCALE = 0.9;
+    public static final double BACKGROUND_3_GIF_SCALE = 0.67;
+
+    public static final double[] BACKGROUND_GIF_X_OFFSET = {2*Game.SCALE, 4*Game.SCALE, 2*Game.SCALE};
+    public static final double[] BACKGROUND_GIF_Y_OFFSET = {2*Game.SCALE, -80*Game.SCALE, -100*Game.SCALE};
 
     // boss
     public static final String BOSS_BREATH = "/boss/breath.png";

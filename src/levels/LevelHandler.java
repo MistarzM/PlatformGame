@@ -17,7 +17,8 @@ public class LevelHandler {
     private Game game;
     private BufferedImage[] levelBuildImg;
     private ArrayList<Level> levels;
-    private ImageIcon levelOneBackgroundGIF;
+    private BufferedImage[] imgDesign;
+    private ImageIcon[] levelBackgroundGIF;
 
     private int levelIndex = 0;
 
@@ -25,7 +26,8 @@ public class LevelHandler {
         this.game = game;
         levels = new ArrayList<>();
         buildLevels();
-        levelOneBackgroundGIF = LoadAndSave.GetGIF(LoadAndSave.LEVEL_ONE_BACKGROUND_GIF,  LoadAndSave.BACKGROUND_GIF_SCALE);
+        loadGIF();
+        imgDesign = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_DESIGN);
     }
 
     private void buildLevels() {
@@ -33,6 +35,13 @@ public class LevelHandler {
         for(BufferedImage img : buildLevels){
             levels.add(new Level(img));
         }
+    }
+
+    private void loadGIF(){
+        levelBackgroundGIF = new ImageIcon[3];
+        levelBackgroundGIF[0] = LoadAndSave.GetGIF(LoadAndSave.LEVEL_ONE_BACKGROUND_GIF,  LoadAndSave.BACKGROUND_1_GIF_SCALE);
+        levelBackgroundGIF[1] = LoadAndSave.GetGIF(LoadAndSave.LEVEL_ONE_BACKGROUND_GIF,  LoadAndSave.BACKGROUND_2_GIF_SCALE);
+        levelBackgroundGIF[2] = LoadAndSave.GetGIF(LoadAndSave.LEVEL_ONE_BACKGROUND_GIF,  LoadAndSave.BACKGROUND_3_GIF_SCALE);
     }
 
     public void loadNextLevel(){
@@ -50,11 +59,14 @@ public class LevelHandler {
     }
 
     public void draw(Graphics g, int xLevelOffset, int yLevelOffset){
-        BufferedImage[] img = LoadAndSave.GetSpriteAtlas(LoadAndSave.LEVEL_DESIGN);
         g.setColor(new Color(25, 33, 40, 255));
         g.fillRect(0, 0, 1920, 1080);
-        levelOneBackgroundGIF.paintIcon(null, g, -xLevelOffset/2, -yLevelOffset/2);
-        g.drawImage(img[levelIndex], -xLevelOffset, -yLevelOffset, (int)(img[levelIndex].getWidth()* Game.SCALE), (int)(img[levelIndex].getHeight() * SCALE), null);
+        levelBackgroundGIF[levelIndex].paintIcon(null, g,
+                levelIndex == 2 ? (int)(LoadAndSave.BACKGROUND_GIF_X_OFFSET[levelIndex]) : (int)(-xLevelOffset/LoadAndSave.BACKGROUND_GIF_X_OFFSET[levelIndex]),
+                levelIndex == 0 ? (int)(-yLevelOffset/LoadAndSave.BACKGROUND_GIF_Y_OFFSET[levelIndex]) : (int)(LoadAndSave.BACKGROUND_GIF_Y_OFFSET[levelIndex]));
+        g.drawImage(imgDesign[levelIndex], -xLevelOffset, -yLevelOffset,
+                (int)(imgDesign[levelIndex].getWidth()* Game.SCALE),
+                (int)(imgDesign[levelIndex].getHeight() * SCALE), null);
     }
 
     public void update(){
