@@ -158,8 +158,8 @@ public class Player extends  Entity{
     public void render(Graphics g, int xPlayerOffset, int yPlayerOffset){
 
         g.drawImage(knightAnimations[state][animationIndex], (int)(hitBox.x - xPlayerHitBox) - xPlayerOffset + flipX, (int)(hitBox.y-yPlayerHitBox)- yPlayerOffset, width * flipW, height, null);
-        drawHitBox(g, xPlayerOffset, yPlayerOffset);
-        drawAttackHitBox(g, xPlayerOffset, yPlayerOffset);
+        //drawHitBox(g, xPlayerOffset, yPlayerOffset);
+        //drawAttackHitBox(g, xPlayerOffset, yPlayerOffset);
         drawHealthBar(g);
         if(eInteraction){
             drawButtonE(g, xPlayerOffset, yPlayerOffset);

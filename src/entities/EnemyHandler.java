@@ -100,14 +100,14 @@ public class EnemyHandler {
         graphics.setColor(Color.red);
         for(Boss b : bosses) {
             if(b.isAlive()) {
-                graphics.drawRect((int) b.getHitBox().x - xLevelOffset, (int) b.getHitBox().y-yLevelOffset, (int) b.getHitBox().width, (int) b.getHitBox().height);
-                b.drawAttackHitBox(graphics, xLevelOffset, yLevelOffset);
+                //graphics.drawRect((int) b.getHitBox().x - xLevelOffset, (int) b.getHitBox().y-yLevelOffset, (int) b.getHitBox().width, (int) b.getHitBox().height);
+                //b.drawAttackHitBox(graphics, xLevelOffset, yLevelOffset);
             }
         }
         for(SkeletonSword s : skeletonsSword){
             if(s.isAlive()) {
-                graphics.drawRect((int) s.getHitBox().x - xLevelOffset, (int) s.getHitBox().y - yLevelOffset, (int) s.getHitBox().width, (int) s.getHitBox().height);
-                s.drawAttackHitBox(graphics, xLevelOffset, yLevelOffset);
+                //graphics.drawRect((int) s.getHitBox().x - xLevelOffset, (int) s.getHitBox().y - yLevelOffset, (int) s.getHitBox().width, (int) s.getHitBox().height);
+                //s.drawAttackHitBox(graphics, xLevelOffset, yLevelOffset);
             }
         }
     }
